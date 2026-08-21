@@ -5,5 +5,7 @@
 *.idea/.name
 .idea/
 *.idea/
+.claude/
+.freebuff/
 dist/
 node_modules/
