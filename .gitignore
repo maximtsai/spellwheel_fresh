@@ -1,0 +1,9 @@
+*.log
+*.vs/
+*.name
+*.idea
+*.idea/.name
+.idea/
+*.idea/
+dist/
+node_modules/
