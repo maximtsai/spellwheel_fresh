@@ -55,7 +55,18 @@ function initializeSounds(scene) {
 
 function playSound(name, volume = 1, loop = false, isMusic = false) {
     if (!soundList[name]) {
-        soundList[name] = PhaserScene.sound.add(name);
+        if (typeof requestDeferredAudioPlay === 'function') {
+            requestDeferredAudioPlay(name, volume, loop, isMusic);
+        }
+        let bankInfo = audioBankIndex && audioBankIndex[name];
+        if (bankInfo) {
+            // Banked sound: create an instance of the bank file and register a
+            // marker so play(name) starts at the right offset.
+            soundList[name] = PhaserScene.sound.add(bankInfo.bank);
+            soundList[name].addMarker({ name: name, start: bankInfo.start, duration: bankInfo.duration });
+        } else {
+            soundList[name] = PhaserScene.sound.add(name);
+        }
     }
     soundList[name].fullVolume = volume;
     soundList[name].volume = soundList[name].fullVolume * globalVolume;
@@ -69,7 +80,9 @@ function playSound(name, volume = 1, loop = false, isMusic = false) {
         soundList[name].volume = volume * globalMusicVol;
         globalMusic = soundList[name];
     }
-    if (!isMusic && soundList[name].duration > 3.5) {
+    let bankInfo = audioBankIndex && audioBankIndex[name];
+    let soundDuration = bankInfo ? bankInfo.duration : soundList[name].duration;
+    if (!isMusic && soundDuration > 3.5) {
         if (useSecondLongSound) {
             lastLongSound2 = soundList[name];
         } else {
@@ -82,7 +95,11 @@ function playSound(name, volume = 1, loop = false, isMusic = false) {
     }
     soundList[name].detune = 0;
     soundList[name].pan = 0;
-    soundList[name].play();
+    if (bankInfo) {
+        soundList[name].play(name);
+    } else {
+        soundList[name].play();
+    }
     return soundList[name];
 }
 
@@ -92,6 +109,9 @@ function playMusic(name, volume = 1, loop = false) {
 
 function playFakeBGMusic(name, volume = 1, loop = false) {
     if (!soundList[name]) {
+        if (typeof requestDeferredAudioPlay === 'function') {
+            requestDeferredAudioPlay(name, volume, loop, true);
+        }
         soundList[name] = PhaserScene.sound.add(name);
     }
     globalTempMusic = soundList[name];

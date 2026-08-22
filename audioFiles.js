@@ -179,3 +179,20 @@ const audioFiles = [
     {name: 'watersplashbig', src: 'audio/water_splash_big.mp3'},
 
 ]
+
+// Assets loaded after the game starts (deferred), e.g. to reduce initial load time.
+// They start loading once the game has started and show progress on the main menu.
+const deferredAudioFiles = [
+    {name: 'jpop', src: 'audio/jpop.mp3'},
+    {name: 'bite_down_complex', src: 'audio/bite_down_complex.mp3'},
+    {name: 'death3_harp', src: 'audio/death3_harp.mp3'},
+    {name: 'and_into_the_void', src: 'audio/and_into_the_void.mp3'},
+    {name: 'but_never_forgotten_epicchoir', src: 'audio/but_never_forgotten_epicchoir.mp3'},
+    {name: 'tractor_loop', src: 'audio/tractor_loop.mp3'},
+    {name: 'mind_ultimate_loop_1', src: 'audio/mind_ultimate_loop_1.mp3'},
+    {name: 'mind_ultimate_loop_2', src: 'audio/mind_ultimate_loop_2.mp3'},
+    {name: 'wind', src: 'audio/wind.mp3'},
+    {name: 'deepdemon', src: 'audio/deepdemon.mp3'},
+    {name: 'magician_theme_4', src: 'audio/magician_theme_4.mp3'},
+    {name: 'heartbeat', src: 'audio/heartbeat.mp3'},
+]

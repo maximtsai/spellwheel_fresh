@@ -609,30 +609,32 @@ function createAnimations(scene) {
         }),
         frameRate: 15
     });
-    scene.anims.create({
-        key: 'ladydeathcape',
-        frames: scene.anims.generateFrameNames('deathfin', {
-            prefix: 'frame00',
-            suffix: '.png',
-            start: 0,
-            end: 74,
-            zeroPad: 2,
-        }),
-        repeat: -1,
-        frameRate: 20
-    });
-    scene.anims.create({
-        key: 'ladydeathhood',
-        frames: scene.anims.generateFrameNames('deathfin', {
-            prefix: 'hood00',
-            suffix: '.png',
-            start: 1,
-            end: 75,
-            zeroPad: 2,
-        }),
-        repeat: -1,
-        frameRate: 20
-    });
+    if (scene.textures.exists('deathfin')) {
+        scene.anims.create({
+            key: 'ladydeathcape',
+            frames: scene.anims.generateFrameNames('deathfin', {
+                prefix: 'frame00',
+                suffix: '.png',
+                start: 0,
+                end: 74,
+                zeroPad: 2,
+            }),
+            repeat: -1,
+            frameRate: 20
+        });
+        scene.anims.create({
+            key: 'ladydeathhood',
+            frames: scene.anims.generateFrameNames('deathfin', {
+                prefix: 'hood00',
+                suffix: '.png',
+                start: 1,
+                end: 75,
+                zeroPad: 2,
+            }),
+            repeat: -1,
+            frameRate: 20
+        });
+    }
     scene.anims.create({
         key: 'weaken',
         frames: scene.anims.generateFrameNames('spells', {

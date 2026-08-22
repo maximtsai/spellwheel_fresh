@@ -22,6 +22,7 @@ const JS_FILES = [
     'util/hoverText.js',
     'util/mouseManager.js',
     'util/audioManager.js',
+    'util/deferredLoader.js',
     'util/helperFunction.js',
     'util/poolManager.js',
     'util/sha256.js',
@@ -85,14 +86,14 @@ const JS_FILES = [
 const COPY_DIRS = ['sprites', 'audio', 'fonts'];
 const EXTRA_FILES = ['phaser.min.js'];
 
-function copyRecursive(src, dest) {
+function copyRecursive(src, dest, exclude = null) {
     fs.mkdirSync(dest, { recursive: true });
     for (const entry of fs.readdirSync(src)) {
         const srcPath = path.join(src, entry);
         const destPath = path.join(dest, entry);
         if (fs.statSync(srcPath).isDirectory()) {
-            copyRecursive(srcPath, destPath);
-        } else {
+            copyRecursive(srcPath, destPath, exclude);
+        } else if (!exclude || !exclude.has(entry)) {
             fs.copyFileSync(srcPath, destPath);
         }
     }
@@ -105,6 +106,12 @@ async function build() {
     }
     fs.mkdirSync(DIST);
 
+    // Build audio banks first (merge small SFX into a few larger files).
+    // The index is injected into the bundle so audioManager/main.js can use it.
+    const { buildAudioBanks } = require('./scripts/audioBank.js');
+    console.log('Building audio banks...');
+    const audioBanks = buildAudioBanks(path.join(DIST, 'audio'));
+
     // Concatenate JS
     let combined = '';
     for (const relPath of JS_FILES) {
@@ -115,6 +122,10 @@ async function build() {
         }
         combined += fs.readFileSync(fullPath, 'utf8') + '\n';
     }
+    // Inject the auto-generated audio bank index (used by audioManager + main.js)
+    combined += '\n// AUTO-GENERATED audio bank index\n';
+    combined += 'const audioBankIndex = ' + JSON.stringify(audioBanks.index) + ';\n';
+    combined += 'const audioBankFiles = ' + JSON.stringify(audioBanks.bankFiles) + ';\n';
     console.log(`Concatenated: ${(combined.length / 1024).toFixed(0)} KB`);
 
     // Minify with Terser
@@ -142,10 +153,15 @@ async function build() {
     for (const dir of COPY_DIRS) {
         const srcDir = path.join(SRC, dir);
         if (fs.existsSync(srcDir)) {
-            copyRecursive(srcDir, path.join(DIST, dir));
+            const exclude = dir === 'audio' ? audioBanks.bankedSourceFiles : null;
+            copyRecursive(srcDir, path.join(DIST, dir), exclude);
             console.log(`Copied ${dir}/`);
         }
     }
+
+    // Generate sprite manifest (single-file sprite reference) into dist
+    const { generateSpriteManifest } = require('./scripts/genSpriteManifest.js');
+    generateSpriteManifest(path.join(DIST, 'spriteManifest.js'));
 
     // Generate index.html
     const html = `<!doctype html>

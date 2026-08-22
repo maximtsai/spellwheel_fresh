@@ -85,7 +85,6 @@ spellwheel/
 │   └── enemies/            # 28 enemy behavior classes
 │
 ├── util/
-│   ├── util.js             # Core utilities (text, audio, input helpers)
 │   ├── messageBus.js       # Pub/sub event system
 │   ├── updateManager.js    # Centralized per-frame update loop
 │   ├── poolManager.js      # Object pooling

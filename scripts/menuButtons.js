@@ -46,12 +46,26 @@ function playNewGameFlash() {
         setTimeout(() => {
             if (globalObjects.startButtonSprite.visible) {
                 globalObjects.startButtonSpriteFlash = PhaserScene.add.sprite(globalObjects.startButtonSprite.x + 3, globalObjects.startButtonSprite.y, 'shields', 'btnFlash1.png');
-                globalObjects.startButtonSpriteFlash.play('btnFlash');
                 globalObjects.startButtonSpriteFlash.setScale(globalObjects.startButtonSprite.scaleX * 1.28).setRotation(globalObjects.startButtonSprite.rotation);
+                flashStartButtonOnce();
             }
         }, 250)
-
     }
+}
+
+function flashStartButtonOnce() {
+    let flash = globalObjects.startButtonSpriteFlash;
+    if (!flash || !flash.active) {
+        return;
+    }
+    flash.once('animationcomplete-btnFlash', () => {
+        setTimeout(() => {
+            if (globalObjects.startButtonSpriteFlash && globalObjects.startButtonSpriteFlash.active) {
+                flashStartButtonOnce();
+            }
+        }, 3000);
+    });
+    flash.play('btnFlash');
 }
 
 function clearOnlyMenuButtons() {
@@ -78,6 +92,7 @@ function clearOnlyMenuButtons() {
     // globalObjects.cheatButton5.destroy();
 
 
+    destroyDeferredLoadingBar();
 
     globalObjects.creditsButton.destroy();
     globalObjects.creditsButtonSprite.destroy();
@@ -253,6 +268,10 @@ function gotoMainMenuNoButtons() {
 
 function showMainMenuButtons() {
     let hasLvlSelect = gameVars.maxLevel >= 1;
+
+    // Show the deferred-asset loading progress in the top-left corner.
+    // It's a no-op (and stays hidden) once everything is already loaded.
+    createDeferredLoadingBar(PhaserScene);
 
     if (hasLvlSelect) {
         if (!globalObjects.continueButtonSprite || !globalObjects.continueButtonSprite.active) {
@@ -470,10 +489,6 @@ function showMainMenuButtons() {
 
     if (isSolo) {
         globalObjects.menuButtons.setFrame('menu_buttons_start.png');
-        setTimeout(() => {
-            // let flash = PhaserScene.add.sprite(gameConsts.halfWidth, globalObjects.startButton.getYPos(), 'shields', 'btnFlash12.png').setScale(1.12).setDepth(100).play('btnFlash');
-            // globalObjects.startButton.addToDestructibles(flash)
-        }, 850)
     } else {
         globalObjects.menuButtons.setFrame('menu_buttons.png');
     }

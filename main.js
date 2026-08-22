@@ -157,8 +157,8 @@ function onPreloadComplete (scene)
     setupMouseInteraction(scene);
     setupLoadingBar(scene);
 
-    loadFileList(scene, audioFiles, 'audio');
-    loadFileList(scene, imageAtlases, 'atlas');
+    loadAudioFiles(scene);
+    loadAtlases(scene);
     loadFileList(scene, imageFiles, 'image');
     loadFileList(scene, fontFiles, 'bitmap_font');
     loadFileList(scene, videoFiles, 'video');
@@ -166,10 +166,60 @@ function onPreloadComplete (scene)
     scene.load.start();
 }
 
+// Loads every sprite atlas from a single combined file (sprites/atlases.json).
+// Loads sprite atlases from sprites/atlases.json.
+// Deferred atlases (deferredImageAtlases) are skipped during initial preload
+// and loaded after the game starts via deferredLoader.
+function loadAtlases(scene) {
+    scene.load.json('_atlasData', 'sprites/atlases.json');
+    scene.load.once('filecomplete-json-_atlasData', (fileKey, fileType, atlasData) => {
+        let deferredAtlasMap = {};
+        if (typeof deferredImageAtlases !== 'undefined') {
+            for (let name of deferredImageAtlases) {
+                deferredAtlasMap[name] = true;
+            }
+        }
+        for (const key of Object.keys(atlasData)) {
+            if (deferredAtlasMap[key]) {
+                continue; // Loaded in background after startup
+            }
+            const sheets = atlasData[key].textures || [];
+            if (!sheets.length) {
+                continue;
+            }
+            const sources = new Array(sheets.length);
+            const slices = new Array(sheets.length);
+            let loadedCount = 0;
+            sheets.forEach((sheet, i) => {
+                const sheetKey = '_sheet_' + key + '_' + i;
+                scene.load.image(sheetKey, sheet.image);
+                scene.load.once('filecomplete-image-' + sheetKey, () => {
+                    sources[i] = scene.textures.get(sheetKey).getSourceImage();
+                    slices[i] = sheet;
+                    scene.textures.remove(sheetKey);
+                    loadedCount++;
+                    if (loadedCount === sheets.length) {
+                        scene.textures.addAtlasJSONArray(key, sources, slices);
+                    }
+                });
+            });
+        }
+    });
+}
+
+let deferredAudioIndex = {};
+for (let i in deferredAudioFiles) {
+    deferredAudioIndex[deferredAudioFiles[i].name] = true;
+}
+
 function onLoadComplete(scene) {
     initializeSounds(scene);
     initializeMiscLocalstorage();
     setupGame(scene);
+    // Start loading the deferred assets in the background now that the game
+    // has started. The main menu shows a small progress bar for them.
+    initDeferredLoader(deferredAudioFiles, typeof deferredImageAtlases !== 'undefined' ? deferredImageAtlases : []);
+    startDeferredAssets(scene);
 }
 
 function openFullscreen() {
@@ -261,6 +311,23 @@ function update(time, delta) {
     }
 }
 
+// Loads audio: the combined bank files first, then any individual sounds
+// (music tracks and looping SFX) that were not merged into a bank.
+// Deferred assets (deferredAudioFiles) are skipped here and loaded after
+// the game starts.
+function loadAudioFiles(scene) {
+    for (let i in audioBankFiles) {
+        let bank = audioBankFiles[i];
+        scene.load.audio(bank.name, bank.src);
+    }
+    for (let i in audioFiles) {
+        let data = audioFiles[i];
+        if (!audioBankIndex[data.name] && !deferredAudioIndex[data.name]) {
+            scene.load.audio(data.name, data.src);
+        }
+    }
+}
+
 function loadFileList(scene, filesList, type) {
     for (let i in filesList) {
         let data = filesList[i];
@@ -273,9 +340,6 @@ function loadFileList(scene, filesList, type) {
                 break;
             case 'bitmap_font':
                 scene.load.bitmapFont(data.name, data.imageUrl, data.url);
-                break;
-            case 'atlas':
-                scene.load.multiatlas(data.name, data.src);
                 break;
             case 'video':
                 scene.load.video({
