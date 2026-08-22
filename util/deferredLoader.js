@@ -32,7 +32,7 @@ function isDeferredComplete() { return deferredComplete; }
 
 // Track if a deferred audio track was requested before it finished loading.
 function requestDeferredAudioPlay(name, volume, loop, isMusic) {
-    if (!deferredComplete && deferredAssets.some(function(a) { return a.name === name; })) {
+    if (!deferredComplete && deferredAssets.some(function (a) { return a.name === name; })) {
         pendingDeferredPlay[name] = { volume: volume, loop: loop, isMusic: isMusic };
     }
 }
@@ -73,7 +73,7 @@ function startDeferredAudioInternal(scene, currentSession, onItemFinished) {
     var ctx = scene.sound && scene.sound.context;
     if (!ctx) {
         if (scene.sound && scene.sound.once) {
-            scene.sound.once('unlocked', function() {
+            scene.sound.once('unlocked', function () {
                 if (currentSession === deferredLoadSessionId) {
                     startDeferredAudioInternal(scene, currentSession, onItemFinished);
                 }
@@ -150,12 +150,12 @@ function startDeferredAtlasesInternal(scene, currentSession, onItemFinished) {
     if (!atlasData) {
         // If _atlasData JSON isn't cached yet, fetch it
         fetch('sprites/atlases.json')
-            .then(function(res) { return res.json(); })
-            .then(function(data) {
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
                 if (currentSession !== deferredLoadSessionId) return;
                 loadAtlasesFromData(scene, data, currentSession, onItemFinished);
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.warn('deferredLoader: failed to load atlases.json', err);
                 for (var i = 0; i < deferredAtlases.length; i++) {
                     onItemFinished();
@@ -168,7 +168,7 @@ function startDeferredAtlasesInternal(scene, currentSession, onItemFinished) {
 
 function loadAtlasesFromData(scene, atlasData, currentSession, onItemFinished) {
     for (var i = 0; i < deferredAtlases.length; i++) {
-        (function(key) {
+        (function (key) {
             var atlasEntry = atlasData[key];
             var sheets = (atlasEntry && atlasEntry.textures) || [];
             if (!sheets.length) {
@@ -180,10 +180,10 @@ function loadAtlasesFromData(scene, atlasData, currentSession, onItemFinished) {
             var slices = new Array(sheets.length);
             var loadedCount = 0;
 
-            sheets.forEach(function(sheet, idx) {
+            sheets.forEach(function (sheet, idx) {
                 var sheetKey = '_sheet_' + key + '_' + idx;
                 var img = new Image();
-                img.onload = function() {
+                img.onload = function () {
                     if (currentSession !== deferredLoadSessionId) return;
                     if (!scene.textures.exists(sheetKey)) {
                         scene.textures.addImage(sheetKey, img);
@@ -198,7 +198,7 @@ function loadAtlasesFromData(scene, atlasData, currentSession, onItemFinished) {
                         onItemFinished();
                     }
                 };
-                img.onerror = function(err) {
+                img.onerror = function (err) {
                     if (currentSession !== deferredLoadSessionId) return;
                     console.warn('deferredLoader: failed to load sheet ' + sheet.image, err);
                     loadedCount++;
@@ -247,12 +247,10 @@ function registerDeferredAtlasAnimations(scene, atlasKey) {
     }
 }
 
-// ---- UI bar (shown on the main menu) ----
+// ---- UI indicator (shown on the main menu) ----
 
-var BAR_WIDTH = 200;
-var BAR_HEIGHT = 10;
-var BAR_X = 20;
-var BAR_Y = 20;
+var CORNER_X = 10;
+var CORNER_Y = 10;
 
 function createDeferredLoadingBar(scene) {
     if (deferredLoaderObjects) return;
@@ -263,15 +261,11 @@ function createDeferredLoadingBar(scene) {
         deferredAutoFadeTimer = null;
     }
 
-    var bg = scene.add.rectangle(BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT, 0x000000, 0.65)
+    var text = scene.add.text(CORNER_X, CORNER_Y, '',
+        { fontFamily: 'germania', fontSize: 14, color: '#242424', align: 'left' })
         .setOrigin(0, 0).setDepth(1000000);
-    var fill = scene.add.rectangle(BAR_X + 2, BAR_Y + 2, 0, BAR_HEIGHT - 4, 0xFFFFFF, 0.9)
-        .setOrigin(0, 0).setDepth(1000001);
-    var text = scene.add.text(BAR_X, BAR_Y + BAR_HEIGHT + 5, '',
-        { fontFamily: 'germania', fontSize: 15, color: '#FFFFFF', align: 'left' })
-        .setOrigin(0, 0).setDepth(1000000).setStroke('#000000', 3);
 
-    deferredLoaderObjects = { bg: bg, fill: fill, text: text, scene: scene };
+    deferredLoaderObjects = { text: text, scene: scene };
     refreshDeferredBar();
 }
 
@@ -279,29 +273,26 @@ function refreshDeferredBar() {
     if (!deferredLoaderObjects) return;
     var total = getDeferredTotal();
     var loaded = deferredLoaded;
-    var frac = total > 0 ? loaded / total : 1;
-    deferredLoaderObjects.fill.width = Math.max(0, (BAR_WIDTH - 4) * frac);
 
     if (deferredComplete) {
-        deferredLoaderObjects.text.setText('all assets loaded');
+        deferredLoaderObjects.text.setText('ALL FILES LOADED');
         // Auto fade-out and cleanup after completion
         if (deferredLoaderObjects.scene && !deferredAutoFadeTimer) {
-            deferredAutoFadeTimer = setTimeout(function() {
-                if (deferredLoaderObjects && deferredLoaderObjects.scene) {
-                    var objs = [deferredLoaderObjects.bg, deferredLoaderObjects.fill, deferredLoaderObjects.text];
+            deferredAutoFadeTimer = setTimeout(function () {
+                if (deferredLoaderObjects && deferredLoaderObjects.scene && deferredLoaderObjects.text) {
                     deferredLoaderObjects.scene.tweens.add({
-                        targets: objs,
+                        targets: deferredLoaderObjects.text,
                         alpha: 0,
                         duration: 800,
-                        onComplete: function() {
+                        onComplete: function () {
                             destroyDeferredLoadingBar();
                         }
                     });
                 }
-            }, 1500);
+            }, 1200);
         }
     } else {
-        deferredLoaderObjects.text.setText(loaded + '/' + total + ' assets loaded');
+        deferredLoaderObjects.text.setText('LOADING EXTRA: ' + loaded + '/' + total);
     }
 }
 
@@ -311,8 +302,6 @@ function destroyDeferredLoadingBar() {
         deferredAutoFadeTimer = null;
     }
     if (!deferredLoaderObjects) return;
-    if (deferredLoaderObjects.bg) deferredLoaderObjects.bg.destroy();
-    if (deferredLoaderObjects.fill) deferredLoaderObjects.fill.destroy();
     if (deferredLoaderObjects.text) deferredLoaderObjects.text.destroy();
     deferredLoaderObjects = null;
 }
