@@ -45,6 +45,8 @@ const imageAtlases = [
 const deferredImageAtlases = [
     'ending',
     'deathfin',
+    'wallenemy',
+    'deathfinal',
 ];
 
 const imageFiles = [

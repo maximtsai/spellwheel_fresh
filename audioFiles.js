@@ -195,4 +195,7 @@ const deferredAudioFiles = [
     {name: 'deepdemon', src: 'audio/deepdemon.mp3'},
     {name: 'magician_theme_4', src: 'audio/magician_theme_4.mp3'},
     {name: 'heartbeat', src: 'audio/heartbeat.mp3'},
+    {name: 'but_never_forgotten_metal', src: 'audio/but_never_forgotten_metal.mp3'},
+    {name: 'into_the_void', src: 'audio/into_the_void.mp3'},
+    {name: 'but_never_forgotten', src: 'audio/but_never_forgotten.mp3'},
 ]

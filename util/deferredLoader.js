@@ -244,6 +244,35 @@ function registerDeferredAtlasAnimations(scene, atlasKey) {
                 frameRate: 20
             });
         }
+    } else if (atlasKey === 'deathfinal') {
+        if (!scene.anims.exists('death2laugh')) {
+            scene.anims.create({
+                key: 'death2laugh',
+                frames: scene.anims.generateFrameNames('deathfinal', {
+                    prefix: 'death2laugh',
+                    suffix: '.png',
+                    start: 1,
+                    end: 2,
+                    zeroPad: 0,
+                }),
+                frameRate: 3,
+                repeat: -1,
+            });
+        }
+        if (!scene.anims.exists('death2laughtext')) {
+            scene.anims.create({
+                key: 'death2laughtext',
+                frames: scene.anims.generateFrameNames('deathfinal', {
+                    prefix: 'death2laughtext',
+                    suffix: '.png',
+                    start: 1,
+                    end: 2,
+                    zeroPad: 0,
+                }),
+                frameRate: 6,
+                repeat: -1,
+            });
+        }
     }
 }
 
