@@ -1,3 +1,5 @@
+let mouseManager;
+
 class InternalMouseManager {
     constructor() {
     }

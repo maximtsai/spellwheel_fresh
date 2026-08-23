@@ -1,3 +1,5 @@
+let poolManager;
+
 class InternalPoolManager {
     constructor() {
         this.poolList = {};

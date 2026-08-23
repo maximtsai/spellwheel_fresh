@@ -1,5 +1,3 @@
-'use strict'
-
 	// 32768 was the max array size in IE7
 	const INDEX_THRESHOLD = 32767;
 

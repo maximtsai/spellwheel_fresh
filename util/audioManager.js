@@ -1,9 +1,9 @@
 // audiomanager
 let soundList = [];
-globalVolume = 0.9;
-globalMusicVol = 0.9;
-globalMusic = null;
-globalTempMusic = null;
+let globalVolume = 0.9;
+let globalMusicVol = 0.9;
+let globalMusic = null;
+let globalTempMusic = null;
 let lastLongSound = null;
 let lastLongSound2 = null;
 let useSecondLongSound = false;

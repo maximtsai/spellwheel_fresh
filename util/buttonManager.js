@@ -1,3 +1,5 @@
+let buttonManager;
+
 class InternalButtonManager {
     constructor() {
         this.buttonList = [];

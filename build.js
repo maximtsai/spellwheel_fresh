@@ -151,20 +151,9 @@ async function build() {
     combined += 'const fontXmlMap = ' + JSON.stringify(fontXmlMap) + ';\n';
     console.log(`Concatenated: ${(combined.length / 1024).toFixed(0)} KB`);
 
-    // Minify with Terser
-    const result = await Terser.minify(combined, {
-        ecma: 2017,
-        compress: true,
-        mangle: true,
-    });
-    if (result.error) {
-        console.error('Terser error:', result.error);
-        process.exit(1);
-    }
-    const minified = result.code;
-
-    fs.writeFileSync(path.join(DIST, 'game.js'), minified);
-    console.log(`Minified: ${(combined.length / 1024).toFixed(0)} KB → ${(minified.length / 1024).toFixed(0)} KB`);
+    // Write unminified game.js
+    fs.writeFileSync(path.join(DIST, 'game.js'), combined);
+    console.log(`Wrote unminified game.js: ${(combined.length / 1024).toFixed(0)} KB`);
 
     // Copy phaser.min.js
     for (const file of EXTRA_FILES) {
@@ -191,13 +180,20 @@ async function build() {
     const { generateSpriteManifest } = require('./scripts/genSpriteManifest.js');
     generateSpriteManifest(path.join(DIST, 'spriteManifest.js'));
 
-    // Generate index.html with inlined base64 fonts
+    // Generate index.html with Google Fonts CDN links
     const html = `<!doctype html>
 <html lang="en">
 <link href=data:, rel=icon>
 <head>
     <meta charset="UTF-8" />
     <title>SpellWheel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap" rel="stylesheet">
     <script src="phaser.min.js"></script>
     <script src="game.js"></script>
     <noscript>Enable JavaScript to play this game.</noscript>
@@ -266,13 +262,19 @@ async function build() {
             from { opacity: 0.5; }
             to { opacity: 1; }
         }
-        body {
+        html, body {
             margin: 0;
-            background-color: #111010;
+            padding: 0;
             width: 100%;
             height: 100%;
             max-height: 100%;
-            overflow-x: hidden;
+            overflow: hidden;
+            background-color: #111010;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
         #preload {
             margin: 0;
@@ -280,12 +282,6 @@ async function build() {
             width: 0px;
             opacity: 0;
             position: fixed;
-        }
-        html {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            max-height: 100%;
         }
         canvas {
             display: block;
@@ -297,6 +293,7 @@ async function build() {
         }
         #spellwheel {
             margin: 0 auto;
+            overflow: hidden;
         }
         #preload-notice {
             color: white;
@@ -305,33 +302,28 @@ async function build() {
             white-space: pre-line
         }
         @font-face {
-            font-family: robotomedium;
-            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['robotomedium.ttf'] || ''}') format('truetype');
-            font-weight: 400;
-            font-weight: normal;
-        }
-        @font-face {
-            font-family: garamondbold;
-            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['EBGaramond-ExtraBold.ttf'] || ''}') format('truetype');
-            font-weight: normal;
-        }
-        @font-face {
-            font-family: garamondmax;
-            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['Garamond.ttf'] || ''}') format('truetype');
+            font-family: 'robotomedium';
+            src: local('Roboto Medium'), local('Roboto');
             font-weight: 500;
-            font-weight: bold;
         }
         @font-face {
-            font-family: germania;
-            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['GermaniaOne-Bold.ttf'] || ''}') format('truetype');
+            font-family: 'garamondbold';
+            src: local('EB Garamond ExtraBold'), local('EB Garamond');
             font-weight: 800;
-            font-weight: bold;
         }
         @font-face {
-            font-family: germania_italics;
-            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['GermaniaOne-BoldItalic.ttf'] || ''}') format('truetype');
-            font-weight: 800;
-            font-weight: bold;
+            font-family: 'garamondmax';
+            src: local('EB Garamond Medium'), local('EB Garamond');
+            font-weight: 500;
+        }
+        @font-face {
+            font-family: 'germania';
+            src: local('Germania One');
+        }
+        @font-face {
+            font-family: 'germania_italics';
+            src: local('Germania One');
+            font-style: italic;
         }
     </style>
 </head>
@@ -347,11 +339,11 @@ async function build() {
     <div id="preload"></div>
     <div id="leftborder"></div>
     <div id="rightborder"></div>
-    <div style="font-family:robotomedium; position:absolute; left:-1000px; visibility:hidden;">.</div>
-    <div style="font-family:garamondbold; position:absolute; left:-1000px; visibility:hidden;">.</div>
-    <div style="font-family:garamondmax; position:absolute; left:-1000px; visibility:hidden;">.</div>
-    <div style="font-family:germania; position:absolute; left:-1000px; visibility:hidden;">.</div>
-    <div style="font-family:germania_italics; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:robotomedium, 'Roboto'; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:garamondbold, 'EB Garamond'; font-weight:800; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:garamondmax, 'EB Garamond'; font-weight:500; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:germania, 'Germania One'; position:absolute; left:-1000px; visibility:hidden;">.</div>
+    <div style="font-family:germania_italics, 'Germania One'; font-style:italic; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div id="preload-notice">Loading Preloader ...</div>
 </body>
 </html>`;

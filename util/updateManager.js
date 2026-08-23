@@ -1,6 +1,4 @@
-/**
- *  This class allows a function to run every frame. Useful for the Update function in most objects.
- **/
+let updateManager;
 
 class UpdateManager {
     constructor() {
