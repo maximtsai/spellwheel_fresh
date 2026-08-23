@@ -1,0 +1,616 @@
+// Asset Map (Read-Only)
+// Edit assets in the Media tab.
+// Use these IDs alongside lib to reference assets in your code:
+//
+// Example: lib.getAsset["player_sprite"]
+
+const assets = {
+  "battle_music": {
+    "url": "https://d2oir5eh8rty2e.cloudfront.net/assets/sounds/music/battle_music_54f9e73a-4065-497b-bcb8-51ca3ce33aaf.mp3",
+    "type": "audio"
+  },
+  "black_pixel.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307397308_01M0HX545W5YZB6C9P7Y8TZN1M.black_pixel.png",
+    "type": "image",
+    "aspect_ratio": [
+      2,
+      2
+    ]
+  },
+  "cast_normal.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307397392_01M0HX548GY4D344VFQFGPETSK.cast_normal.png",
+    "type": "image",
+    "aspect_ratio": [
+      174,
+      174
+    ]
+  },
+  "clock_bg.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307397476_01M0HX54B414C567Z26W51QEP5.clock_bg.webp",
+    "type": "image",
+    "aspect_ratio": [
+      750,
+      600
+    ]
+  },
+  "handshield_back.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307528506_01M0HX949TNWMQ7SNJNTE93NY8.handshield_back.webp",
+    "type": "image",
+    "aspect_ratio": [
+      282,
+      2545
+    ]
+  },
+  "loading_spinner.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307528581_01M0HX94C5C1K5TGZPQZG5K1XN.loading_spinner.png",
+    "type": "image",
+    "aspect_ratio": [
+      315,
+      315
+    ]
+  },
+  "locket.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307528646_01M0HX94E6EW376TYEDAB3BS3K.locket.webp",
+    "type": "image",
+    "aspect_ratio": [
+      729,
+      564
+    ]
+  },
+  "star_bg.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307681323_01M0HXDSHBEN5E9KBT8MFXEP82.star_bg.webp",
+    "type": "image",
+    "aspect_ratio": [
+      731,
+      650
+    ]
+  },
+  "star_shatter.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307681396_01M0HXDSKMCPT9GXE7JBMHRFHM.star_shatter.webp",
+    "type": "image",
+    "aspect_ratio": [
+      720,
+      656
+    ]
+  },
+  "tunnel.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307681476_01M0HXDSP43RPXAC359KQVQ3QX.tunnel.webp",
+    "type": "image",
+    "aspect_ratio": [
+      750,
+      650
+    ]
+  },
+  "tunnel2.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307852669_01M0HXK0VXXAHPDPQPFBEJ5R91.tunnel2.webp",
+    "type": "image",
+    "aspect_ratio": [
+      750,
+      650
+    ]
+  },
+  "water.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307852745_01M0HXK0Y9Y0A224CFFYP22WM2.water.webp",
+    "type": "image",
+    "aspect_ratio": [
+      750,
+      600
+    ]
+  },
+  "white_pixel.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307852811_01M0HXK10B12X4T9R0YPK21T7M.white_pixel.png",
+    "type": "image",
+    "aspect_ratio": [
+      2,
+      2
+    ]
+  },
+  "rune_enhance_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307937784_01M0HXNKZRJJ76VGYWFS9VED08.rune_enhance_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      59,
+      165
+    ]
+  },
+  "rune_matter_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307937903_01M0HXNM3F6C96NH0HC54PFB1N.rune_matter_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "rune_mind_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787307937983_01M0HXNM5ZNWFMFRZ9R64XGQKA.rune_mind_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "rune_protect_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787308207120_01M0HXXV0GNE90FXTNMEW6GY97.rune_protect_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      59,
+      165
+    ]
+  },
+  "rune_reinforce_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787308207205_01M0HXXV35GQXAGEQ3W668ERHK.rune_reinforce_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "rune_strike_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787308207277_01M0HXXV5DTEWMEHGCY0ENS3PG.rune_strike_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "rune_time_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787308341691_01M0HY1YDVGTARF85ZTVDT1K0D.rune_time_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "rune_unload_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787308341805_01M0HY1YHDC9JHH7TKSY2CP9P9.rune_unload_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "rune_void_glow.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787308341883_01M0HY1YKVF6J2C6JCV6ZV4Q3S.rune_void_glow.png",
+    "type": "image",
+    "aspect_ratio": [
+      60,
+      165
+    ]
+  },
+  "tractor_loop.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787309010448_01M0HYPBGG1E69ZN7KGQR8899V.tractor_loop.mp3",
+    "type": "audio"
+  },
+  "mind_ultimate_loop_2.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787309011829_01M0HYPCVNQAWX5Y8CN6YG1PVR.mind_ultimate_loop_2.mp3",
+    "type": "audio"
+  },
+  "mind_ultimate_loop_1.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787309010613_01M0HYPBNNBJV1QH9ES1CBAS5Q.mind_ultimate_loop_1.mp3",
+    "type": "audio"
+  },
+  "wind.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787335566889_01M0JR0SH9YTTT1TZA5ZDX6QRW.wind.mp3",
+    "type": "audio"
+  },
+  "deepdemon.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787335567086_01M0JR0SQE1MEMR0BDR125G4MD.deepdemon.mp3",
+    "type": "audio"
+  },
+  "magician_theme_1.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787335566987_01M0JR0SMBRA10NTBF3V3Z3JGC.magician_theme_1.mp3",
+    "type": "audio"
+  },
+  "magician_theme_4.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787338652712_01M0JTYZ182B17VFECNYZMZBAE.magician_theme_4.mp3",
+    "type": "audio"
+  },
+  "bite_down_simplified.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787338652824_01M0JTYZ4RV11968HR555ZEHFX.bite_down_simplified.mp3",
+    "type": "audio"
+  },
+  "but_never_forgotten.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787338652899_01M0JTYZ732EEMAJAYMTRBVSFA.but_never_forgotten.mp3",
+    "type": "audio"
+  },
+  "but_never_forgotten_epicchoir.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787338753890_01M0JV21V2W7GQ7X6KJ1SQAXGS.but_never_forgotten_epicchoir.mp3",
+    "type": "audio"
+  },
+  "echos_of_time.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787338753973_01M0JV21XNPDZ8V8NV1120HGXC.echos_of_time.mp3",
+    "type": "audio"
+  },
+  "bite_down.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787338754052_01M0JV2204PN24DR1VQ32Q3BSR.bite_down.mp3",
+    "type": "audio"
+  },
+  "heartbeat.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787339042884_01M0JVAW249G8QCK19217X99BE.heartbeat.mp3",
+    "type": "audio"
+  },
+  "death3_harp.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787339042968_01M0JVAW4RY6HB5GCS813K1617.death3_harp.mp3",
+    "type": "audio"
+  },
+  "bite_down_complex.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787339043037_01M0JVAW6W4FFCDJKS9R25ZGPH.bite_down_complex.mp3",
+    "type": "audio"
+  },
+  "into_the_void.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787439416187_01M0NV20VVHNR2WP0MYXKTBFB4.into_the_void.mp3",
+    "type": "audio"
+  },
+  "and_into_the_void.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787439416389_01M0NV2125M66QN6J0YVSN12JC.and_into_the_void.mp3",
+    "type": "audio"
+  },
+  "but_never_forgotten_metal.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787439416287_01M0NV20YZ9S2DW9S4FW4EXVB7.but_never_forgotten_metal.mp3",
+    "type": "audio"
+  },
+  "jpop.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787439929112_01M0NVHNRR3R2V7FGYFEHF9G8H.jpop.mp3",
+    "type": "audio"
+  },
+  "bank1.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787439929212_01M0NVHNVW0Z9MTXEFFESH1WJR.bank1.mp3",
+    "type": "audio"
+  },
+  "bank0.mp3": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787439929310_01M0NVHNYYHZGG74C3P9MQRW2C.bank0.mp3",
+    "type": "audio"
+  },
+  "fire_bg.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787440846939_01M0NWDP2V4SP7KFSN3FBVR643.fire_bg.webp",
+    "type": "image",
+    "aspect_ratio": [
+      780,
+      650
+    ]
+  },
+  "forest_bg.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787440847013_01M0NWDP55NB1B5J2H5KWC4D65.forest_bg.webp",
+    "type": "image",
+    "aspect_ratio": [
+      740,
+      700
+    ]
+  },
+  "grass_bg.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787440847122_01M0NWDP8J7XJV1GA8JWDWDPMB.grass_bg.webp",
+    "type": "image",
+    "aspect_ratio": [
+      923,
+      703
+    ]
+  },
+  "grave_bg.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787441557783_01M0NX3C8QKZHXK4NVWVH7AMPT.grave_bg.webp",
+    "type": "image",
+    "aspect_ratio": [
+      700,
+      720
+    ]
+  },
+  "backgrounds-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787444190018_01M0NZKPT2NX2QRAPFBGSDR54S.backgrounds-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1880,
+      1904
+    ]
+  },
+  "backgrounds-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787444190140_01M0NZKPXWWV33JX7M4ZYMAV12.backgrounds-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1853,
+      1854
+    ]
+  },
+  "backgrounds-2.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787444190254_01M0NZKQ1EY6YNFRQ78D8M3A05.backgrounds-2.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2039,
+      1804
+    ]
+  },
+  "backgrounds-3.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787444299317_01M0NZQ1HNPS6F9K999QYAX7D0.backgrounds-3.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2034,
+      2040
+    ]
+  },
+  "backgrounds-4.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787444299395_01M0NZQ1M3174TM2RNH1VQCYNY.backgrounds-4.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2030,
+      1714
+    ]
+  },
+  "backgrounds-5.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787444299481_01M0NZQ1PS2PS4JF70XTZ54T17.backgrounds-5.webp",
+    "type": "image",
+    "aspect_ratio": [
+      608,
+      1344
+    ]
+  },
+  "blurry-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445327483_01M0P0PDKVRNK49JFGT21Z6VT1.blurry-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2039,
+      2048
+    ]
+  },
+  "blurry-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445327599_01M0P0PDQFTXFAJW6DKXZE8T17.blurry-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      201,
+      201
+    ]
+  },
+  "buttons.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445327718_01M0P0PDV6AREF3JMMFNPBQA5R.buttons.webp",
+    "type": "image",
+    "aspect_ratio": [
+      512,
+      507
+    ]
+  },
+  "circle-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445525599_01M0P0WF2Z1BAK65YY18SCDB4X.circle-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1925,
+      1769
+    ]
+  },
+  "deathfin-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445525681_01M0P0WF5H8T0A5J7A31QJ0DQ9.deathfin-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1979,
+      1708
+    ]
+  },
+  "deathfin-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445525838_01M0P0WFAECH4HSG69S2ZHH5PP.deathfin-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1990,
+      1944
+    ]
+  },
+  "deathfinal-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445697582_01M0P11Q1EHQ6WS90TGTEV9R3D.deathfinal-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2029,
+      2036
+    ]
+  },
+  "deathfinal-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445697657_01M0P11Q3SD02XG16VZEE2GV2K.deathfinal-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1023,
+      1622
+    ]
+  },
+  "dummyenemy-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445697733_01M0P11Q659JWFCSJB4GDHN3TN.dummyenemy-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2009,
+      1211
+    ]
+  },
+  "ending-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445842979_01M0P16513R9VCCF2PJFTXQG84.ending-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1923,
+      1463
+    ]
+  },
+  "ending-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445843046_01M0P16536BZVKYVXEMM2J7SJE.ending-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1465,
+      759
+    ]
+  },
+  "enemies-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445843127_01M0P1655QJ3KY178RXFG1M02G.enemies-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2040,
+      2046
+    ]
+  },
+  "enemies-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445972544_01M0P1A3J03GTD44RE8R0HKCHP.enemies-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2030,
+      2039
+    ]
+  },
+  "enemies-2.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445972632_01M0P1A3MR2GH8YYQZ0VNN2PAM.enemies-2.webp",
+    "type": "image",
+    "aspect_ratio": [
+      926,
+      901
+    ]
+  },
+  "lowq-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787445972759_01M0P1A3RQ7CYJFJA65PZNFB3V.lowq-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1875,
+      999
+    ]
+  },
+  "misc-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787446110139_01M0P1E9XV7K0J2H6GPR8R9ZGK.misc-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      2041,
+      2032
+    ]
+  },
+  "misc-1.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787446110386_01M0P1EA5JGVHQJT0SGDBS84MQ.misc-1.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1472,
+      974
+    ]
+  },
+  "pixels.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787446110571_01M0P1EABBRRKQDW6RBTN51MGG.pixels.webp",
+    "type": "image",
+    "aspect_ratio": [
+      48,
+      4
+    ]
+  },
+  "shields-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787446956947_01M0P284WK6TKPG581VNQ9SB05.shields-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1854,
+      1814
+    ]
+  },
+  "spells-0.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787446957023_01M0P284YZ3JG37YMB5MSQ1GW2.spells-0.png",
+    "type": "image",
+    "aspect_ratio": [
+      2040,
+      2045
+    ]
+  },
+  "spells-1.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787446957179_01M0P2853VEHYKK8AJY1RQEN6M.spells-1.png",
+    "type": "image",
+    "aspect_ratio": [
+      1188,
+      997
+    ]
+  },
+  "tutorial-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447390702_01M0P2NCFERX9VHGJ20Z46A6MS.tutorial-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1014,
+      1317
+    ]
+  },
+  "ui-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447390794_01M0P2NCJAK7AEHRSDS9GXYEZG.ui-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1548,
+      1713
+    ]
+  },
+  "wallenemy-0.webp": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447390880_01M0P2NCN0JQQKRPT08P2ZFPQ2.wallenemy-0.webp",
+    "type": "image",
+    "aspect_ratio": [
+      1926,
+      869
+    ]
+  },
+  "water-0.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447503667_01M0P2RTSK19YAHGV4EM3BCAVA.water-0.png",
+    "type": "image",
+    "aspect_ratio": [
+      2020,
+      1688
+    ]
+  },
+  "armor.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447745005_01M0P306FD31BGP6C2ARH9WEM5.armor.png",
+    "type": "image",
+    "aspect_ratio": [
+      352,
+      352
+    ]
+  },
+  "block.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447745090_01M0P306J2R051JHV4MN61NZ9V.block.png",
+    "type": "image",
+    "aspect_ratio": [
+      321,
+      320
+    ]
+  },
+  "bonus.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447745167_01M0P306MF372FM93FYNR4832V.bonus.png",
+    "type": "image",
+    "aspect_ratio": [
+      363,
+      368
+    ]
+  },
+  "damage.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447885145_01M0P34FASYF9N1CNN85968CXM.damage.png",
+    "type": "image",
+    "aspect_ratio": [
+      363,
+      368
+    ]
+  },
+  "heal.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447885223_01M0P34FD7H08BS8AEH8A9MBT6.heal.png",
+    "type": "image",
+    "aspect_ratio": [
+      297,
+      297
+    ]
+  },
+  "normal.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787447885323_01M0P34FGB5PG6NM3A6A16RE21.normal.png",
+    "type": "image",
+    "aspect_ratio": [
+      380,
+      381
+    ]
+  },
+  "normalStroke.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787448075725_01M0P3A9EDVP9AWMJAEB454694.normalStroke.png",
+    "type": "image",
+    "aspect_ratio": [
+      202,
+      202
+    ]
+  },
+  "plain_bold.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787448075825_01M0P3A9HHPZGR9F3PNMYPRY63.plain_bold.png",
+    "type": "image",
+    "aspect_ratio": [
+      178,
+      178
+    ]
+  },
+  "void.png": {
+    "url": "https://d16qq0o35va7kz.cloudfront.net/images/Google_115566684854967012242/1787448075919_01M0P3A9MEED1WVN346KSCBQSD.void.png",
+    "type": "image",
+    "aspect_ratio": [
+      352,
+      352
+    ]
+  }
+};

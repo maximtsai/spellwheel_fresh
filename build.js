@@ -112,19 +112,22 @@ async function build() {
     console.log('Building audio banks...');
     const audioBanks = buildAudioBanks(path.join(DIST, 'audio'));
 
-    // Bundle bitmap font XMLs into JS to eliminate loose XML files in dist
+    // Read TTF fonts and encode to base64 Data URIs to eliminate loose font files in dist
     const fontXmlMap = {};
+    const ttfBase64 = {};
     const fontsDir = path.join(SRC, 'fonts');
-    const xmlExcludeSet = new Set();
+    const fontExcludeSet = new Set();
     if (fs.existsSync(fontsDir)) {
         for (const entry of fs.readdirSync(fontsDir)) {
             if (entry.endsWith('.xml')) {
-                xmlExcludeSet.add(entry);
+                fontExcludeSet.add(entry);
                 const fontKey = entry.replace('.xml', '');
-                // Handle plain_bold mapping to plainBold if needed, or key by filename base
                 const rawXml = fs.readFileSync(path.join(fontsDir, entry), 'utf8');
                 const cleanedXml = rawXml.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
                 fontXmlMap[fontKey] = cleanedXml;
+            } else if (entry.endsWith('.ttf')) {
+                fontExcludeSet.add(entry);
+                ttfBase64[entry] = fs.readFileSync(path.join(fontsDir, entry)).toString('base64');
             }
         }
     }
@@ -177,7 +180,7 @@ async function build() {
             if (dir === 'audio') {
                 exclude = audioBanks.bankedSourceFiles;
             } else if (dir === 'fonts') {
-                exclude = xmlExcludeSet;
+                exclude = fontExcludeSet;
             }
             copyRecursive(srcDir, path.join(DIST, dir), exclude);
             console.log(`Copied ${dir}/`);
@@ -188,7 +191,7 @@ async function build() {
     const { generateSpriteManifest } = require('./scripts/genSpriteManifest.js');
     generateSpriteManifest(path.join(DIST, 'spriteManifest.js'));
 
-    // Generate index.html
+    // Generate index.html with inlined base64 fonts
     const html = `<!doctype html>
 <html lang="en">
 <link href=data:, rel=icon>
@@ -303,30 +306,30 @@ async function build() {
         }
         @font-face {
             font-family: robotomedium;
-            src: local('robotomedium'), url('fonts/robotomedium.ttf') format('truetype');
+            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['robotomedium.ttf'] || ''}') format('truetype');
             font-weight: 400;
             font-weight: normal;
         }
         @font-face {
             font-family: garamondbold;
-            src: local('garamondbold'), url('fonts/EBGaramond-ExtraBold.ttf') format('truetype');
+            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['EBGaramond-ExtraBold.ttf'] || ''}') format('truetype');
             font-weight: normal;
         }
         @font-face {
             font-family: garamondmax;
-            src: local('garamondmax'), url('fonts/Garamond.ttf') format('truetype');
+            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['Garamond.ttf'] || ''}') format('truetype');
             font-weight: 500;
             font-weight: bold;
         }
         @font-face {
             font-family: germania;
-            src: local('germania'), url('fonts/GermaniaOne-Bold.ttf') format('truetype');
+            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['GermaniaOne-Bold.ttf'] || ''}') format('truetype');
             font-weight: 800;
             font-weight: bold;
         }
         @font-face {
             font-family: germania_italics;
-            src: local('germania_italics'), url('fonts/GermaniaOne-BoldItalic.ttf') format('truetype');
+            src: url('data:font/truetype;charset=utf-8;base64,${ttfBase64['GermaniaOne-BoldItalic.ttf'] || ''}') format('truetype');
             font-weight: 800;
             font-weight: bold;
         }
