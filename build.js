@@ -206,13 +206,14 @@ async function build() {
             background-position: center;
             background-size: cover;
             width: 100%;
-            height: 100%;
-            max-height: 100%;
+            height: 104%;
             animation-duration: 3s;
             opacity: 0;
             animation-iteration-count: 1;
             animation-direction: normal;
-            position: absolute;
+            position: fixed;
+            top: -3%;
+            left: 0;
         }
         #leftborder {
             margin: 0;

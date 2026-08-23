@@ -140,14 +140,14 @@ function resizeGame() {
         gameScale = windowWidth / game.config.width;
         gameVars.canvasXOffset = 0;
         gameVars.canvasYOffset = (windowHeight - game.config.height * gameScale) * 0.5;
-        background.style.opacity = '0';
+        if (background) background.style.opacity = '1';
     } else {
         canvas.style.width = windowHeight * gameRatio + "px";
         canvas.style.height = windowHeight + "px";
         gameScale = windowHeight / game.config.height;
         gameVars.canvasYOffset = 0;
         gameVars.canvasXOffset = (windowWidth - game.config.width * gameScale) * 0.5;
-        background.style.opacity = '1';
+        if (background) background.style.opacity = '1';
     }
     gameVars.gameScale = gameScale;
 

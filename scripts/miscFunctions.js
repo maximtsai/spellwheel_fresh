@@ -1,7 +1,7 @@
 function getBackgroundBlackout() {
     if (globalObjects) {
         if (!globalObjects.blackBackground) {
-            globalObjects.blackBackground = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1000, 1000).setDepth(-3);
+            globalObjects.blackBackground = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1100, 1100).setDepth(-3);
         }
         globalObjects.blackBackground.setDepth(-3);
         return globalObjects.blackBackground;
@@ -11,7 +11,7 @@ function getBackgroundBlackout() {
 function getBackgroundBlackout2() {
     if (globalObjects) {
         if (!globalObjects.blackBackground2) {
-            globalObjects.blackBackground2 = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1000, 1000).setDepth(-8).setAlpha(0);
+            globalObjects.blackBackground2 = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1100, 1100).setDepth(-8).setAlpha(0);
         }
         return globalObjects.blackBackground2;
     }
@@ -25,8 +25,8 @@ function createGlobalClickBlocker(showPointer) {
                  x: gameConsts.halfWidth,
                  y: gameConsts.halfHeight,
                  alpha: 0.001,
-                 scaleX: 1000,
-                 scaleY: 1000
+                 scaleX: 1100,
+                 scaleY: 1100
              },
              onMouseUp: () => {
 

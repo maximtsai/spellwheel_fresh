@@ -34,7 +34,7 @@ class PostFightScreen {
         this.locketIsOpen = false;
         this.locketIsClosable = false;
         if (!this.bgShade) {
-            this.bgShade = this.scene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setDepth(100000).setAlpha(0).setScale(500, 500);
+            this.bgShade = this.scene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setDepth(100000).setAlpha(0).setScale(550, 550);
         }
         if (!this.backing) {
             this.backing = this.scene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight - 30, 'backgrounds', 'battleOverScreen.png').setDepth(100000).setAlpha(0);

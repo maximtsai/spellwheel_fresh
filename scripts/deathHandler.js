@@ -105,9 +105,9 @@ function showHandsTemp() {
 
 function getFloatingDeath() {
     if (!globalObjects.floatingDeath) {
-        globalObjects.floatingDeath = PhaserScene.add.image(gameConsts.halfWidth, 95, 'enemies', 'max_death_1a.png').setDepth(-1);
+        globalObjects.floatingDeath = PhaserScene.add.image(gameConsts.halfWidth, 145, 'enemies', 'max_death_1a.png').setDepth(-1);
         globalObjects.floatingDeath.setAlpha(0.4);
-        globalObjects.floatingDeath2 = PhaserScene.add.image(gameConsts.halfWidth, 95, 'enemies', 'max_death_1b.png').setDepth(-1).setVisible(false);
+        globalObjects.floatingDeath2 = PhaserScene.add.image(gameConsts.halfWidth, 145, 'enemies', 'max_death_1b.png').setDepth(-1).setVisible(false);
         let leftHandOffsetX = -114; leftHandOffsetY = 26;
         let rightHandOffsetX = 189; rightHandOffsetY = -50;
         globalObjects.deathLeftHand = PhaserScene.add.image(gameConsts.halfWidth + leftHandOffsetX, globalObjects.floatingDeath.y + leftHandOffsetY, 'enemies', 'max_death_left_arm.png');

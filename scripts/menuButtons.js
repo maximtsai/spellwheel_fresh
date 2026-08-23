@@ -1,8 +1,8 @@
 function setupMainMenuBG() {
     if (!globalObjects.menuBack) {
-        globalObjects.menuBack = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'menu_back.png').setDepth(-9).setScale(0.95);
+        globalObjects.menuBack = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'menu_back.png').setDepth(-9).setScale(0.95 * 1.075);
         globalObjects.menuBack.startScale = globalObjects.menuBack.scaleX;
-        globalObjects.menuTop = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'menu_top.png').setDepth(-9).setScale(0.85);
+        globalObjects.menuTop = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'menu_top.png').setDepth(-9).setScale(0.85 * 1.075);
         globalObjects.menuTop.startScale = globalObjects.menuTop.scaleX;
         let hasLvlSelect = gameVars.maxLevel >= 1;
         globalObjects.menuButtons = PhaserScene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', hasLvlSelect ? 'menu_buttons.png' : 'menu_buttons_start.png').setDepth(-5).setScale(1);
@@ -71,31 +71,51 @@ function flashStartButtonOnce() {
 function clearOnlyMenuButtons() {
     if (globalObjects.continueButton) {
         globalObjects.continueButton.destroy();
+        globalObjects.continueButton = null;
+    }
+    if (globalObjects.continueButtonSprite) {
         globalObjects.continueButtonSprite.destroy();
+        globalObjects.continueButtonSprite = null;
     }
 
     if (globalObjects.levelSelectButton) {
         globalObjects.levelSelectButton.destroy();
+        globalObjects.levelSelectButton = null;
+    }
+    if (globalObjects.levelButtonSprite) {
         globalObjects.levelButtonSprite.destroy();
+        globalObjects.levelButtonSprite = null;
     }
 
-    globalObjects.startButton.destroy();
-    globalObjects.startButtonSprite.visible = false;
-    globalObjects.startButtonSprite.destroy();
+    if (globalObjects.startButton) {
+        globalObjects.startButton.destroy();
+        globalObjects.startButton = null;
+    }
+    if (globalObjects.startButtonSprite) {
+        globalObjects.startButtonSprite.visible = false;
+        globalObjects.startButtonSprite.destroy();
+        globalObjects.startButtonSprite = null;
+    }
     if (globalObjects.startButtonSpriteFlash) {
         globalObjects.startButtonSpriteFlash.destroy();
+        globalObjects.startButtonSpriteFlash = null;
     }
-    // globalObjects.cheatButton.destroy();
-    // globalObjects.cheatButton2.destroy();
-    // globalObjects.cheatButton3.destroy();
-    globalObjects.cheatButton4.destroy();
-    // globalObjects.cheatButton5.destroy();
 
+    if (globalObjects.cheatButton4) {
+        globalObjects.cheatButton4.destroy();
+        globalObjects.cheatButton4 = null;
+    }
 
     destroyDeferredLoadingBar();
 
-    globalObjects.creditsButton.destroy();
-    globalObjects.creditsButtonSprite.destroy();
+    if (globalObjects.creditsButton) {
+        globalObjects.creditsButton.destroy();
+        globalObjects.creditsButton = null;
+    }
+    if (globalObjects.creditsButtonSprite) {
+        globalObjects.creditsButtonSprite.destroy();
+        globalObjects.creditsButtonSprite = null;
+    }
     if (globalObjects.protectedDummySprite) {
         PhaserScene.tweens.add({
             targets: globalObjects.protectedDummySprite,
@@ -103,12 +123,16 @@ function clearOnlyMenuButtons() {
             ease: 'Cubic.easeOut',
             duration: 400,
             onComplete: () => {
-                globalObjects.protectedDummySprite.destroy();
+                if (globalObjects.protectedDummySprite) {
+                    globalObjects.protectedDummySprite.destroy();
+                    globalObjects.protectedDummySprite = null;
+                }
             }
         });
     }
     if (globalObjects.protectedDummyButton) {
         globalObjects.protectedDummyButton.destroy();
+        globalObjects.protectedDummyButton = null;
     }
     // globalObjects.extrasButton.destroy();
     // globalObjects.extrasButtonSprite.destroy();
@@ -119,35 +143,35 @@ function clearOnlyMenuButtons() {
 function minorZoomMenu() {
     if (globalObjects.menuBack) {
         PhaserScene.tweens.add({
-             targets: [globalObjects.menuBack],
-             scaleX: globalObjects.menuBack.startScale * 1.19,
-             scaleY: globalObjects.menuBack.startScale * 1.2,
-             y: gameConsts.halfHeight - 110,
-             ease: 'Quint.easeInOut',
-             duration: 1500,
-         });
+            targets: [globalObjects.menuBack],
+            scaleX: globalObjects.menuBack.startScale * 1.19,
+            scaleY: globalObjects.menuBack.startScale * 1.2,
+            y: gameConsts.halfHeight - 110,
+            ease: 'Quint.easeInOut',
+            duration: 1500,
+        });
         PhaserScene.tweens.add({
-             targets: [globalObjects.menuTop],
-             scaleX: globalObjects.menuTop.startScale * 1.19,
-             scaleY: globalObjects.menuTop.startScale * 1.2,
-             y: gameConsts.halfHeight - 110,
-             ease: 'Quint.easeInOut',
-             duration: 1500,
-         });
+            targets: [globalObjects.menuTop],
+            scaleX: globalObjects.menuTop.startScale * 1.19,
+            scaleY: globalObjects.menuTop.startScale * 1.2,
+            y: gameConsts.halfHeight - 110,
+            ease: 'Quint.easeInOut',
+            duration: 1500,
+        });
         PhaserScene.tweens.add({
-             targets: [globalObjects.menuButtons],
-             scaleX: 1.12,
-             scaleY: 1.12,
-             y: gameConsts.halfHeight - 93,
-             ease: 'Quint.easeInOut',
-             duration: 1500,
-         });
+            targets: [globalObjects.menuButtons],
+            scaleX: 1.12,
+            scaleY: 1.12,
+            y: gameConsts.halfHeight - 93,
+            ease: 'Quint.easeInOut',
+            duration: 1500,
+        });
         PhaserScene.tweens.add({
-             targets: [globalObjects.menuButtons],
-             ease: 'Cubic.easeOut',
-             duration: 700,
-             alpha: 0
-         });
+            targets: [globalObjects.menuButtons],
+            ease: 'Cubic.easeOut',
+            duration: 700,
+            alpha: 0
+        });
 
 
     }
@@ -156,19 +180,19 @@ function minorZoomMenu() {
 function clearOnlyMenuBack() {
     if (globalObjects.menuBack) {
         globalObjects.menuButtons.currAnim1 = PhaserScene.tweens.add({
-             targets: [globalObjects.menuButtons],
-             scaleX: 2.15,
-             scaleY: 2.15,
-             y: gameConsts.halfHeight + 30,
-             ease: 'Cubic.easeInOut',
-             duration: 2500,
-         });
+            targets: [globalObjects.menuButtons],
+            scaleX: 2.15,
+            scaleY: 2.15,
+            y: gameConsts.halfHeight + 30,
+            ease: 'Cubic.easeInOut',
+            duration: 2500,
+        });
         globalObjects.menuButtons.currAnim2 = PhaserScene.tweens.add({
-             targets: [globalObjects.menuButtons],
+            targets: [globalObjects.menuButtons],
             ease: 'Cubic.easeOut',
-             alpha: 0,
-             duration: 700,
-         });
+            alpha: 0,
+            duration: 700,
+        });
 
         globalObjects.menuTop.currAnim1 = PhaserScene.tweens.add({
             targets: [globalObjects.menuTop],
@@ -180,12 +204,12 @@ function clearOnlyMenuBack() {
         });
         globalObjects.menuTop.currAnim2 = PhaserScene.tweens.add({
             delay: 450,
-             targets: [globalObjects.menuTop],
-             alpha: 0,
-             duration: 900,
+            targets: [globalObjects.menuTop],
+            alpha: 0,
+            duration: 900,
             ease: 'Quad.easeInOut',
-             onComplete: () => {
-             }
+            onComplete: () => {
+            }
         });
         globalObjects.menuBack.currAnim1 = PhaserScene.tweens.add({
             targets: [globalObjects.menuBack],
@@ -198,13 +222,13 @@ function clearOnlyMenuBack() {
         });
         globalObjects.menuBack.currAnim2 = PhaserScene.tweens.add({
             delay: 1800,
-             targets: [globalObjects.menuBack],
-             alpha: 0,
-             ease: 'Quad.easeIn',
-             duration: 500,
-             onComplete: () => {
-             }
-         });
+            targets: [globalObjects.menuBack],
+            alpha: 0,
+            ease: 'Quad.easeIn',
+            duration: 500,
+            onComplete: () => {
+            }
+        });
     }
 }
 
@@ -279,7 +303,7 @@ function showMainMenuButtons() {
         }
         globalObjects.continueButton = new Button({
             normal: {
-                atlas:"pixels",
+                atlas: "pixels",
                 ref: "blank_pixel.png",
                 x: gameConsts.halfWidth - 175,
                 y: gameConsts.halfHeight - 132,
@@ -332,7 +356,7 @@ function showMainMenuButtons() {
             }
         });
         globalObjects.continueButton.setOrigin(0.5, 0.5);
-        let textObj = globalObjects.continueButton.addText(getLangText('cont_ui'), {fontFamily: 'germania', fontSize: 30, color: '#FDF6F4', align: 'left'}).setAlpha(0.97);
+        let textObj = globalObjects.continueButton.addText(getLangText('cont_ui'), { fontFamily: 'germania', fontSize: 30, color: '#FDF6F4', align: 'left' }).setAlpha(0.97);
         globalObjects.continueButton.setTextOffset(0, -5);
         globalObjects.continueButton.setStroke('#301010', 5)
         globalObjects.continueButton.setRotation(-0.02)
@@ -393,7 +417,7 @@ function showMainMenuButtons() {
             }
         });
         globalObjects.levelSelectButton.setOrigin(0.5, 0.5);
-        let textObjSelect = globalObjects.levelSelectButton.addText(getLangText('lvl_select'), {fontFamily: 'germania', fontSize: 26, color: '#FDF6F4', align: 'left'})
+        let textObjSelect = globalObjects.levelSelectButton.addText(getLangText('lvl_select'), { fontFamily: 'germania', fontSize: 26, color: '#FDF6F4', align: 'left' })
         textObjSelect.setAlpha(0.97);
         globalObjects.levelSelectButton.setStroke('#301010', 5)
         globalObjects.levelSelectButton.setTextOffset(-6, -8);
@@ -478,7 +502,7 @@ function showMainMenuButtons() {
         }
     });
     globalObjects.startButton.setOrigin(0.5, 0.5);
-    let textObj = globalObjects.startButton.addText(getLangText('new_game'), {fontFamily: 'germania', fontSize: 30, color: '#FDF6F4', align: 'left'});
+    let textObj = globalObjects.startButton.addText(getLangText('new_game'), { fontFamily: 'germania', fontSize: 30, color: '#FDF6F4', align: 'left' });
     textObj.alpha = 0.96;
     globalObjects.startButton.setTextOffset(-6, -2)
     globalObjects.startButton.setStroke('#301010', 5)
@@ -519,7 +543,7 @@ function showMainMenuButtons() {
         }
     });
     globalObjects.cheatButton4.setScale(0.5);
-    globalObjects.cheatButton4.addText("INFINITE AMMO", {fontFamily: 'germania', fontSize: 20, color: '#000000', align: 'left'})
+    globalObjects.cheatButton4.addText("INFINITE AMMO", { fontFamily: 'germania', fontSize: 20, color: '#000000', align: 'left' })
 
 
     if (gameVars.maxLevel >= 2) {
@@ -645,20 +669,20 @@ function showMainMenuButtons() {
             let page1Content = [];
             let page2Content = [];
             let tab1 = PhaserScene.add.image(gameConsts.halfWidth - 190, gameConsts.halfHeight - 305, 'ui', 'paperTab.png').setDepth(99999).setAlpha(0);
-            let tab1Icon = PhaserScene.add.text(tab1.x, tab1.y - 55, "PAGE 1", {fontFamily: 'germania', fontSize: 18, color: '#000000', align: 'center'}).setOrigin(0.5, 0).setDepth(99999).setAlpha(0);
+            let tab1Icon = PhaserScene.add.text(tab1.x, tab1.y - 55, "PAGE 1", { fontFamily: 'germania', fontSize: 18, color: '#000000', align: 'center' }).setOrigin(0.5, 0).setDepth(99999).setAlpha(0);
 
             let tab2 = PhaserScene.add.image(gameConsts.halfWidth - 90, gameConsts.halfHeight - 278, 'ui', 'paperTab.png').setDepth(99999).setAlpha(0);
-            let tab2Icon = PhaserScene.add.text(tab2.x, tab2.y - 55, "PAGE 2", {fontFamily: 'germania', fontSize: 18, color: '#000000', align: 'center'}).setOrigin(0.5, 0).setDepth(99999).setAlpha(0);
+            let tab2Icon = PhaserScene.add.text(tab2.x, tab2.y - 55, "PAGE 2", { fontFamily: 'germania', fontSize: 18, color: '#000000', align: 'center' }).setOrigin(0.5, 0).setDepth(99999).setAlpha(0);
 
 
             let text2 = "Additional Credits:\n\n\"Magic Escape Room\" by Kevin MacLeod\n(incompetech.com)\n" +
                 "Licensed under Creative Commons:\nBy Attribution 4.0 License\n\n" +
                 "Rocks - Effects - Source Recordings\n- 05 by GregorQuendel\n- https://freesound.org/s/424997/\n- License: Attribution 4.0\n\n" +
                 "rocks2.wav by mystiscool\n- https://freesound.org/s/7136/\n- License: Attribution 4.0\n\n" +
-                "R4_00328-2_EXP.wav by kevp888\n- https://freesound.org/s/636777/\n- License: Attribution 4.0\n\n"+
-                "Big Bell_4.wav by eardeer\n- https://freesound.org/s/337565/\n- License: Attribution 4.0\n\n"+
-                "Unlocking lock.wav by Stefan21100190\n- https://freesound.org/s/593112/\n- License: Attribution 4.0\n\n"+
-                "Sound Effects by Lara Sluyter\n(LARA’S HORROR SOUNDS on YouTube)\n\n"+
+                "R4_00328-2_EXP.wav by kevp888\n- https://freesound.org/s/636777/\n- License: Attribution 4.0\n\n" +
+                "Big Bell_4.wav by eardeer\n- https://freesound.org/s/337565/\n- License: Attribution 4.0\n\n" +
+                "Unlocking lock.wav by Stefan21100190\n- https://freesound.org/s/593112/\n- License: Attribution 4.0\n\n" +
+                "Sound Effects by Lara Sluyter\n(LARA’S HORROR SOUNDS on YouTube)\n\n" +
                 "Small_Swoosh - 1.wav by SoundFlakes\n-- https://freesound.org/s/416468/\n- License: Attribution 4.0";
             let creditsUI = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'ui', 'paper.png').setDepth(100000).setScale(0.975);
             let creditsPaper = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 1, 'misc', 'credits.png').setDepth(100000).setScale(0.975);
@@ -683,7 +707,7 @@ function showMainMenuButtons() {
             });
             clickBlock.setDepth(1000);
 
-            let creditsText2 = PhaserScene.add.text(gameConsts.halfWidth - 255, creditsUI.y - 284, text2, {fontSize: 16, color: '#000000', align: 'left'}).setOrigin(0, 0).setDepth(100000).setAlpha(0);
+            let creditsText2 = PhaserScene.add.text(gameConsts.halfWidth - 255, creditsUI.y - 284, text2, { fontSize: 16, color: '#000000', align: 'left' }).setOrigin(0, 0).setDepth(100000).setAlpha(0);
             PhaserScene.tweens.add({
                 targets: [creditsUI, tab1, tab1Icon, tab2, tab2Icon],
                 duration: 180,
@@ -852,7 +876,10 @@ function showMainMenuButtons() {
             });
             page2Btn.setDepth(100000);
 
-            let sub = messageBus.subscribe("cancelScreen", () => {
+            let closeCredits = (playSfx = false) => {
+                if (playSfx) {
+                    playSound('flip1', 0.7).detune = -200;
+                }
                 globalObjects.encyclopedia.showButton();
                 globalObjects.options.showButton();
                 clickBlock.destroy();
@@ -863,14 +890,23 @@ function showMainMenuButtons() {
                 tab2.destroy();
                 tab1Icon.destroy();
                 tab2Icon.destroy();
+                page1Btn.destroy();
+                page2Btn.destroy();
+                if (closeButton) {
+                    closeButton.destroy();
+                }
                 sub.unsubscribe();
                 globalObjects.magicCircle.enableMovement();
-                this.closeButton.destroy();
                 if (canvas) {
                     canvas.style.cursor = 'default';
                 }
-            })
-            this.closeButton = new Button({
+            };
+
+            let sub = messageBus.subscribe("cancelScreen", () => {
+                closeCredits(false);
+            });
+
+            let closeButton = new Button({
                 normal: {
                     atlas: 'buttons',
                     ref: "closebtn.png",
@@ -904,29 +940,13 @@ function showMainMenuButtons() {
                     }
                 },
                 onMouseUp: () => {
-                    playSound('flip1', 0.7).detune = -200;
-                    globalObjects.encyclopedia.showButton();
-                    globalObjects.options.showButton();
-                    clickBlock.destroy();
-                    creditsUI.destroy();
-                    creditsPaper.destroy();
-                    creditsText2.destroy();
-                    tab1.destroy();
-                    tab2.destroy();
-                    tab1Icon.destroy();
-                    tab2Icon.destroy();
-                    sub.unsubscribe();
-                    globalObjects.magicCircle.enableMovement();
-                    this.closeButton.destroy();
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
+                    closeCredits(true);
                 }
             });
-            this.closeButton.setDepth(100000);
+            closeButton.setDepth(100000);
         }
     });
-    globalObjects.creditsButton.addText(getLangText('artbook'), {fontFamily: 'germania', fontSize: 26, color: '#FDF6F4', align: 'center', lineSpacing: -8}).setOrigin(0.5, 0.5).setAlpha(0.96);
+    globalObjects.creditsButton.addText(getLangText('artbook'), { fontFamily: 'germania', fontSize: 26, color: '#FDF6F4', align: 'center', lineSpacing: -8 }).setOrigin(0.5, 0.5).setAlpha(0.96);
     globalObjects.creditsButton.setStroke('#301010', 6)
     globalObjects.creditsButton.setRotation(-0.03)
 
@@ -1022,7 +1042,7 @@ function updateMenuLanguage() {
 }
 
 
-function showLevelSelectScreen(){
+function showLevelSelectScreen() {
     globalObjects.encyclopedia.hideButton();
     globalObjects.options.hideButton();
     let clickBlocker = createGlobalClickBlocker(false);
@@ -1041,7 +1061,7 @@ function showLevelSelectScreen(){
     let levelSelectBG = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 22, 'ui', 'paper.png').setDepth(10000).setScale(0.92, 0.9);
     let blackBG = getBackgroundBlackout();
     blackBG.setDepth(9999).setAlpha(0);
-    let title = PhaserScene.add.text(gameConsts.halfWidth, levelSelectBG.y - 260, getLangText('lvl_select'), {fontFamily: 'germania', fontSize: 30, color: '#200000', align: 'center'}).setOrigin(0.5, 0).setAlpha(0.8).setScale(0.89, 0.89).setDepth(10000);
+    let title = PhaserScene.add.text(gameConsts.halfWidth, levelSelectBG.y - 260, getLangText('lvl_select'), { fontFamily: 'germania', fontSize: 30, color: '#200000', align: 'center' }).setOrigin(0.5, 0).setAlpha(0.8).setScale(0.89, 0.89).setDepth(10000);
     PhaserScene.tweens.add({
         targets: levelSelectBG,
         scaleX: 0.93,
@@ -1110,7 +1130,7 @@ function showLevelSelectScreen(){
             }
         }
     });
-    closeButton.setDepth(this.baseDepth + 10);
+    closeButton.setDepth(10010);
 
     sub = messageBus.subscribe("cancelScreen", () => {
         closeLevelSelectScreen();

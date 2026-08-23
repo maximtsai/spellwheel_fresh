@@ -53,6 +53,22 @@ function initializeSounds(scene) {
     globalMusicVol = localStorage.getItem("globalMusicVol") || 0.9;
 }
 
+let dummySoundObj = {
+    detune: 0,
+    pan: 0,
+    volume: 0,
+    fullVolume: 0,
+    isMusic: false,
+    loop: false,
+    duration: 0,
+    isPlaying: false,
+    stop: function() {},
+    play: function() {},
+    setVolume: function() {},
+    setSeek: function() {},
+    destroy: function() {}
+};
+
 function playSound(name, volume = 1, loop = false, isMusic = false) {
     if (!soundList[name]) {
         if (typeof requestDeferredAudioPlay === 'function') {
@@ -67,6 +83,9 @@ function playSound(name, volume = 1, loop = false, isMusic = false) {
         } else {
             soundList[name] = PhaserScene.sound.add(name);
         }
+    }
+    if (!soundList[name]) {
+        return dummySoundObj;
     }
     soundList[name].fullVolume = volume;
     soundList[name].volume = soundList[name].fullVolume * globalVolume;
@@ -112,7 +131,16 @@ function playFakeBGMusic(name, volume = 1, loop = false) {
         if (typeof requestDeferredAudioPlay === 'function') {
             requestDeferredAudioPlay(name, volume, loop, true);
         }
-        soundList[name] = PhaserScene.sound.add(name);
+        let bankInfo = audioBankIndex && audioBankIndex[name];
+        if (bankInfo) {
+            soundList[name] = PhaserScene.sound.add(bankInfo.bank);
+            soundList[name].addMarker({ name: name, start: bankInfo.start, duration: bankInfo.duration });
+        } else {
+            soundList[name] = PhaserScene.sound.add(name);
+        }
+    }
+    if (!soundList[name]) {
+        return dummySoundObj;
     }
     globalTempMusic = soundList[name];
 
@@ -128,7 +156,12 @@ function playFakeBGMusic(name, volume = 1, loop = false) {
         soundList[name].volume = 0;
     }
     soundList[name].isMusic = true;
-    soundList[name].play();
+    let bankInfo = audioBankIndex && audioBankIndex[name];
+    if (bankInfo) {
+        soundList[name].play(name);
+    } else {
+        soundList[name].play();
+    }
     return soundList[name];
 }
 
@@ -151,11 +184,14 @@ function updateGlobalMusicVolume(newVol = 1) {
         globalMusic.volume = globalMusic.fullVolume * newVol;
     }
     if (globalTempMusic) {
-        globalTempMusic.volume = newVol;
+        globalTempMusic.volume = (globalTempMusic.fullVolume !== undefined ? globalTempMusic.fullVolume : 1) * newVol;
     }
 }
 
 function setVolume(sound, volume = 0, duration) {
+    if (!sound) {
+        return;
+    }
     let globalToUse = sound.isMusic ? globalMusicVol : globalVolume;
     sound.fullVolume = volume;
     if (!duration) {
@@ -171,6 +207,12 @@ function setVolume(sound, volume = 0, duration) {
 
 
 function fadeAwaySound(sound, duration = 650, ease, onComplete) {
+    if (!sound) {
+        if (onComplete) {
+            onComplete();
+        }
+        return;
+    }
     sound.fullVolume = 0;
     sound.currTween = PhaserScene.tweens.add({
         targets: sound,
@@ -187,6 +229,9 @@ function fadeAwaySound(sound, duration = 650, ease, onComplete) {
 }
 
 function fadeInSound(sound, volume = 1, duration = 1000) {
+    if (!sound) {
+        return null;
+    }
     let globalToUse = sound.isMusic ? globalMusicVol : globalVolume;
     sound.fullVolume = volume;
     let goalVol = sound.fullVolume * globalToUse;

@@ -1,15 +1,15 @@
-let isMobile = testMobile();
-let pixelWidth = isMobile ? 594 : 604
-let pixelHeight = isMobile ? 810 : 775
+let isMobile = true;
+let pixelWidth = 594;
+let pixelHeight = 900;
 handleBorders();
-let gameVersion = "v.1.17";
+let gameVersion = "v.1.19";
 let config = {
     type: Phaser.AUTO,
     scale: {
         parent: 'spellwheel',
         autoRound: true,
         width: pixelWidth,
-        height: isMobile ? 810 : 775,
+        height: pixelHeight,
         orientation: 'landscape',
         mode: Phaser.Scale.FIT,
         forceLandscape: true
@@ -37,8 +37,8 @@ let config = {
 };
 
 function testMobile() {
-  const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
-  return regex.test(navigator.userAgent);
+    const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    return regex.test(navigator.userAgent);
 }
 
 
@@ -97,7 +97,7 @@ let gameVars = {
     mouseJustDowned: false,
     mouseposx: 0,
     mouseposy: 0,
-    lastmousedown: {x: 0, y: 0},
+    lastmousedown: { x: 0, y: 0 },
     timeSlowRatio: 1,
     timeScale: 1,
     gameManualSlowSpeed: 1,
@@ -114,8 +114,7 @@ let deltaScale = 1;
 let timeUpdateCounter = 0;
 let timeUpdateCounterMax = 3;
 
-function preload ()
-{
+function preload() {
     handleBorders();
     gameVars.latestLevel = parseInt(localStorage.getItem("latestLevel"));
     gameVars.maxLevel = parseInt(localStorage.getItem("maxLevel"));
@@ -129,8 +128,13 @@ function preload ()
     }
 
     if (isMobile && screen && screen.orientation && screen.orientation.lock) {
-        var myScreenOrientation = window.screen.orientation;
-        myScreenOrientation.lock('portrait')
+        try {
+            var myScreenOrientation = window.screen.orientation;
+            var lockPromise = myScreenOrientation.lock('portrait');
+            if (lockPromise && typeof lockPromise.catch === 'function') {
+                lockPromise.catch(function() {});
+            }
+        } catch (e) {}
     }
 
     resizeGame();
@@ -142,17 +146,15 @@ function preload ()
     }, 100)
 }
 
-function create ()
-{
+function create() {
     oldTime = Date.now();
     PhaserScene = this;
     onPreloadComplete(this);
 }
 
-function onPreloadComplete (scene)
-{
+function onPreloadComplete(scene) {
     showBackground();
-    globalObjects.tempBG = scene.add.sprite(0, 0, 'blackPixel').setScale(1000, 1000).setDepth(-1);
+    globalObjects.tempBG = scene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1100, 1100).setDepth(-1);
 
     setupMouseInteraction(scene);
     setupLoadingBar(scene);
@@ -225,13 +227,18 @@ function onLoadComplete(scene) {
 
 function openFullscreen() {
     var elem = document.body;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
+    try {
+        if (elem.requestFullscreen) {
+            var p = elem.requestFullscreen();
+            if (p && typeof p.catch === 'function') {
+                p.catch(function() {});
+            }
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    } catch (e) {}
 }
 
 document.addEventListener('fullscreenchange', (event) => {
@@ -240,8 +247,9 @@ document.addEventListener('fullscreenchange', (event) => {
     } else {
         gameOptions.fullscreen = true;
     }
-    globalObjects.options.fullscreenToggleVisual.setFrame(gameOptions.fullscreen ? 'check_box_on.png' : 'check_box_normal.png');
-
+    if (globalObjects.options && globalObjects.options.fullscreenToggleVisual) {
+        globalObjects.options.fullscreenToggleVisual.setFrame(gameOptions.fullscreen ? 'check_box_on.png' : 'check_box_normal.png');
+    }
 });
 
 function initializeMiscLocalstorage() {
@@ -404,14 +412,14 @@ function screenShake(amt, durMultManual = 1) {
         targets: PhaserScene.cameras.main,
         scrollX: amt,
         ease: "Quint.easeOut",
-        duration: 50*durMult,
+        duration: 50 * durMult,
         onComplete: () => {
             PhaserScene.tweens.add({
                 targets: PhaserScene.cameras.main,
                 scrollX: 0,
                 ease: "Bounce.easeOut",
                 easeParams: [3],
-                duration: 150*durMult,
+                duration: 150 * durMult,
             });
         }
     });
@@ -429,14 +437,14 @@ function screenShakeLong(amt) {
         targets: PhaserScene.cameras.main,
         scrollX: amt,
         ease: "Quint.easeOut",
-        duration: 150*durMult,
+        duration: 150 * durMult,
         onComplete: () => {
             PhaserScene.tweens.add({
                 targets: PhaserScene.cameras.main,
                 scrollX: 0,
                 ease: "Bounce.easeOut",
                 easeParams: [3],
-                duration: 400*durMult,
+                duration: 400 * durMult,
             });
         }
     });
@@ -454,20 +462,20 @@ function screenShakeManual(amt, durMultManual = 1) {
         targets: PhaserScene.cameras.main,
         scrollX: amt,
         ease: "Quint.easeOut",
-        duration: 50*durMult,
+        duration: 50 * durMult,
         onComplete: () => {
             PhaserScene.tweens.add({
                 targets: PhaserScene.cameras.main,
                 scrollX: -amt * 0.9,
                 ease: "Quint.easeInOut",
-                duration: 50*durMult,
+                duration: 50 * durMult,
                 onComplete: () => {
                     PhaserScene.tweens.add({
                         targets: PhaserScene.cameras.main,
                         scrollX: 0,
                         ease: "Bounce.easeOut",
                         easeParams: [3],
-                        duration: 150*durMult,
+                        duration: 150 * durMult,
                     });
                 }
             });
@@ -540,7 +548,7 @@ function handleBorders() {
     bottomBorder.style.width = thickness + 'px';
     bottomBorder.style.height = gameWidthScaled + 'px';
 
-    let shiftAmt = (gameHeightScaled * 0.5) + thickness - 2;
+    let shiftAmt = (gameHeightScaled * 0.5) + (thickness * 0.5) - 2;
     topBorder.style.top = 'calc(50% - ' + shiftAmt + 'px)';
     topBorder.style.bottom = 'auto';
     bottomBorder.style.bottom = 'calc(50% - ' + shiftAmt + 'px)';
@@ -552,19 +560,19 @@ function showBackground() {
     let bottomBorder = document.getElementById('rightborder');
     let background = document.getElementById('background');
 
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
-    var windowRatio = windowWidth / windowHeight;
-    var gameRatio = game.config.width / game.config.height;
-    if (windowRatio < gameRatio) {
+    if (background) {
         background.style['animation-name'] = 'changeShadow';
         background.style.opacity = '1';
     }
 
-    topBorder.style['animation-name'] = 'changeFull';
-    topBorder.style.opacity = '1';
-    bottomBorder.style['animation-name'] = 'changeFull';
-    bottomBorder.style.opacity = '1';
+    if (topBorder) {
+        topBorder.style['animation-name'] = 'changeFull';
+        topBorder.style.opacity = '1';
+    }
+    if (bottomBorder) {
+        bottomBorder.style['animation-name'] = 'changeFull';
+        bottomBorder.style.opacity = '1';
+    }
 }
 
 let currBackground = 'grass_bg.webp';
@@ -573,44 +581,33 @@ function switchBackground(newBG) {
         return;
     }
     let background = document.getElementById('background');
-    background.style['animation-name'] = 'fadeAway';
-    background.style['animation-duration'] = '1.5s';
-    background.style.opacity = '0';
+    if (background) {
+        background.style['animation-name'] = 'fadeAway';
+        background.style['animation-duration'] = '1.5s';
+        background.style.opacity = '0';
+    }
     setTimeout(() => {
         currBackground = newBG;
-        background.style['background-image'] = 'url("sprites/preload/' + newBG + '")';
-
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var windowRatio = windowWidth / windowHeight;
-        var gameRatio = game.config.width / game.config.height;
-        if (windowRatio >= gameRatio) {
+        if (background) {
+            background.style['background-image'] = 'url("sprites/preload/' + newBG + '")';
             background.style['animation-name'] = 'changeShadow';
             background.style.opacity = '1';
         }
-    }, 1400)
+    }, 1400);
 }
 
 function switchBackgroundInstant(newBG) {
-
     if (currBackground === newBG) {
         return;
     }
     currBackground = newBG;
     let background = document.getElementById('background');
-    background.style['background-image'] = 'url("sprites/preload/' + newBG + '")';
-
-    var windowWidth = window.innerWidth;
-    var windowHeight = window.innerHeight;
-    var windowRatio = windowWidth / windowHeight;
-    var gameRatio = game.config.width / game.config.height;
-    if (windowRatio >= gameRatio) {
+    if (background) {
+        background.style['background-image'] = 'url("sprites/preload/' + newBG + '")';
         background.style.opacity = '1';
+        background.style['animation-duration'] = '0.5s';
+        background.style['animation-name'] = 'fastChange';
     }
-    background.style['animation-duration'] = '0.5s';
-    background.style['animation-name'] = 'fastChange';
-
-
 }
 
 function preloadImage(newBG) {

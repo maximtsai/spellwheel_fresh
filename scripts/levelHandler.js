@@ -26,7 +26,7 @@ function beginPreLevel(lvl) {
             globalObjects.magicCircle.setWheelTint();
             gameVars.latestLevel = 0;
             // lesser dummy
-            let bgDim = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setDepth(-1).setAlpha(0).setScale(500);
+            let bgDim = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setDepth(-1).setAlpha(0).setScale(550);
             introPaper = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 110, 'ui', 'paper_half.png').setDepth(99999).setAlpha(0);
             introOverlay = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'ui', 'newgame_paper.png').setDepth(99999).setAlpha(0).setBlendMode(Phaser.BlendModes.MULTIPLY);
             text1 = PhaserScene.add.text(gameConsts.halfWidth - 253, gameConsts.halfHeight - 288, getLangText('pre_fight_0a'), {fontFamily: 'germania', fontSize: 26, color: '#200000', align: 'left'});

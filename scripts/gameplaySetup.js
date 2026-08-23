@@ -286,7 +286,7 @@ function setupLoadingBar(scene) {
             }
         }, 100)
 
-        loadObjects.fadeBG = scene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1000).setAlpha(0).setDepth(-5);
+        loadObjects.fadeBG = scene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(1100).setAlpha(0).setDepth(-5);
 
         scene.tweens.add({
             targets: loadObjects.fadeBG,
@@ -427,25 +427,25 @@ function animateStart() {
         duration: 1500,
     });
 }
-// let randIntroTexts = ["find her", "I will find you", "my beloved", "searching", "dearest", "bring her back",
-//     "rescue her", "seek her", "lovely departed", "find", "rescue", "save", "love", "I will be a hero", "triumph", "from the dead", "not yet gone"
-//     ];
-// function generateRandIntroText() {
-//     let randVal = Math.floor(Math.random() * randIntroTexts.length);
-//     if (randVal == gameVars.lastIntroTextGenerated) {
-//         randVal = Math.floor(Math.random() * randIntroTexts.length);
-//     } else if (randVal == gameVars.lastLastIntroTextGenerated) {
-//         randVal = Math.floor(Math.random() * randIntroTexts.length);
-//     }
-//     if (randVal == gameVars.lastIntroTextGenerated) {
-//         randVal = Math.floor(Math.random() * randIntroTexts.length);
-//     } else if (randVal == gameVars.lastLastIntroTextGenerated) {
-//         randVal = Math.floor(Math.random() * randIntroTexts.length);
-//     }
-//     gameVars.lastLastIntroTextGenerated = gameVars.lastIntroTextGenerated;
-//     gameVars.lastIntroTextGenerated = randVal;
-//     return randIntroTexts[randVal];
-// }
+let randIntroTexts = ["find her", "I will find you", "my beloved", "searching", "dearest", "bring her back",
+    "rescue her", "seek her", "lovely departed", "find", "rescue", "save", "love", "I will be a hero", "triumph", "from the dead", "not yet gone"
+    ];
+function generateRandIntroText() {
+    let randVal = Math.floor(Math.random() * randIntroTexts.length);
+    if (randVal == gameVars.lastIntroTextGenerated) {
+        randVal = Math.floor(Math.random() * randIntroTexts.length);
+    } else if (randVal == gameVars.lastLastIntroTextGenerated) {
+        randVal = Math.floor(Math.random() * randIntroTexts.length);
+    }
+    if (randVal == gameVars.lastIntroTextGenerated) {
+        randVal = Math.floor(Math.random() * randIntroTexts.length);
+    } else if (randVal == gameVars.lastLastIntroTextGenerated) {
+        randVal = Math.floor(Math.random() * randIntroTexts.length);
+    }
+    gameVars.lastLastIntroTextGenerated = gameVars.lastIntroTextGenerated;
+    gameVars.lastIntroTextGenerated = randVal;
+    return randIntroTexts[randVal];
+}
 
 function recursiveCreateIntroText(delay = 150, num = 180) {
     if (num <= 0 || gameVars.introFinished) {

@@ -1,7 +1,7 @@
 
 
 function showYesNoPopup(yesText, noText, titleText = '...', bodyText = "...", onYes = () => {}, superFast = false) {
-    let darkBG = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(500).setDepth(110900).setAlpha(0);
+    let darkBG = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(550).setDepth(110900).setAlpha(0);
     let dieClickBlocker = new Button({
         normal: {
             ref: "blackPixel",

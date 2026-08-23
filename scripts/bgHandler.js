@@ -18,6 +18,7 @@ class BgHandler {
 
 let useFirstBG = true;
 function fadeInBackground(name, duration = 15000, scale = 1) {
+    scale *= 1.10; // Make all backgrounds 10% larger
     let nextObj = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight * 0.7, name).setDepth(-10).setScale(1.1).setAlpha(0).setOrigin(0.5, 0.35);
     nextObj.setScale(scale);
     PhaserScene.tweens.add({
@@ -45,6 +46,9 @@ function fadeInBackground(name, duration = 15000, scale = 1) {
 }
 
 function fadeInBackgroundAtlas(atlas, name, duration = 15000, scale = 1.1, endScaleX, endScaleY, ease, delay, extra, yOffset = 0, noAnim = false) {
+    scale *= 1.10; // Make all backgrounds 10% larger
+    if (endScaleX !== undefined) endScaleX *= 1.10;
+    if (endScaleY !== undefined) endScaleY *= 1.10;
     let nextObj = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight * 0.7 + yOffset, atlas, name).setDepth(-10).setScale(scale, Math.abs(scale)).setAlpha(0).setOrigin(0.5, 0.35);
 
     if (!noAnim) {

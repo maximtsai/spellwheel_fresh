@@ -568,16 +568,18 @@ window.run = run;\n`;
     z-index: -2;
     background-image: url("${grassBgUrl}");
     background-color: #111010;
-    background-position: center;
+    background-position: center center;
     background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
-    height: 100%;
-    max-height: 100%;
+    height: 104%;
     animation-duration: 3s;
     opacity: 0;
     animation-iteration-count: 1;
     animation-direction: normal;
-    position: absolute;
+    position: fixed;
+    top: -3%;
+    left: 0;
 }
 #leftborder {
     margin: 0;
@@ -634,9 +636,14 @@ html, body {
     height: 100%;
     max-height: 100%;
     overflow: hidden;
-    background-color: #111010;
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+/* The page colour lives on <html> ONLY. If <body> also paints a background,
+   that background is drawn AFTER negative-z-index elements, which hides
+   #background (z-index -2) and the top/bottom borders (z-index -1). */
+html {
+    background-color: #111010;
 }
 html::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none;
