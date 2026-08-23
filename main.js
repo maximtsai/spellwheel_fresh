@@ -528,16 +528,23 @@ function handleBorders() {
         bottomBorder.style.display = 'block';
     }
 
-    let heightAmt = 86 * gameScale;
+    let thickness = 86 * gameScale;
     let gameHeightScaled = pixelHeight * gameScale;
-    topBorder.style.height = heightAmt + 'px';
-    topBorder.style.width = windowWidth + 'px';
-    bottomBorder.style.height = heightAmt + 'px';
-    bottomBorder.style.width = windowWidth + 'px';
+    let gameWidthScaled = pixelWidth * gameScale;
 
-    let shiftAmt = gameHeightScaled * 0.5 + heightAmt - 2;
+    // The image is tall (height is length) and narrow (width is thickness).
+    // When rotated 90deg, its CSS height is along the screen X-axis (game width)
+    // and its CSS width is along the screen Y-axis (thickness).
+    topBorder.style.width = thickness + 'px';
+    topBorder.style.height = gameWidthScaled + 'px';
+    bottomBorder.style.width = thickness + 'px';
+    bottomBorder.style.height = gameWidthScaled + 'px';
+
+    let shiftAmt = (gameHeightScaled * 0.5) + thickness - 2;
     topBorder.style.top = 'calc(50% - ' + shiftAmt + 'px)';
+    topBorder.style.bottom = 'auto';
     bottomBorder.style.bottom = 'calc(50% - ' + shiftAmt + 'px)';
+    bottomBorder.style.top = 'auto';
 }
 
 function showBackground() {

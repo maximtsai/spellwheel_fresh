@@ -238,9 +238,7 @@ const GAMEPLAY_FILES = [
     'scripts/enemies/death3.js',
 ];
 
-const EXTRA_FILES = [
-    'phaser.min.js',
-];
+const EXTRA_FILES = [];
 
 async function buildAstro() {
     // Clean dist
@@ -585,31 +583,33 @@ window.run = run;\n`;
     margin: 0;
     z-index: -1;
     background-image: url("${handshieldBackUrl}");
-    background-size: cover;
-    background-position: center;
-    height: 86px;
-    width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 86px;
+    height: 100%;
     opacity: 0;
-    left: 0;
-    top: calc(50% - 453px);
+    left: 50%;
+    top: calc(50% - 430px);
     animation-duration: 0.6s;
     position: fixed;
-    transform: rotate(90deg);
+    transform-origin: center center;
+    transform: translate(-50%, -50%) rotate(90deg);
 }
 #rightborder {
     margin: 0;
     z-index: -1;
     background-image: url("${handshieldBackUrl}");
-    background-size: cover;
-    background-position: center;
-    height: 86px;
-    width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 86px;
+    height: 100%;
     opacity: 0;
-    left: 0;
-    bottom: calc(50% - 453px);
+    left: 50%;
+    bottom: calc(50% - 430px);
     position: fixed;
     animation-duration: 0.6s;
-    transform: rotate(-90deg);
+    transform-origin: center center;
+    transform: translate(-50%, 50%) rotate(-90deg);
 }
 @keyframes changeShadow {
     from { opacity: 0; }
@@ -702,9 +702,6 @@ window.addEventListener('resize', function() {
         resizeGame();
     }
 });
-if (typeof onloadFunc === 'function') {
-    onloadFunc();
-}
 `;
 
     const minifiedInlinedJs = await Terser.minify(rawInlinedJs, {
@@ -730,13 +727,13 @@ if (typeof onloadFunc === 'function') {
     <style>
 ${css}
     </style>
-    <script src="./phaser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
     ${remoteTranslationsTag}
     ${remoteCombatTag}
     ${remoteEnemiesTag}
     <noscript>Enable JavaScript to play this game.</noscript>
 </head>
-<body>
+<body onload="onloadFunc()" onresize="resizeGame()">
     <script>
         // Warm the webfonts. A rejection here just means the CDN was
         // unreachable: the text still renders in the fallback family, so
