@@ -18,9 +18,10 @@ const configSandbox = {};
 eval(configContent.replace('const assets =', 'configSandbox.assets ='));
 const assets = configSandbox.assets;
 
-// Optional: Set to your hosted CDN URL for enemies.min.js to keep index.html super lightweight.
-// If empty, enemies code is inlined into index.html as fallback.
-const REMOTE_ENEMIES_URL = ''; // e.g. 'https://cdn.jsdelivr.net/gh/yourname/yourrepo@main/enemies.min.js'
+// CDN URLs for external modules to keep index.html extremely lightweight.
+const REMOTE_TRANSLATIONS_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/translations.min.js';
+const REMOTE_COMBAT_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/combat.min.js';
+const REMOTE_ENEMIES_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/enemies.min.js';
 
 function getAssetUrl(filename) {
     if (assets[filename]) return assets[filename].url;
@@ -151,6 +152,7 @@ function buildFontFaceCss() {
     return css.trim();
 }
 
+// Translations / localization files
 const TRANSLATION_FILES = [
     'textData1.js',
     'textData2.js',
@@ -158,7 +160,18 @@ const TRANSLATION_FILES = [
     'textData4.js',
 ];
 
-// Minimum files needed for engine bootstrap, utilities, UI, loading & main menu
+// Combat mechanics, Magic Circle, Spells & Player logic (compiled into combat.min.js)
+const COMBAT_FILES = [
+    'scripts/statusObj.js',
+    'scripts/statusManager.js',
+    'scripts/combatTextManager.js',
+    'scripts/spellRecorder.js',
+    'scripts/spellManager.js',
+    'scripts/magicCircle.js',
+    'scripts/player.js',
+];
+
+// Core bootstrapping, UI, audio, utilities, menus, and level management
 const CORE_FILES = [
     // Utilities
     'util/messageBus.js',
@@ -182,14 +195,7 @@ const CORE_FILES = [
     'scripts/gameAnims.js',
     'scripts/gameplaySetup.js',
     'scripts/gameStats.js',
-    'scripts/spellManager.js',
-    'scripts/statusObj.js',
-    'scripts/statusManager.js',
     'scripts/textPopupManager.js',
-    'scripts/combatTextManager.js',
-    'scripts/spellRecorder.js',
-    'scripts/magicCircle.js',
-    'scripts/player.js',
     'scripts/menuButtons.js',
     'scripts/postFightScreen.js',
     'scripts/confirmPopup.js',
@@ -349,10 +355,8 @@ async function buildAstro() {
         fontXmlJs += '    ].join(""),\n';
     }
     fontXmlJs += '};\n';
-    fs.writeFileSync(path.join(DIST, 'fontXmlMap.js'), fontXmlJs);
-    console.log(`Wrote dist/fontXmlMap.js: ${(fontXmlJs.length / 1024).toFixed(0)} KB`);
 
-    // 6. Build generated.js (Auto-generated registries, audio bank index, remote atlases)
+    // 6. Build generated registries, audio bank index, and remote atlases
     let generated = '// AUTO-GENERATED Remote Asset Registries (Astro Build)\n';
     generated += 'const imageFilesPreload = ' + JSON.stringify(imageFilesPreload) + ';\n';
     generated += 'const imageAtlases = ' + JSON.stringify(imageAtlases) + ';\n';
@@ -366,12 +370,9 @@ async function buildAstro() {
     generated += 'const audioBankIndex = ' + JSON.stringify(audioBanks.index) + ';\n';
     generated += 'const audioBankFiles = ' + JSON.stringify(remoteAudioBankFiles) + ';\n';
     generated += 'const inlinedRemoteAtlases = ' + JSON.stringify(remoteAtlases) + ';\n';
-
     generated = stripComments(generated);
-    fs.writeFileSync(path.join(DIST, 'generated.js'), generated);
-    console.log(`Wrote dist/generated.js: ${(generated.length / 1024).toFixed(0)} KB`);
 
-    // 7. Build translations.js (Localization data)
+    // 7. Build translations: compile minified dist/translations.min.js
     let translations = '';
     for (const relPath of TRANSLATION_FILES) {
         const fullPath = path.join(SRC, relPath);
@@ -381,11 +382,33 @@ async function buildAstro() {
         }
         translations += fs.readFileSync(fullPath, 'utf8') + '\n';
     }
-    translations = stripComments(translations);
-    fs.writeFileSync(path.join(DIST, 'translations.js'), translations);
-    console.log(`Wrote dist/translations.js: ${(translations.length / 1024).toFixed(0)} KB`);
+    const strippedTranslations = stripComments(translations);
+    const minifiedTranslations = await Terser.minify(strippedTranslations, {
+        compress: true,
+        mangle: false,
+    });
+    fs.writeFileSync(path.join(DIST, 'translations.min.js'), minifiedTranslations.code);
+    console.log(`Wrote dist/translations.min.js: ${(minifiedTranslations.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
-    // 8. Build game.js (Core engine bootstrap, UI, loading & main menu)
+    // 8. Build combat: compile minified dist/combat.min.js
+    let combinedCombat = '';
+    for (const relPath of COMBAT_FILES) {
+        const fullPath = path.join(SRC, relPath);
+        if (!fs.existsSync(fullPath)) {
+            console.error(`Missing: ${relPath}`);
+            process.exit(1);
+        }
+        combinedCombat += fs.readFileSync(fullPath, 'utf8') + '\n';
+    }
+    const strippedCombat = stripComments(combinedCombat);
+    const minifiedCombat = await Terser.minify(strippedCombat, {
+        compress: true,
+        mangle: false,
+    });
+    fs.writeFileSync(path.join(DIST, 'combat.min.js'), minifiedCombat.code);
+    console.log(`Wrote dist/combat.min.js: ${(minifiedCombat.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
+
+    // 9. Build game core (engine bootstrap, UI, loading & main menu)
     let combinedCore = '';
     for (const relPath of CORE_FILES) {
         const fullPath = path.join(SRC, relPath);
@@ -457,12 +480,9 @@ async function buildAstro() {
     }
 }
 window.run = run;\n`;
-
     combinedCore = stripComments(combinedCore);
-    fs.writeFileSync(path.join(DIST, 'game.js'), combinedCore);
-    console.log(`Wrote dist/game.js: ${(combinedCore.length / 1024).toFixed(0)} KB`);
 
-    // 9. Build gameplay / enemies: compile unminified dist/gameplay.js AND minified dist/enemies.min.js
+    // 10. Build gameplay / enemies: compile minified dist/enemies.min.js
     let combinedGameplay = '';
     for (const relPath of GAMEPLAY_FILES) {
         const fullPath = path.join(SRC, relPath);
@@ -473,7 +493,6 @@ window.run = run;\n`;
         combinedGameplay += fs.readFileSync(fullPath, 'utf8') + '\n';
     }
     const strippedGameplay = stripComments(combinedGameplay);
-    fs.writeFileSync(path.join(DIST, 'gameplay.js'), strippedGameplay);
 
     // Generate standalone minified enemies.min.js for CDN hosting
     const minifiedEnemies = await Terser.minify(combinedGameplay, {
@@ -481,7 +500,7 @@ window.run = run;\n`;
         mangle: false, // Keep class names and functions readable and intact
     });
     fs.writeFileSync(path.join(DIST, 'enemies.min.js'), minifiedEnemies.code);
-    console.log(`Wrote dist/enemies.min.js: ${(minifiedEnemies.code.length / 1024).toFixed(0)} KB (Ready for CDN upload)`);
+    console.log(`Wrote dist/enemies.min.js: ${(minifiedEnemies.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
     // Copy phaser.min.js
     for (const file of EXTRA_FILES) {
@@ -611,15 +630,21 @@ canvas {
 }
 ${buildFontFaceCss()}`;
 
-    // Script tag for remote enemies if configured
-    const remoteEnemiesScriptTag = REMOTE_ENEMIES_URL
+    // Script tags for remote modules if configured
+    const remoteTranslationsTag = REMOTE_TRANSLATIONS_URL
+        ? `<script src="${REMOTE_TRANSLATIONS_URL}"></script>`
+        : '';
+    const remoteCombatTag = REMOTE_COMBAT_URL
+        ? `<script src="${REMOTE_COMBAT_URL}"></script>`
+        : '';
+    const remoteEnemiesTag = REMOTE_ENEMIES_URL
         ? `<script src="${REMOTE_ENEMIES_URL}"></script>`
         : '';
-    
-    // Inlined gameplay script if not using remote CDN URL
-    const inlinedGameplayScript = REMOTE_ENEMIES_URL
-        ? ''
-        : strippedGameplay;
+
+    // Inlined fallbacks if not using remote URLs
+    const inlinedTranslations = REMOTE_TRANSLATIONS_URL ? '' : strippedTranslations;
+    const inlinedCombat = REMOTE_COMBAT_URL ? '' : strippedCombat;
+    const inlinedGameplay = REMOTE_ENEMIES_URL ? '' : strippedGameplay;
 
     // Generate single self-contained index.html with inlined CSS and JavaScript
     const html = `<!doctype html>
@@ -640,7 +665,9 @@ ${buildFontFaceCss()}`;
 ${css}
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
-    ${remoteEnemiesScriptTag}
+    ${remoteTranslationsTag}
+    ${remoteCombatTag}
+    ${remoteEnemiesTag}
     <noscript>Enable JavaScript to play this game.</noscript>
 </head>
 <body>
@@ -666,8 +693,9 @@ ${css}
     <script>
 ${fontXmlJs}
 ${generated}
-${translations}
-${inlinedGameplayScript}
+${inlinedTranslations}
+${inlinedCombat}
+${inlinedGameplay}
 ${combinedCore}
         window.addEventListener('resize', function() {
             if (typeof resizeGame === 'function') {
