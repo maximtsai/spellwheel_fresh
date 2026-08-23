@@ -238,7 +238,9 @@ const GAMEPLAY_FILES = [
     'scripts/enemies/death3.js',
 ];
 
-const EXTRA_FILES = [];
+const EXTRA_FILES = [
+    'phaser.min.js',
+];
 
 async function buildAstro() {
     // Clean dist
@@ -409,7 +411,16 @@ async function buildAstro() {
     console.log(`Wrote dist/combat.min.js: ${(minifiedCombat.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
     // 9. Build game core (engine bootstrap, UI, loading & main menu)
-    let combinedCore = '';
+    let combinedCore = `// In-memory gameStorage adapter for sandboxed iframes without allow-same-origin
+var gameStorage = (function() {
+    var memStorage = {};
+    return {
+        getItem: function(key) { return Object.prototype.hasOwnProperty.call(memStorage, key) ? memStorage[key] : null; },
+        setItem: function(key, val) { memStorage[key] = String(val); },
+        removeItem: function(key) { delete memStorage[key]; },
+        clear: function() { memStorage = {}; }
+    };
+})();\n`;
     for (const relPath of CORE_FILES) {
         const fullPath = path.join(SRC, relPath);
         if (!fs.existsSync(fullPath)) {
@@ -418,8 +429,19 @@ async function buildAstro() {
         }
         let code = fs.readFileSync(fullPath, 'utf8');
 
-        // If main.js, intercept loadAtlases to use inlined remoteAtlases directly instead of fetch('sprites/atlases.json')
+        // Replace any localStorage calls with gameStorage
+        code = code.replace(/localStorage\./g, 'gameStorage.');
+
+        // If main.js, intercept loadAtlases to use inlined remoteAtlases directly and make onloadFunc idempotent
         if (relPath === 'main.js') {
+            code = code.replace(
+                /function onloadFunc\(\)\s*\{[\s\S]*?\n\}/,
+                `function onloadFunc() {
+    if (game) return game;
+    game = new Phaser.Game(config);
+    return game;
+}`
+            );
             code = code.replace(
                 /function loadAtlases\s*\(scene\)\s*\{[\s\S]*?\n\}/,
                 `function loadAtlases(scene) {
@@ -455,6 +477,29 @@ async function buildAstro() {
         });
     }
 }`
+            );
+        }
+
+        // If scripts/gameplaySetup.js, make createAnimations wait for required textures
+        if (relPath === 'scripts/gameplaySetup.js') {
+            code = code.replace(
+                /createAnimations\(PhaserScene\);/,
+                `(function() {
+        let s = PhaserScene, n = 0;
+        let checkAndCreate = function() {
+            let required = ["backgrounds", "buttons", "circle", "enemies", "lowq", "misc", "pixels", "shields", "spells", "tutorial", "ui", "water"];
+            let ready = true;
+            for (let i = 0; i < required.length; i++) {
+                if (!PhaserScene.textures.exists(required[i])) { ready = false; break; }
+            }
+            if (ready) {
+                createAnimations(s);
+            } else if (n++ < 200) {
+                setTimeout(checkAndCreate, 25);
+            }
+        };
+        checkAndCreate();
+    })();`
             );
         }
 
@@ -541,32 +586,30 @@ window.run = run;\n`;
     z-index: -1;
     background-image: url("${handshieldBackUrl}");
     background-size: cover;
-    height: 100%;
-    width: 86px;
+    background-position: center;
+    height: 86px;
+    width: 100%;
     opacity: 0;
-    max-height: 100%;
-    left: calc(50% - 453px);
+    left: 0;
+    top: calc(50% - 453px);
     animation-duration: 0.6s;
     position: fixed;
+    transform: rotate(90deg);
 }
 #rightborder {
     margin: 0;
     z-index: -1;
     background-image: url("${handshieldBackUrl}");
     background-size: cover;
-    height: 100%;
-    width: 86px;
+    background-position: center;
+    height: 86px;
+    width: 100%;
     opacity: 0;
-    max-height: 100%;
-    right: calc(50% - 453px);
+    left: 0;
+    bottom: calc(50% - 453px);
     position: fixed;
     animation-duration: 0.6s;
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
+    transform: rotate(-90deg);
 }
 @keyframes changeShadow {
     from { opacity: 0; }
@@ -646,7 +689,30 @@ ${buildFontFaceCss()}`;
     const inlinedCombat = REMOTE_COMBAT_URL ? '' : strippedCombat;
     const inlinedGameplay = REMOTE_ENEMIES_URL ? '' : strippedGameplay;
 
-    // Generate single self-contained index.html with inlined CSS and JavaScript
+    // Assemble and minify inlined JavaScript block
+    const rawInlinedJs = `
+${fontXmlJs}
+${generated}
+${inlinedTranslations}
+${inlinedCombat}
+${inlinedGameplay}
+${combinedCore}
+window.addEventListener('resize', function() {
+    if (typeof resizeGame === 'function') {
+        resizeGame();
+    }
+});
+if (typeof onloadFunc === 'function') {
+    onloadFunc();
+}
+`;
+
+    const minifiedInlinedJs = await Terser.minify(rawInlinedJs, {
+        compress: true,
+        mangle: false, // Keep class/function names intact
+    });
+
+    // Generate single self-contained index.html with inlined CSS and minified JavaScript
     const html = `<!doctype html>
 <html lang="en">
 <link href=data:, rel=icon>
@@ -664,7 +730,7 @@ ${buildFontFaceCss()}`;
     <style>
 ${css}
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.80.1/phaser.min.js"></script>
+    <script src="./phaser.min.js"></script>
     ${remoteTranslationsTag}
     ${remoteCombatTag}
     ${remoteEnemiesTag}
@@ -691,20 +757,7 @@ ${css}
     <div style="font-family:germania_italics, 'Germania One', Georgia, 'Times New Roman', serif; font-style:italic; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div id="preload-notice">Loading Preloader ...</div>
     <script>
-${fontXmlJs}
-${generated}
-${inlinedTranslations}
-${inlinedCombat}
-${inlinedGameplay}
-${combinedCore}
-        window.addEventListener('resize', function() {
-            if (typeof resizeGame === 'function') {
-                resizeGame();
-            }
-        });
-        if (typeof onloadFunc === 'function') {
-            onloadFunc();
-        }
+${minifiedInlinedJs.code}
     </script>
 </body>
 </html>`;

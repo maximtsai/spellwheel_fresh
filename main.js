@@ -503,9 +503,9 @@ function zoomTempSlow(zoomAmt) {
 }
 
 function handleBorders() {
-    let leftBorder = document.getElementById('leftborder');
-    let rightBorder = document.getElementById('rightborder');
-    if (!leftBorder || !rightBorder) {
+    let topBorder = document.getElementById('leftborder');
+    let bottomBorder = document.getElementById('rightborder');
+    if (!topBorder || !bottomBorder) {
         return;
     }
     var windowWidth = window.innerWidth;
@@ -513,51 +513,51 @@ function handleBorders() {
     var windowRatio = windowWidth / windowHeight;
     var gameRatio = pixelWidth / pixelHeight;
     var gameScale = 1;
-    let isNarrow = false;
+    let isTall = false;
     if (windowRatio < gameRatio) {
         gameScale = windowWidth / pixelWidth;
-        isNarrow = true;
+        isTall = true;
     } else {
         gameScale = windowHeight / pixelHeight;
-
     }
-    if (isNarrow) {
-        rightBorder.style.display = 'none';
-        leftBorder.style.display = 'none';
+    if (!isTall) {
+        topBorder.style.display = 'none';
+        bottomBorder.style.display = 'none';
     } else {
-        rightBorder.style.display = 'block';
-        leftBorder.style.display = 'block';
+        topBorder.style.display = 'block';
+        bottomBorder.style.display = 'block';
     }
-    //block
 
+    let heightAmt = 86 * gameScale;
+    let gameHeightScaled = pixelHeight * gameScale;
+    topBorder.style.height = heightAmt + 'px';
+    topBorder.style.width = windowWidth + 'px';
+    bottomBorder.style.height = heightAmt + 'px';
+    bottomBorder.style.width = windowWidth + 'px';
 
-    let widthAmt = 86 * gameScale
-    leftBorder.style.width = widthAmt + 'px';
-    rightBorder.style.width = widthAmt + 'px';
-    let shiftAmt = pixelWidth * gameScale * 0.5 + widthAmt - 2;
-    leftBorder.style.left = 'calc(50% - ' + shiftAmt + 'px)'
-    rightBorder.style.right = 'calc(50% - ' + shiftAmt + 'px)'
+    let shiftAmt = gameHeightScaled * 0.5 + heightAmt - 2;
+    topBorder.style.top = 'calc(50% - ' + shiftAmt + 'px)';
+    bottomBorder.style.bottom = 'calc(50% - ' + shiftAmt + 'px)';
 }
 
 function showBackground() {
-    let leftBorder = document.getElementById('leftborder');
-    let rightBorder = document.getElementById('rightborder');
+    let topBorder = document.getElementById('leftborder');
+    let bottomBorder = document.getElementById('rightborder');
     let background = document.getElementById('background');
-
 
     var windowWidth = window.innerWidth;
     var windowHeight = window.innerHeight;
     var windowRatio = windowWidth / windowHeight;
     var gameRatio = game.config.width / game.config.height;
-    if (windowRatio >= gameRatio) {
+    if (windowRatio < gameRatio) {
         background.style['animation-name'] = 'changeShadow';
         background.style.opacity = '1';
     }
 
-    leftBorder.style['animation-name'] = 'changeFull';
-    leftBorder.style.opacity = '1';
-    rightBorder.style['animation-name'] = 'changeFull';
-    rightBorder.style.opacity = '1';
+    topBorder.style['animation-name'] = 'changeFull';
+    topBorder.style.opacity = '1';
+    bottomBorder.style['animation-name'] = 'changeFull';
+    bottomBorder.style.opacity = '1';
 }
 
 let currBackground = 'grass_bg.webp';
