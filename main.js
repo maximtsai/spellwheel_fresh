@@ -214,6 +214,7 @@ for (let i in deferredAudioFiles) {
 
 function onLoadComplete(scene) {
     initializeSounds(scene);
+    initializeBitmapFonts(scene);
     initializeMiscLocalstorage();
     setupGame(scene);
     // Start loading the deferred assets in the background now that the game
@@ -339,7 +340,13 @@ function loadFileList(scene, filesList, type) {
                 scene.load.image(data.name, data.src);
                 break;
             case 'bitmap_font':
-                scene.load.bitmapFont(data.name, data.imageUrl, data.url);
+                if (typeof fontXmlMap !== 'undefined') {
+                    // Bundle mode: load only PNG image, parse inlined XML on complete
+                    scene.load.image('__bf_img_' + data.name, data.imageUrl);
+                } else {
+                    // Fallback to separate XML request if running unbundled
+                    scene.load.bitmapFont(data.name, data.imageUrl, data.url);
+                }
                 break;
             case 'video':
                 scene.load.video({
@@ -352,6 +359,34 @@ function loadFileList(scene, filesList, type) {
                 console.warn('unrecognized type: ', type);
                 break;
         }
+    }
+}
+
+function initializeBitmapFonts(scene) {
+    if (typeof fontXmlMap === 'undefined') return;
+    const parser = new DOMParser();
+    for (let i in fontFiles) {
+        const font = fontFiles[i];
+        // fontXmlMap can be keyed by font.name or font.url basename
+        const xmlKey = font.name === 'plainBold' ? 'plain_bold' : font.name;
+        const xmlString = fontXmlMap[xmlKey] || fontXmlMap[font.name];
+        if (!xmlString) {
+            console.warn('Missing inlined XML for font:', font.name);
+            continue;
+        }
+        const imgKey = '__bf_img_' + font.name;
+        if (!scene.textures.exists(imgKey)) {
+            console.warn('Missing texture for font:', font.name);
+            continue;
+        }
+        const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+        const frame = scene.textures.getFrame(imgKey);
+        const parsedData = Phaser.GameObjects.BitmapText.ParseXMLBitmapFont(xmlDoc, frame);
+        scene.cache.bitmapFont.add(font.name, {
+            data: parsedData,
+            texture: imgKey,
+            frame: null
+        });
     }
 }
 

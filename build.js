@@ -112,6 +112,23 @@ async function build() {
     console.log('Building audio banks...');
     const audioBanks = buildAudioBanks(path.join(DIST, 'audio'));
 
+    // Bundle bitmap font XMLs into JS to eliminate loose XML files in dist
+    const fontXmlMap = {};
+    const fontsDir = path.join(SRC, 'fonts');
+    const xmlExcludeSet = new Set();
+    if (fs.existsSync(fontsDir)) {
+        for (const entry of fs.readdirSync(fontsDir)) {
+            if (entry.endsWith('.xml')) {
+                xmlExcludeSet.add(entry);
+                const fontKey = entry.replace('.xml', '');
+                // Handle plain_bold mapping to plainBold if needed, or key by filename base
+                const rawXml = fs.readFileSync(path.join(fontsDir, entry), 'utf8');
+                const cleanedXml = rawXml.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
+                fontXmlMap[fontKey] = cleanedXml;
+            }
+        }
+    }
+
     // Concatenate JS
     let combined = '';
     for (const relPath of JS_FILES) {
@@ -126,6 +143,9 @@ async function build() {
     combined += '\n// AUTO-GENERATED audio bank index\n';
     combined += 'const audioBankIndex = ' + JSON.stringify(audioBanks.index) + ';\n';
     combined += 'const audioBankFiles = ' + JSON.stringify(audioBanks.bankFiles) + ';\n';
+    // Inject the auto-generated bitmap font XML data map
+    combined += '\n// AUTO-GENERATED bitmap font XML map\n';
+    combined += 'const fontXmlMap = ' + JSON.stringify(fontXmlMap) + ';\n';
     console.log(`Concatenated: ${(combined.length / 1024).toFixed(0)} KB`);
 
     // Minify with Terser
@@ -153,7 +173,12 @@ async function build() {
     for (const dir of COPY_DIRS) {
         const srcDir = path.join(SRC, dir);
         if (fs.existsSync(srcDir)) {
-            const exclude = dir === 'audio' ? audioBanks.bankedSourceFiles : null;
+            let exclude = null;
+            if (dir === 'audio') {
+                exclude = audioBanks.bankedSourceFiles;
+            } else if (dir === 'fonts') {
+                exclude = xmlExcludeSet;
+            }
             copyRecursive(srcDir, path.join(DIST, dir), exclude);
             console.log(`Copied ${dir}/`);
         }
@@ -170,7 +195,6 @@ async function build() {
 <head>
     <meta charset="UTF-8" />
     <title>SpellWheel</title>
-    <link rel="icon" type="image/x-icon" href="sprites/favicon.png">
     <script src="phaser.min.js"></script>
     <script src="game.js"></script>
     <noscript>Enable JavaScript to play this game.</noscript>
