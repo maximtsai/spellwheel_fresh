@@ -325,25 +325,29 @@ function showMainMenuButtons() {
                     playSound('button_hover', 1.5).detune = -75;
                     canvas.style.cursor = 'pointer';
                 }
-                globalObjects.continueButtonSprite.setFrame('continuegame_hover.webp');
-                globalObjects.continueButtonSprite.setScale(1.025);
-                globalObjects.continueButtonSprite.setRotation(-0.03);
+                if (globalObjects.continueButtonSprite && globalObjects.continueButtonSprite.active) {
+                    globalObjects.continueButtonSprite.setFrame('continuegame_hover.webp');
+                    globalObjects.continueButtonSprite.setScale(1.025);
+                    globalObjects.continueButtonSprite.setRotation(-0.03);
+                }
             },
             onHoverOut: () => {
                 if (canvas) {
                     canvas.style.cursor = 'default';
                 }
-                globalObjects.continueButtonSprite.setFrame('continuegame.webp');
-                globalObjects.continueButtonSprite.setRotation(0.045);
-                PhaserScene.tweens.add({
-                    targets: globalObjects.continueButtonSprite,
-                    duration: 100,
-                    scaleX: 1,
-                    scaleY: 1,
-                    easeParams: [3],
-                    rotation: 0,
-                    ease: 'Bounce.easeOut',
-                });
+                if (globalObjects.continueButtonSprite && globalObjects.continueButtonSprite.active) {
+                    globalObjects.continueButtonSprite.setFrame('continuegame.webp');
+                    globalObjects.continueButtonSprite.setRotation(0.045);
+                    PhaserScene.tweens.add({
+                        targets: globalObjects.continueButtonSprite,
+                        duration: 100,
+                        scaleX: 1,
+                        scaleY: 1,
+                        easeParams: [3],
+                        rotation: 0,
+                        ease: 'Bounce.easeOut',
+                    });
+                }
             },
             onMouseUp: () => {
                 playSound('click')
@@ -391,25 +395,29 @@ function showMainMenuButtons() {
                     playSound('button_hover', 1.5).detune = -150;
                     canvas.style.cursor = 'pointer';
                 }
-                globalObjects.levelButtonSprite.setFrame('selectgame_hover.webp');
-                globalObjects.levelButtonSprite.setScale(0.855);
-                globalObjects.levelButtonSprite.setRotation(-0.03);
+                if (globalObjects.levelButtonSprite && globalObjects.levelButtonSprite.active) {
+                    globalObjects.levelButtonSprite.setFrame('selectgame_hover.webp');
+                    globalObjects.levelButtonSprite.setScale(0.855);
+                    globalObjects.levelButtonSprite.setRotation(-0.03);
+                }
             },
             onHoverOut: () => {
                 if (canvas) {
                     canvas.style.cursor = 'default';
                 }
-                globalObjects.levelButtonSprite.setFrame('selectgame.webp');
-                globalObjects.levelButtonSprite.setRotation(0.045);
-                PhaserScene.tweens.add({
-                    targets: globalObjects.levelButtonSprite,
-                    duration: 100,
-                    scaleX: 0.85,
-                    scaleY: 0.85,
-                    easeParams: [3],
-                    rotation: 0,
-                    ease: 'Bounce.easeOut',
-                });
+                if (globalObjects.levelButtonSprite && globalObjects.levelButtonSprite.active) {
+                    globalObjects.levelButtonSprite.setFrame('selectgame.webp');
+                    globalObjects.levelButtonSprite.setRotation(0.045);
+                    PhaserScene.tweens.add({
+                        targets: globalObjects.levelButtonSprite,
+                        duration: 100,
+                        scaleX: 0.85,
+                        scaleY: 0.85,
+                        easeParams: [3],
+                        rotation: 0,
+                        ease: 'Bounce.easeOut',
+                    });
+                }
             },
             onMouseUp: () => {
                 playSound('flip1')
@@ -467,25 +475,29 @@ function showMainMenuButtons() {
                 playSound('button_hover', 1.5).detune = 0;
                 canvas.style.cursor = 'pointer';
             }
-            globalObjects.startButtonSprite.setFrame('newgame_hover.webp');
-            globalObjects.startButtonSprite.setScale(isSolo ? 1.03 : 0.91);
-            globalObjects.startButtonSprite.setRotation(-0.03 + globalObjects.startButtonSprite.rotationOffset);
+            if (globalObjects.startButtonSprite && globalObjects.startButtonSprite.active) {
+                globalObjects.startButtonSprite.setFrame('newgame_hover.webp');
+                globalObjects.startButtonSprite.setScale(isSolo ? 1.03 : 0.91);
+                globalObjects.startButtonSprite.setRotation(-0.03 + globalObjects.startButtonSprite.rotationOffset);
+            }
         },
         onHoverOut: () => {
             if (canvas) {
                 canvas.style.cursor = 'default';
             }
-            globalObjects.startButtonSprite.setFrame('newgame.webp');
-            globalObjects.startButtonSprite.setRotation(0.045 + globalObjects.startButtonSprite.rotationOffset);
-            PhaserScene.tweens.add({
-                targets: globalObjects.startButtonSprite,
-                duration: 100,
-                scaleX: isSolo ? 1.02 : 0.9,
-                scaleY: isSolo ? 1.02 : 0.9,
-                easeParams: [3],
-                rotation: globalObjects.startButtonSprite.rotationOffset,
-                ease: 'Bounce.easeOut',
-            });
+            if (globalObjects.startButtonSprite && globalObjects.startButtonSprite.active) {
+                globalObjects.startButtonSprite.setFrame('newgame.webp');
+                globalObjects.startButtonSprite.setRotation(0.045 + globalObjects.startButtonSprite.rotationOffset);
+                PhaserScene.tweens.add({
+                    targets: globalObjects.startButtonSprite,
+                    duration: 100,
+                    scaleX: isSolo ? 1.02 : 0.9,
+                    scaleY: isSolo ? 1.02 : 0.9,
+                    easeParams: [3],
+                    rotation: globalObjects.startButtonSprite.rotationOffset,
+                    ease: 'Bounce.easeOut',
+                });
+            }
         },
         onMouseUp: () => {
             // playSound('button_hover', 1).detune = -250;
@@ -668,10 +680,10 @@ function showMainMenuButtons() {
             globalObjects.options.hideButton();
             let page1Content = [];
             let page2Content = [];
-            let tab1 = PhaserScene.add.image(gameConsts.halfWidth - 190, gameConsts.halfHeight - 305, 'ui', 'paperTab.png').setDepth(99999).setAlpha(0);
+            let tab1 = PhaserScene.add.image(gameConsts.halfWidth - 190, gameConsts.halfHeight - 285, 'ui', 'paperTab.png').setDepth(99999).setAlpha(0);
             let tab1Icon = PhaserScene.add.text(tab1.x, tab1.y - 55, "PAGE 1", { fontFamily: 'germania', fontSize: 18, color: '#000000', align: 'center' }).setOrigin(0.5, 0).setDepth(99999).setAlpha(0);
 
-            let tab2 = PhaserScene.add.image(gameConsts.halfWidth - 90, gameConsts.halfHeight - 278, 'ui', 'paperTab.png').setDepth(99999).setAlpha(0);
+            let tab2 = PhaserScene.add.image(gameConsts.halfWidth - 90, gameConsts.halfHeight - 258, 'ui', 'paperTab.png').setDepth(99999).setAlpha(0);
             let tab2Icon = PhaserScene.add.text(tab2.x, tab2.y - 55, "PAGE 2", { fontFamily: 'germania', fontSize: 18, color: '#000000', align: 'center' }).setOrigin(0.5, 0).setDepth(99999).setAlpha(0);
 
 
@@ -684,8 +696,8 @@ function showMainMenuButtons() {
                 "Unlocking lock.wav by Stefan21100190\n- https://freesound.org/s/593112/\n- License: Attribution 4.0\n\n" +
                 "Sound Effects by Lara Sluyter\n(LARA’S HORROR SOUNDS on YouTube)\n\n" +
                 "Small_Swoosh - 1.wav by SoundFlakes\n-- https://freesound.org/s/416468/\n- License: Attribution 4.0";
-            let creditsUI = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'ui', 'paper.png').setDepth(100000).setScale(0.975);
-            let creditsPaper = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 1, 'misc', 'credits.png').setDepth(100000).setScale(0.975);
+            let creditsUI = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'ui', 'paper.png').setDepth(100000).setScale(0.975, 0.90);
+            let creditsPaper = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 1, 'misc', 'credits.png').setDepth(100000).setScale(0.975, 0.88);
 
             let clickBlock;
             clickBlock = new Button({
@@ -707,9 +719,16 @@ function showMainMenuButtons() {
             });
             clickBlock.setDepth(1000);
 
-            let creditsText2 = PhaserScene.add.text(gameConsts.halfWidth - 255, creditsUI.y - 284, text2, { fontSize: 16, color: '#000000', align: 'left' }).setOrigin(0, 0).setDepth(100000).setAlpha(0);
+            let creditsText2 = PhaserScene.add.text(gameConsts.halfWidth - 255, creditsUI.y - 260, text2, { fontSize: 15, color: '#000000', align: 'left' }).setOrigin(0, 0).setDepth(100000).setAlpha(0);
             PhaserScene.tweens.add({
-                targets: [creditsUI, tab1, tab1Icon, tab2, tab2Icon],
+                targets: [creditsUI],
+                duration: 180,
+                scaleX: 1,
+                scaleY: 0.92,
+                alpha: 1,
+            });
+            PhaserScene.tweens.add({
+                targets: [tab1, tab1Icon, tab2, tab2Icon],
                 duration: 180,
                 scaleX: 1,
                 scaleY: 1,
@@ -720,7 +739,7 @@ function showMainMenuButtons() {
                 targets: [creditsPaper],
                 duration: 180,
                 scaleX: 0.958,
-                scaleY: 0.958,
+                scaleY: 0.88,
                 alpha: 1,
             });
 
@@ -748,13 +767,17 @@ function showMainMenuButtons() {
                     alpha: 0
                 },
                 onHover: () => {
-                    tab1.setFrame('paperTab_glow.png')
+                    if (tab1 && tab1.active) {
+                        tab1.setFrame('paperTab_glow.png');
+                    }
                     if (canvas) {
                         canvas.style.cursor = 'pointer';
                     }
                 },
                 onHoverOut: () => {
-                    tab1.setFrame('paperTab.png')
+                    if (tab1 && tab1.active) {
+                        tab1.setFrame('paperTab.png');
+                    }
                     if (canvas) {
                         canvas.style.cursor = 'default';
                     }
@@ -763,25 +786,25 @@ function showMainMenuButtons() {
                     playSound('flip1');
                     PhaserScene.tweens.add({
                         targets: tab1,
-                        y: gameConsts.halfHeight - 305,
+                        y: gameConsts.halfHeight - 285,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
                     PhaserScene.tweens.add({
                         targets: tab1Icon,
-                        y: gameConsts.halfHeight - 305 - 55,
+                        y: gameConsts.halfHeight - 285 - 55,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
                     PhaserScene.tweens.add({
                         targets: tab2,
-                        y: gameConsts.halfHeight - 278,
+                        y: gameConsts.halfHeight - 258,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
                     PhaserScene.tweens.add({
                         targets: tab2Icon,
-                        y: gameConsts.halfHeight - 278 - 55,
+                        y: gameConsts.halfHeight - 258 - 55,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
@@ -823,13 +846,17 @@ function showMainMenuButtons() {
                     alpha: 0
                 },
                 onHover: () => {
-                    tab2.setFrame('paperTab_glow.png')
+                    if (tab2 && tab2.active) {
+                        tab2.setFrame('paperTab_glow.png');
+                    }
                     if (canvas) {
                         canvas.style.cursor = 'pointer';
                     }
                 },
                 onHoverOut: () => {
-                    tab2.setFrame('paperTab.png')
+                    if (tab2 && tab2.active) {
+                        tab2.setFrame('paperTab.png');
+                    }
                     if (canvas) {
                         canvas.style.cursor = 'default';
                     }
@@ -838,25 +865,25 @@ function showMainMenuButtons() {
                     playSound('flip2');
                     PhaserScene.tweens.add({
                         targets: tab1,
-                        y: gameConsts.halfHeight - 278,
+                        y: gameConsts.halfHeight - 258,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
                     PhaserScene.tweens.add({
                         targets: tab1Icon,
-                        y: gameConsts.halfHeight - 278 - 55,
+                        y: gameConsts.halfHeight - 258 - 55,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
                     PhaserScene.tweens.add({
                         targets: tab2,
-                        y: gameConsts.halfHeight - 305,
+                        y: gameConsts.halfHeight - 285,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
                     PhaserScene.tweens.add({
                         targets: tab2Icon,
-                        y: gameConsts.halfHeight - 305 - 55,
+                        y: gameConsts.halfHeight - 285 - 55,
                         duration: 180,
                         ease: 'Cubic.easeOut'
                     })
@@ -912,7 +939,7 @@ function showMainMenuButtons() {
                     ref: "closebtn.png",
                     alpha: 0.95,
                     x: gameConsts.halfWidth + 244,
-                    y: gameConsts.halfHeight - 275,
+                    y: gameConsts.halfHeight - 255,
                 },
                 hover: {
                     alpha: 1,
@@ -946,7 +973,7 @@ function showMainMenuButtons() {
             closeButton.setDepth(100000);
         }
     });
-    globalObjects.creditsButton.addText(getLangText('artbook'), { fontFamily: 'germania', fontSize: 26, color: '#FDF6F4', align: 'center', lineSpacing: -8 }).setOrigin(0.5, 0.5).setAlpha(0.96);
+    globalObjects.creditsButton.addText(getLangText('credits'), { fontFamily: 'germania', fontSize: 26, color: '#FDF6F4', align: 'center', lineSpacing: -8 }).setOrigin(0.5, 0.5).setAlpha(0.96);
     globalObjects.creditsButton.setStroke('#301010', 6)
     globalObjects.creditsButton.setRotation(-0.03)
 
@@ -1027,7 +1054,7 @@ function updateMenuLanguage() {
         }
     }
     if (globalObjects.creditsButton && !globalObjects.creditsButton.isDestroyed) {
-        globalObjects.creditsButton.setText(getLangText('artbook'))
+        globalObjects.creditsButton.setText(getLangText('credits'))
     }
     if (globalObjects.extrasButton && !globalObjects.extrasButton.isDestroyed) {
         let textObj2 = globalObjects.extrasButton.setText(getLangText('extras'));

@@ -192,6 +192,9 @@ class Button {
     }
 
     onHover() {
+        if (this.isDestroyed) {
+            return;
+        }
         if (this.state === NORMAL) {
             this.setState(HOVER);
         }
@@ -201,6 +204,9 @@ class Button {
     }
 
     onHoverOut() {
+        if (this.isDestroyed) {
+            return;
+        }
         if (this.onHoverOutFunc) {
             this.onHoverOutFunc();
         }
@@ -565,6 +571,12 @@ class Button {
             return;
         }
         this.isDestroyed = true;
+        this.onHoverFunc = null;
+        this.onHoverOutFunc = null;
+        this.onMouseDownFunc = null;
+        this.onMouseUpFunc = null;
+        this.onDragFunc = null;
+        this.onDropFunc = null;
         if (this.destructibles.length > 0) {
             for (let i = 0; i < this.destructibles.length; i++) {
                 this.destructibles[i].destroy();

@@ -738,7 +738,6 @@ ${css}
     ${remoteTranslationsTag}
     ${remoteCombatTag}
     ${remoteEnemiesTag}
-    <noscript>Enable JavaScript to play this game.</noscript>
 </head>
 <body onload="onloadFunc()" onresize="resizeGame()">
     <script>

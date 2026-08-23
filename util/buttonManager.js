@@ -96,6 +96,15 @@ class InternalButtonManager {
         if (index !== -1) {
             this.buttonList.splice(index, 1);
         }
+        if (this.lastHovered === button) {
+            this.lastHovered = null;
+        }
+        if (this.lastClickedButton === button) {
+            this.lastClickedButton = null;
+        }
+        if (this.draggedObj === button) {
+            this.draggedObj = null;
+        }
     }
 
     bringButtonToTop(button) {

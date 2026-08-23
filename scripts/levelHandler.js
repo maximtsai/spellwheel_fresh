@@ -216,7 +216,7 @@ function beginPreLevel(lvl) {
                 y: "-=60",
                 onComplete: () => {
                     let itemsToClear = texts.concat(introbgs);
-                    createLvlCloseButton(lvl, itemsToClear, 20, -342, [strikeHoverBtn, matterHoverBtn]);
+                    createLvlCloseButton(lvl, itemsToClear, 20, -370, [strikeHoverBtn, matterHoverBtn], false, 0.88);
                 }
             });
             PhaserScene.tweens.add({
@@ -404,7 +404,7 @@ function fadeInPreFightStuff(lvl, texts, introbgs, startDisabled) {
     });
 }
 
-function createLvlCloseButton(lvl, items, offsetX = 0, offsetY = 0, instaClose = [], startDisabled = false) {
+function createLvlCloseButton(lvl, items, offsetX = 0, offsetY = 0, instaClose = [], startDisabled = false, scale = 0.78) {
     let lvlCloseButton = new Button({
         normal: {
             ref: "menu_btn_normal.png",
@@ -466,8 +466,8 @@ function createLvlCloseButton(lvl, items, offsetX = 0, offsetY = 0, instaClose =
         }
     });
     lvlCloseButton.setOrigin(0.5, 0.5);
-    lvlCloseButton.addText(getLangText('cont_ui'), {fontFamily: 'germania', fontSize: 28, color: '#000000', align: 'left'})
-    lvlCloseButton.setScale(0.78);
+    lvlCloseButton.addText(getLangText('cont_ui'), {fontFamily: 'germania', fontSize: scale > 0.8 ? 31 : 28, color: '#000000', align: 'left'});
+    lvlCloseButton.setScale(scale);
     lvlCloseButton.setDepth(99999);
     lvlCloseButton.level = lvl;
     globalObjects.lvlCloseButton = lvlCloseButton;

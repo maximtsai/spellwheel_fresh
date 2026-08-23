@@ -7,6 +7,10 @@ let canFinishLoading = false;
 let loadLevel = 0;
 let MAGIC_CIRCLE_HEIGHT = 0;
 let canvas;
+let loadingTipInterval = null;
+let loadingParticles = [];
+let loadingTips = [];
+let loadingTipIndex = 0;
 
 function setupLoadingBar(scene) {
     PhaserScene.cameras.main.setZoom(0.98);
@@ -36,6 +40,17 @@ function setupLoadingBar(scene) {
         scaleY: 0.5,
         ease: 'Cubic.easeOut',
         duration: 1500,
+    });
+    // Subtle perpetual breathing pulse on the locket
+    loadObjects.introLocket.pulseAnim = PhaserScene.tweens.add({
+        targets: loadObjects.introLocket,
+        scaleX: 0.52,
+        scaleY: 0.52,
+        duration: 1800,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut',
+        delay: 1600,
     });
 
     icons.push(scene.add.image(gameConsts.halfWidth, iconsHeight, 'runeMatterPre'));
@@ -88,6 +103,29 @@ function setupLoadingBar(scene) {
     loadObjects.loadingText.setOrigin(0.5, 0);
     loadObjects.loadingText.scrollFactorX = 0.3; loadObjects.loadingText.scrollFactorY = 0.3;
 
+    // Loading percentage below the rune name
+    loadObjects.percentText = scene.add.text(gameConsts.halfWidth, loadObjects.loadingText.y + 48, '0%', {
+        fontFamily: 'germania',
+        fontSize: 18,
+        color: '#CCCCCC',
+        align: 'center'
+    }).setOrigin(0.5, 0).setAlpha(0.7).setDepth(1001);
+    loadObjects.percentText.scrollFactorX = 0.3; loadObjects.percentText.scrollFactorY = 0.3;
+
+    // Cycling tips that replace the static rune name every 3 seconds
+    loadingTips = [
+        getLangText('Matter_rune_short') + ' strengthens the body',
+        getLangText('Energy_rune_short') + ' sharpens your focus',
+        getLangText('Time_rune_short') + ' slows your opponent',
+        getLangText('Void_rune_short') + ' bends reality itself',
+        getLangText('Strike_rune_short') + ' strikes with force',
+        getLangText('Enhance_rune_short') + ' boosts your power',
+        getLangText('Shield_rune_short') + ' protects you from harm',
+        getLangText('Body_rune_short') + ' reinforces your form',
+        getLangText('Ultimate_rune_short') + ' unleashes devastation',
+    ];
+    loadingTipIndex = 0;
+
     let listOfPossibleTexts = [
         getLangText('Matter_rune_short'),
         getLangText('Strike_rune_short'),
@@ -128,12 +166,36 @@ function setupLoadingBar(scene) {
         duration: 300,
     });
 
+    // Floating ambient particles drifting upward behind the loading screen
+    loadingParticles = [];
+    for (let p = 0; p < 18; p++) {
+        let particle = scene.add.image(
+            Math.random() * gameConsts.width,
+            gameConsts.height + Math.random() * 100,
+            'whitePixel'
+        ).setDepth(100).setAlpha(0.06 + Math.random() * 0.08).setScale(1.5 + Math.random() * 3, 1.5 + Math.random() * 3);
+        particle.scrollFactorX = 0.25; particle.scrollFactorY = 0.25;
+        loadingParticles.push(particle);
+        driftParticleUp(particle);
+    }
 
     loadObjects.loadingSpinner.setDepth(200);
     loadObjects.castButton.setDepth(200);
 
     // Setup loading bar logic
     scene.load.on('progress', function (value) {
+        // Update percentage text
+        if (loadObjects.percentText) {
+            loadObjects.percentText.setText(Math.floor(value * 100) + '%');
+        }
+        // Cycle tips every 3 seconds
+        if (!loadingTipInterval && loadingTips && loadingTips.length > 0) {
+            loadingTipInterval = setInterval(function () {
+                if (!loadObjects.loadingText || !loadingTips) return;
+                loadingTipIndex = (loadingTipIndex + 1) % loadingTips.length;
+                loadObjects.loadingText.setText(loadingTips[loadingTipIndex]);
+            }, 3000);
+        }
         while (loadLevel <= value * 8.85) {
             loadObjects.loadingSpinner.goalRot = loadLevel * -Math.PI/4.5;//value * Math.PI * -1;
             let iconToEdit = icons[loadLevel];
@@ -359,6 +421,28 @@ function setupLoadingBar(scene) {
                 });
             }
         });
+    });
+}
+
+function driftParticleUp(particle) {
+    if (!particle || !particle.active) return;
+    var dur = 7000 + Math.random() * 9000;
+    var startY = gameConsts.height + Math.random() * 80;
+    var endY = -20 - Math.random() * 50;
+    particle.y = startY;
+    particle.x = Math.random() * gameConsts.width;
+    particle.alpha = 0.06 + Math.random() * 0.10;
+    particle.setScale(0.03 + Math.random() * 0.07);
+    if (particle.tweenObj) { particle.tweenObj.stop(); }
+    particle.tweenObj = PhaserScene.tweens.add({
+        targets: particle,
+        y: endY,
+        x: particle.x + (Math.random() - 0.5) * 120,
+        duration: dur,
+        ease: 'Linear',
+        onComplete: function () {
+            driftParticleUp(particle);
+        }
     });
 }
 
@@ -723,6 +807,9 @@ function cleanupIntro() {
     });
 
     hideGlobalClickBlocker();
+    // Stop tip cycling and kill particles
+    if (loadingTipInterval) { clearInterval(loadingTipInterval); loadingTipInterval = null; }
+    if (loadingParticles) { for (var pi = 0; pi < loadingParticles.length; pi++) { loadingParticles[pi].destroy(); } loadingParticles = []; }
     for (let i = 0; i < icons.length; i++) {
         icons[i].destroy();
     }

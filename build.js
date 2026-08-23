@@ -196,7 +196,6 @@ async function build() {
     <link href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap" rel="stylesheet">
     <script src="phaser.min.js"></script>
     <script src="game.js"></script>
-    <noscript>Enable JavaScript to play this game.</noscript>
     <style media='screen' type="text/css">
         #background {
             margin: 0;

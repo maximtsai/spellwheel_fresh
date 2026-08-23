@@ -786,10 +786,10 @@ let textData = {
         "jp": "。"
     },
     "artbook": {
-        "en_us": "ARTBOOK!",
-        "fr": "LIVRE D'ART",
-        "zh_tw": "藝術畫冊",
-        "zh_cn": "艺术书籍",
+        "en_us": "CREDITS",
+        "fr": "CRÉDITS",
+        "zh_tw": "制作名单",
+        "zh_cn": "制作名单",
         "ru": "",
         "es": "",
         "jp": "。"
