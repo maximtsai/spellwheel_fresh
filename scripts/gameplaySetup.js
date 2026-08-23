@@ -15,6 +15,13 @@ function setupLoadingBar(scene) {
     // Basic loading bar visual
     let iconsHeight = gameConsts.height - (isMobile ? 108 : 100);
     loadObjects.version = scene.add.text(4, gameConsts.height - 4, gameVersion).setOrigin(0, 1).setAlpha(0.7);
+    loadObjects.loadingNotice = scene.add.text(gameConsts.halfWidth, gameConsts.height - 12, 'THIS IS A BIG GAME, LOADING MAY TAKE AWHILE.', {
+        fontFamily: 'germania',
+        fontSize: 14,
+        color: '#FFFFFF',
+        align: 'center'
+    }).setOrigin(0.5, 1).setAlpha(0.32).setDepth(1001);
+    loadObjects.loadingNotice.scrollFactorX = 0; loadObjects.loadingNotice.scrollFactorY = 0;
     loadObjects.loadingSpinner = scene.add.image(gameConsts.halfWidth, iconsHeight, 'loadingSpinner');
     loadObjects.castButton = scene.add.image(gameConsts.halfWidth, iconsHeight, 'castNormal');
     loadObjects.castButton.scrollFactorX = 0.35; loadObjects.castButton.scrollFactorY = 0.35;

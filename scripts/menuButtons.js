@@ -661,16 +661,8 @@ function showMainMenuButtons() {
                 "Sound Effects by Lara Sluyter\n(LARA’S HORROR SOUNDS on YouTube)\n\n"+
                 "Small_Swoosh - 1.wav by SoundFlakes\n-- https://freesound.org/s/416468/\n- License: Attribution 4.0";
             let creditsUI = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight, 'ui', 'paper.png').setDepth(100000).setScale(0.975);
-            let creditsPaper =PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 1, 'misc', 'credits.png').setDepth(100000).setScale(0.975);
-            let discoverText = PhaserScene.add.text(gameConsts.halfWidth - 8, gameConsts.halfHeight + 146, getLangText('digital_artbook'), {fontFamily: 'germania', fontSize: 23.5, color: '#452127', align: 'center', lineSpacing: -5}).setOrigin(0.5, -1).setDepth(100000).setAlpha(0.3).setScale(1.03);
-            // let maximText = PhaserScene.add.text(gameConsts.halfWidth - 270, gameConsts.halfHeight - 206, "Programming & Game Design", {fontFamily: 'Arial', fontSize: 18, color: '#452127', align: 'left', lineSpacing: -5}).setOrigin(0, 0.25).setDepth(100000).setAlpha(0.3).setScale(0.975);
-            // maximText.setFontStyle('bold');
+            let creditsPaper = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight - 1, 'misc', 'credits.png').setDepth(100000).setScale(0.975);
 
-            let artbook = PhaserScene.add.image(gameConsts.halfWidth + 191, creditsPaper.y + 203, 'misc', 'artbook.png').setDepth(100002).setScale(0.31).setAlpha(0.2);
-
-            let artbookGlow = PhaserScene.add.image(artbook.x - 4, artbook.y, 'blurry', 'icon_glow.png').setDepth(100001).setAlpha(0).setScale(1.8);
-            artbook.origX = artbook.x;
-            artbook.origY = artbook.y;
             let clickBlock;
             clickBlock = new Button({
                 normal: {
@@ -691,121 +683,15 @@ function showMainMenuButtons() {
             });
             clickBlock.setDepth(1000);
 
-            let bookButton = new Button({
-                normal: {
-                    ref: "blackPixel",
-                    x: artbook.x,
-                    y: artbook.y,
-                    alpha: 0,
-                    scaleX: 90,
-                    scaleY: 110
-                },
-                onHover: () => {
-                    artbook.setScale(0.335)
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    artbook.setScale(0.326)
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
-                onMouseUp: () => {
-                    playSound('flip2');
-
-                    // artbookGlow.visible = false;
-                    // bookButton.setState(DISABLE);
-                    // let clickBlock;
-                    // clickBlock = new Button({
-                    //     normal: {
-                    //         ref: "blackPixel",
-                    //         scaleX: 1000,
-                    //         scaleY: 1000,
-                    //         alpha: 0.6,
-                    //         x: gameConsts.halfWidth,
-                    //         y: gameConsts.halfHeight,
-                    //     },
-                    //     disable: {
-                    //         alpha: 0
-                    //     },
-                    //     onMouseUp: () => {
-                    //
-                    //     }
-                    // });
-                    // clickBlock.setDepth(100001);
-                    // let actionText = PhaserScene.add.text(gameConsts.halfWidth, gameConsts.halfHeight + 300, "<Work in Progress>\nCheck us out later!", {fontFamily: 'germania', fontSize: 30, color: '#FFFFFF', align: 'center'}).setOrigin(0.5, 0).setDepth(100001).setAlpha(0);
-                    // PhaserScene.tweens.add({
-                    //     targets: [actionText],
-                    //     duration: 250,
-                    //     alpha: 1,
-                    // });
-                    //
-                    // PhaserScene.tweens.add({
-                    //     targets: [artbook],
-                    //     duration: 220,
-                    //     ease: 'Back.easeOut',
-                    //     scaleX: 1,
-                    //     scaleY: 1,
-                    //     x: gameConsts.halfWidth,
-                    //     y: gameConsts.halfHeight,
-                    //     onComplete: () => {
-                    //         clickBlock.setOnMouseUpFunc(() => {
-                    //             bookButton.setState(NORMAL)
-                    //             clickBlock.destroy();
-                    //             actionText.destroy();
-                    //             PhaserScene.tweens.add({
-                    //                 targets: [artbook],
-                    //                 duration: 180,
-                    //                 ease: 'Cubic.easeOut',
-                    //                 scaleX: 0.326,
-                    //                 scaleY: 0.326,
-                    //                 x: artbook.origX,
-                    //                 y: artbook.origY,
-                    //             });
-                    //             if (canvas) {
-                    //                 canvas.style.cursor = 'default';
-                    //             }
-                    //         })
-                    //     }
-                    // });
-                }
-            });
-            bookButton.setDepth(100000)
-
             let creditsText2 = PhaserScene.add.text(gameConsts.halfWidth - 255, creditsUI.y - 284, text2, {fontSize: 16, color: '#000000', align: 'left'}).setOrigin(0, 0).setDepth(100000).setAlpha(0);
             PhaserScene.tweens.add({
-                targets: [creditsUI, tab1, tab1Icon, tab2, tab2Icon, discoverText],
+                targets: [creditsUI, tab1, tab1Icon, tab2, tab2Icon],
                 duration: 180,
                 scaleX: 1,
                 scaleY: 1,
                 alpha: 1,
             });
 
-            // PhaserScene.tweens.add({
-            //     targets: [artbookGlow],
-            //     duration: 1500,
-            //     scaleX: 4.1,
-            //     scaleY: 4.1,
-            //     ease: 'Quad.easeIn',
-            //     alpha: 1,
-            //     onComplete: () => {
-            //         PhaserScene.tweens.add({
-            //             targets: [artbookGlow],
-            //             duration: 1500,
-            //             scaleX: 1.8,
-            //             scaleY: 1.8,
-            //             ease: 'Quad.easeOut',
-            //             alpha: 0,
-            //         });
-            //     }
-            // });
-            // PhaserScene.tweens.add({
-            //     targets: [artbookGlow],
-            //     duration: 3000,
-            //     rotation: "+=6.281",
-            // });
             PhaserScene.tweens.add({
                 targets: [creditsPaper],
                 duration: 180,
@@ -814,21 +700,8 @@ function showMainMenuButtons() {
                 alpha: 1,
             });
 
-            PhaserScene.tweens.add({
-                targets: [artbook],
-                duration: 180,
-                alpha: 1,
-            });
-            PhaserScene.tweens.add({
-                targets: [artbook],
-                duration: 250,
-                scaleX: 0.326,
-                scaleY: 0.326,
-                easeParams: [3],
-                ease: 'Back.easeOut'
-            });
-            page1Content.push(artbook, creditsPaper, discoverText, artbookGlow)
-            page2Content.push(creditsText2)
+            page1Content.push(creditsPaper);
+            page2Content.push(creditsText2);
 
             let page1Btn = new Button({
                 normal: {
@@ -864,7 +737,6 @@ function showMainMenuButtons() {
                 },
                 onMouseUp: () => {
                     playSound('flip1');
-                    bookButton.setState(NORMAL);
                     PhaserScene.tweens.add({
                         targets: tab1,
                         y: gameConsts.halfHeight - 305,
@@ -940,7 +812,6 @@ function showMainMenuButtons() {
                 },
                 onMouseUp: () => {
                     playSound('flip2');
-                    bookButton.setState(DISABLE);
                     PhaserScene.tweens.add({
                         targets: tab1,
                         y: gameConsts.halfHeight - 278,
@@ -986,16 +857,12 @@ function showMainMenuButtons() {
                 globalObjects.options.showButton();
                 clickBlock.destroy();
                 creditsUI.destroy();
-                discoverText.destroy();
-                artbook.destroy();
                 creditsPaper.destroy();
-                bookButton.destroy();
                 creditsText2.destroy();
                 tab1.destroy();
                 tab2.destroy();
                 tab1Icon.destroy();
                 tab2Icon.destroy();
-                artbookGlow.destroy();
                 sub.unsubscribe();
                 globalObjects.magicCircle.enableMovement();
                 this.closeButton.destroy();
@@ -1042,16 +909,12 @@ function showMainMenuButtons() {
                     globalObjects.options.showButton();
                     clickBlock.destroy();
                     creditsUI.destroy();
-                    discoverText.destroy();
-                    artbook.destroy();
                     creditsPaper.destroy();
-                    bookButton.destroy();
                     creditsText2.destroy();
                     tab1.destroy();
                     tab2.destroy();
                     tab1Icon.destroy();
                     tab2Icon.destroy();
-                    artbookGlow.destroy();
                     sub.unsubscribe();
                     globalObjects.magicCircle.enableMovement();
                     this.closeButton.destroy();
