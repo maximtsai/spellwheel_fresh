@@ -633,41 +633,38 @@
         globalObjects.textPopupManager.hideInfoText();
 
         this.x = gameConsts.halfWidth + 10;
+        this.sprite.x = this.x;
         this.sprite.rotation = 0;
-         this.y += this.sprite.height * this.sprite.scaleY * 0.45; this.sprite.y = this.y;
-         this.sprite.setOrigin(0.51, 0.96);
-         this.dieClickBlocker = new Button({
-             normal: {
-                 ref: "blackPixel",
-                 x: gameConsts.halfWidth,
-                 y: gameConsts.halfHeight,
-                 alpha: 0.001,
-                 scaleX: 1000,
-                 scaleY: 1000
-             },
-             onMouseUp: () => {
+        this.y += this.sprite.height * this.sprite.scaleY * 0.45;
+        this.sprite.y = this.y;
+        this.sprite.setOrigin(0.51, 0.96);
+        this.dieClickBlocker = new Button({
+            normal: {
+                ref: "blackPixel",
+                x: gameConsts.halfWidth,
+                y: gameConsts.halfHeight,
+                alpha: 0.001,
+                scaleX: 1000,
+                scaleY: 1000
+            },
+            onMouseUp: () => {
 
-             }
-         });
-         this.addTween({
-             targets: this.sprite,
-             rotation: -1.31,
-             ease: "Cubic.easeIn",
-             duration: 1000,
-             onComplete: () => {
-                 this.x -= 80;
-                 this.y = this.startY + 137;
-                 this.sprite.y = this.y;
-                 this.addTween({
-                     targets: this.sprite,
-                     y: this.y,
-                     ease: 'Cubic.easeOut',
-                     duration: 100,
-                 });
-                 this.setSprite('dummy_broken.png', this.sprite.scaleX);
-                 this.sprite.setRotation(0);
-                 this.sprite.setOrigin(0.85, 0.78);
-                 playSound('victory_2');
+            }
+        });
+        this.addTween({
+            targets: this.sprite,
+            rotation: -1.31,
+            ease: "Cubic.easeIn",
+            duration: 1000,
+            onComplete: () => {
+                this.x = gameConsts.halfWidth - 70;
+                this.y = this.startY + 137;
+                this.sprite.setPosition(this.x, this.y);
+                this.setSprite('dummy_broken.png', this.sprite.scaleX, true, 5);
+                this.sprite.setAlpha(1).setVisible(true);
+                this.sprite.setRotation(0);
+                this.sprite.setOrigin(0.85, 0.78);
+                playSound('victory_2');
 
                  this.showFlash(this.x, this.y - 75);
 

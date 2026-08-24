@@ -18,10 +18,9 @@ const configSandbox = {};
 eval(configContent.replace('const assets =', 'configSandbox.assets ='));
 const assets = configSandbox.assets;
 
-// External URL for combined Atlases + Combat bundle (uploaded to GitHub / CDN)
-const REMOTE_EXTERNAL_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/external.min.js';
-const REMOTE_TRANSLATIONS_URL = '';
-const REMOTE_ENEMIES_URL = '';
+// External URL for combined Atlases + Combat bundle (uploaded to GitHub / CDN) with automatic cache-busting timestamp
+const REMOTE_EXTERNAL_BASE_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/external.min.js';
+const REMOTE_EXTERNAL_URL = REMOTE_EXTERNAL_BASE_URL ? `${REMOTE_EXTERNAL_BASE_URL}?v=${Date.now()}` : '';
 
 function getAssetUrl(filename) {
     if (assets[filename]) return assets[filename].url;
@@ -375,7 +374,7 @@ async function buildAstro() {
     }
     generated = stripComments(generated);
 
-    // 7. Build translations: compile minified dist/translations.min.js
+    // 7. Build translations (inlined directly into index.html)
     let translations = '';
     for (const relPath of TRANSLATION_FILES) {
         const fullPath = path.join(SRC, relPath);
@@ -386,12 +385,6 @@ async function buildAstro() {
         translations += fs.readFileSync(fullPath, 'utf8') + '\n';
     }
     const strippedTranslations = stripComments(translations);
-    const minifiedTranslations = await Terser.minify(strippedTranslations, {
-        compress: true,
-        mangle: false,
-    });
-    fs.writeFileSync(path.join(DIST, 'translations.min.js'), minifiedTranslations.code);
-    console.log(`Wrote dist/translations.min.js: ${(minifiedTranslations.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
     // 8. Build external bundle (Atlases + Combat combined into dist/external.min.js)
     let combinedCombatOnly = '';
@@ -523,7 +516,7 @@ async function buildAstro() {
 window.run = run;\n`;
     combinedCore = stripComments(combinedCore);
 
-    // 10. Build gameplay / enemies: compile minified dist/enemies.min.js
+    // 10. Build gameplay / enemies (inlined directly into index.html)
     let combinedGameplay = '';
     for (const relPath of GAMEPLAY_FILES) {
         const fullPath = path.join(SRC, relPath);
@@ -534,14 +527,6 @@ window.run = run;\n`;
         combinedGameplay += fs.readFileSync(fullPath, 'utf8') + '\n';
     }
     const strippedGameplay = stripComments(combinedGameplay);
-
-    // Generate standalone minified enemies.min.js for CDN hosting
-    const minifiedEnemies = await Terser.minify(combinedGameplay, {
-        compress: true,
-        mangle: false, // Keep class names and functions readable and intact
-    });
-    fs.writeFileSync(path.join(DIST, 'enemies.min.js'), minifiedEnemies.code);
-    console.log(`Wrote dist/enemies.min.js: ${(minifiedEnemies.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
     // Copy phaser.min.js
     for (const file of EXTRA_FILES) {
@@ -678,29 +663,21 @@ canvas {
 }
 ${buildFontFaceCss()}`;
 
-    // Script tags for remote modules if configured
+    // Script tag for external module bundle if configured
     const remoteExternalTag = REMOTE_EXTERNAL_URL
         ? `<script src="${REMOTE_EXTERNAL_URL}"></script>`
         : '';
-    const remoteTranslationsTag = REMOTE_TRANSLATIONS_URL
-        ? `<script src="${REMOTE_TRANSLATIONS_URL}"></script>`
-        : '';
-    const remoteEnemiesTag = REMOTE_ENEMIES_URL
-        ? `<script src="${REMOTE_ENEMIES_URL}"></script>`
-        : '';
 
-    // Inlined fallbacks if not using remote URLs
-    const inlinedTranslations = REMOTE_TRANSLATIONS_URL ? '' : strippedTranslations;
+    // Inlined combat if not using remote external bundle
     const inlinedCombat = REMOTE_EXTERNAL_URL ? '' : strippedCombat;
-    const inlinedGameplay = REMOTE_ENEMIES_URL ? '' : strippedGameplay;
 
     // Assemble and minify inlined JavaScript block
     const rawInlinedJs = `
 ${fontXmlJs}
 ${generated}
-${inlinedTranslations}
+${strippedTranslations}
 ${inlinedCombat}
-${inlinedGameplay}
+${strippedGameplay}
 ${combinedCore}
 window.addEventListener('resize', function() {
     if (typeof resizeGame === 'function') {
@@ -734,8 +711,6 @@ ${css}
     </style>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
     ${remoteExternalTag}
-    ${remoteTranslationsTag}
-    ${remoteEnemiesTag}
 </head>
 <body onload="onloadFunc()" onresize="resizeGame()">
     <script>

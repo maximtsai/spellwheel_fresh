@@ -97,20 +97,21 @@ function setupLoadingBar(scene) {
         icons[i].scrollFactorX = 0.3; icons[i].scrollFactorY = 0.3;
     }
 
-    loadObjects.loadingText = scene.add.text(gameConsts.halfWidth, gameConsts.height - (isMobile ? 342 : 328), 'Loading...', {fontFamily: 'germania', fontSize: 36, color: '#FFFFFF', align: 'center'}).setDepth(1001);
+    // Loading percentage above the hint/lore text
+    let baseLoadY = gameConsts.height - (isMobile ? 356 : 342);
+    loadObjects.percentText = scene.add.text(gameConsts.halfWidth, baseLoadY, '0%', {
+        fontFamily: 'germania',
+        fontSize: 20,
+        color: '#CCCCCC',
+        align: 'center'
+    }).setOrigin(0.5, 0).setAlpha(0.75).setDepth(1001);
+    loadObjects.percentText.scrollFactorX = 0.3; loadObjects.percentText.scrollFactorY = 0.3;
+
+    loadObjects.loadingText = scene.add.text(gameConsts.halfWidth, loadObjects.percentText.y + 26, 'Loading...', {fontFamily: 'germania', fontSize: 36, color: '#FFFFFF', align: 'center'}).setDepth(1001);
     loadObjects.loadingText.setScale(0.6).setAlpha(0.93);
     loadObjects.loadingText.setAlign('center');
     loadObjects.loadingText.setOrigin(0.5, 0);
     loadObjects.loadingText.scrollFactorX = 0.3; loadObjects.loadingText.scrollFactorY = 0.3;
-
-    // Loading percentage below the rune name
-    loadObjects.percentText = scene.add.text(gameConsts.halfWidth, loadObjects.loadingText.y + 48, '0%', {
-        fontFamily: 'germania',
-        fontSize: 18,
-        color: '#CCCCCC',
-        align: 'center'
-    }).setOrigin(0.5, 0).setAlpha(0.7).setDepth(1001);
-    loadObjects.percentText.scrollFactorX = 0.3; loadObjects.percentText.scrollFactorY = 0.3;
 
     // Cycling tips that replace the static rune name every 3 seconds
     loadingTips = [
@@ -376,7 +377,7 @@ function setupLoadingBar(scene) {
 
             }
         });
-        swirlInReaperFog(1.15, 75, 1000);
+        swirlInReaperFog(1.265, 75, 1000);
 
         if (!gameVars.runningIntro) {
             gameOptions.skipIntroFull = true;
@@ -389,7 +390,7 @@ function setupLoadingBar(scene) {
             duration: 200,
             onComplete: () => {
                 scene.tweens.add({
-                    targets: [loadObjects.loadingText],
+                    targets: [loadObjects.loadingText, loadObjects.percentText],
                     alpha: 0,
                     ease: 'Quad.easeInOut',
                     duration: 500

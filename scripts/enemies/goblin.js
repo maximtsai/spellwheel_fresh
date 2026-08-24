@@ -721,12 +721,13 @@
              duration: 25,
              onComplete: () => {
                  playSound('goblin_grunt', 0.8).detune = -150;
-                 this.setDefaultSprite('gobboDead.png');
-                 this.sprite.setRotation(0);
-                 this.x -= 5;
-                 this.y += 48;
-                 this.addTimeout(() => {
-                     this.showFlash(this.x, this.y);
+                  this.x -= 5;
+                  this.y += 48;
+                  this.sprite.setPosition(this.x, this.y);
+                  this.setDefaultSprite('gobboDead.png', this.sprite.scaleX, true);
+                  this.sprite.setRotation(0);
+                  this.addTimeout(() => {
+                      this.showFlash(this.x, this.y);
                     this.addTimeout(() => {
                         let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999);
                         playSound('victory_2');

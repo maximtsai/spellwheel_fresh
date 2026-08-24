@@ -314,16 +314,19 @@
                  ease: "Cubic.easeIn",
                  duration: 1500,
                  onComplete: () => {
-                     this.setSprite('super_dummy_broken.png', this.sprite.scaleX);
-                     this.sprite.y += 25;
                      this.x -= 70;
                      this.y += 60;
+                     this.sprite.setPosition(this.x, this.y);
+                     this.setSprite('super_dummy_broken.png', this.sprite.scaleX, true, 5);
+                     this.sprite.setAlpha(1).setVisible(true);
                      this.sprite.setRotation(0);
                      this.sprite.setOrigin(0.85, 0.78);
 
-                     let rune = this.addSprite(this.x, this.y - 85, 'circle', 'bright_rune_mind.png').setOrigin(0.5, 0.15).setScale(0).setDepth(9999).setVisible(false);
+                     let rune = this.addSprite(this.x, this.y - 85, 'circle', 'bright_rune_mind.png').setOrigin(0.5, 0.15).setScale(0).setDepth(9999);
                      this.addTween({
                          targets: rune,
+                         scaleX: 1,
+                         scaleY: 1,
                          x: gameConsts.halfWidth,
                          duration: 1500,
                          onComplete: () => {

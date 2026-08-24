@@ -480,7 +480,7 @@ class Dummymind extends Dummypractice {
                     duration: 500,
                 })
                 playSound('water1');
-                let waterEnemy = this.addSprite(gameConsts.halfWidth, 335, 'water', 'water_emerge2.png').setScale(1, 0).setAlpha(0.5).setDepth(10);
+                let waterEnemy = this.addSprite(gameConsts.halfWidth, 355, 'water', 'water_emerge2.png').setScale(1, 0).setAlpha(0.5).setDepth(10);
 
 
                 PhaserScene.tweens.add({

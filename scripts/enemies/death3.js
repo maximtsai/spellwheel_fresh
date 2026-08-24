@@ -8,9 +8,9 @@ class Death3 extends Enemy {
         switchBackground('water.webp');
         gameVars.latestLevel = this.level;
         gameVars.currLevel = this.level;
-        localStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
+        safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
         gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level + 1);
-        localStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+        safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
 
         this.initSprite('max_death_3_white.png', 1, 0, 0, 'deathfinal');
         this.bgtemp = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfall.png').setDepth(-6).setScale(1, 1.03);

@@ -1121,9 +1121,9 @@
          this.stopIdleAnim();
         gameVars.latestLevel = this.level;
         gameVars.currLevel = this.level;
-        localStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
+        safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
         gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
-        localStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+        safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
 
         playSound('death_attack', 0.4).detune = -800;
         messageBus.publish("closeCombatText")
