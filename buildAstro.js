@@ -18,10 +18,10 @@ const configSandbox = {};
 eval(configContent.replace('const assets =', 'configSandbox.assets ='));
 const assets = configSandbox.assets;
 
-// CDN URLs for external modules. Setting REMOTE_TRANSLATIONS_URL to '' inlines all languages directly into index.html.
+// External URL for combined Atlases + Combat bundle (uploaded to GitHub / CDN)
+const REMOTE_EXTERNAL_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/external.min.js';
 const REMOTE_TRANSLATIONS_URL = '';
-const REMOTE_COMBAT_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/combat.min.js';
-const REMOTE_ENEMIES_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/enemies.min.js';
+const REMOTE_ENEMIES_URL = '';
 
 function getAssetUrl(filename) {
     if (assets[filename]) return assets[filename].url;
@@ -370,7 +370,9 @@ async function buildAstro() {
     generated += '// AUTO-GENERATED audio bank index & files\n';
     generated += 'const audioBankIndex = ' + JSON.stringify(audioBanks.index) + ';\n';
     generated += 'const audioBankFiles = ' + JSON.stringify(remoteAudioBankFiles) + ';\n';
-    generated += 'const inlinedRemoteAtlases = ' + JSON.stringify(remoteAtlases) + ';\n';
+    if (!REMOTE_EXTERNAL_URL) {
+        generated += 'const inlinedRemoteAtlases = ' + JSON.stringify(remoteAtlases) + ';\n';
+    }
     generated = stripComments(generated);
 
     // 7. Build translations: compile minified dist/translations.min.js
@@ -391,23 +393,27 @@ async function buildAstro() {
     fs.writeFileSync(path.join(DIST, 'translations.min.js'), minifiedTranslations.code);
     console.log(`Wrote dist/translations.min.js: ${(minifiedTranslations.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
-    // 8. Build combat: compile minified dist/combat.min.js
-    let combinedCombat = '';
+    // 8. Build external bundle (Atlases + Combat combined into dist/external.min.js)
+    let combinedCombatOnly = '';
+    let combinedExternal = 'var inlinedRemoteAtlases = ' + JSON.stringify(remoteAtlases) + ';\nwindow.inlinedRemoteAtlases = inlinedRemoteAtlases;\n';
     for (const relPath of COMBAT_FILES) {
         const fullPath = path.join(SRC, relPath);
         if (!fs.existsSync(fullPath)) {
             console.error(`Missing: ${relPath}`);
             process.exit(1);
         }
-        combinedCombat += fs.readFileSync(fullPath, 'utf8') + '\n';
+        const fileContent = fs.readFileSync(fullPath, 'utf8') + '\n';
+        combinedCombatOnly += fileContent;
+        combinedExternal += fileContent;
     }
-    const strippedCombat = stripComments(combinedCombat);
-    const minifiedCombat = await Terser.minify(strippedCombat, {
+    const strippedCombat = stripComments(combinedCombatOnly);
+    const strippedExternal = stripComments(combinedExternal);
+    const minifiedExternal = await Terser.minify(strippedExternal, {
         compress: true,
         mangle: false,
     });
-    fs.writeFileSync(path.join(DIST, 'combat.min.js'), minifiedCombat.code);
-    console.log(`Wrote dist/combat.min.js: ${(minifiedCombat.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
+    fs.writeFileSync(path.join(DIST, 'external.min.js'), minifiedExternal.code);
+    console.log(`Wrote dist/external.min.js: ${(minifiedExternal.code.length / 1024).toFixed(0)} KB (Atlases + Combat for GitHub / URL hosting)`);
 
     // 9. Build game core (engine bootstrap, UI, loading & main menu)
     let combinedCore = '';
@@ -673,11 +679,11 @@ canvas {
 ${buildFontFaceCss()}`;
 
     // Script tags for remote modules if configured
+    const remoteExternalTag = REMOTE_EXTERNAL_URL
+        ? `<script src="${REMOTE_EXTERNAL_URL}"></script>`
+        : '';
     const remoteTranslationsTag = REMOTE_TRANSLATIONS_URL
         ? `<script src="${REMOTE_TRANSLATIONS_URL}"></script>`
-        : '';
-    const remoteCombatTag = REMOTE_COMBAT_URL
-        ? `<script src="${REMOTE_COMBAT_URL}"></script>`
         : '';
     const remoteEnemiesTag = REMOTE_ENEMIES_URL
         ? `<script src="${REMOTE_ENEMIES_URL}"></script>`
@@ -685,7 +691,7 @@ ${buildFontFaceCss()}`;
 
     // Inlined fallbacks if not using remote URLs
     const inlinedTranslations = REMOTE_TRANSLATIONS_URL ? '' : strippedTranslations;
-    const inlinedCombat = REMOTE_COMBAT_URL ? '' : strippedCombat;
+    const inlinedCombat = REMOTE_EXTERNAL_URL ? '' : strippedCombat;
     const inlinedGameplay = REMOTE_ENEMIES_URL ? '' : strippedGameplay;
 
     // Assemble and minify inlined JavaScript block
@@ -727,8 +733,8 @@ window.addEventListener('resize', function() {
 ${css}
     </style>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    ${remoteExternalTag}
     ${remoteTranslationsTag}
-    ${remoteCombatTag}
     ${remoteEnemiesTag}
 </head>
 <body onload="onloadFunc()" onresize="resizeGame()">
