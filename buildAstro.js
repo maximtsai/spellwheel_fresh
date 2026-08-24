@@ -18,8 +18,8 @@ const configSandbox = {};
 eval(configContent.replace('const assets =', 'configSandbox.assets ='));
 const assets = configSandbox.assets;
 
-// CDN URLs for external modules to keep index.html extremely lightweight.
-const REMOTE_TRANSLATIONS_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/translations.min.js';
+// CDN URLs for external modules. Setting REMOTE_TRANSLATIONS_URL to '' inlines all languages directly into index.html.
+const REMOTE_TRANSLATIONS_URL = '';
 const REMOTE_COMBAT_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/combat.min.js';
 const REMOTE_ENEMIES_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/enemies.min.js';
 
@@ -174,6 +174,7 @@ const COMBAT_FILES = [
 // Core bootstrapping, UI, audio, utilities, menus, and level management
 const CORE_FILES = [
     // Utilities
+    'util/safeStorage.js',
     'util/messageBus.js',
     'util/buttonManager.js',
     'util/updateManager.js',
@@ -409,16 +410,7 @@ async function buildAstro() {
     console.log(`Wrote dist/combat.min.js: ${(minifiedCombat.code.length / 1024).toFixed(0)} KB (For CDN hosting)`);
 
     // 9. Build game core (engine bootstrap, UI, loading & main menu)
-    let combinedCore = `// In-memory gameStorage adapter for sandboxed iframes without allow-same-origin
-var gameStorage = (function() {
-    var memStorage = {};
-    return {
-        getItem: function(key) { return Object.prototype.hasOwnProperty.call(memStorage, key) ? memStorage[key] : null; },
-        setItem: function(key, val) { memStorage[key] = String(val); },
-        removeItem: function(key) { delete memStorage[key]; },
-        clear: function() { memStorage = {}; }
-    };
-})();\n`;
+    let combinedCore = '';
     for (const relPath of CORE_FILES) {
         const fullPath = path.join(SRC, relPath);
         if (!fs.existsSync(fullPath)) {
@@ -427,8 +419,8 @@ var gameStorage = (function() {
         }
         let code = fs.readFileSync(fullPath, 'utf8');
 
-        // Replace any localStorage calls with gameStorage
-        code = code.replace(/localStorage\./g, 'gameStorage.');
+        // Replace any remaining localStorage calls with safeStorage
+        code = code.replace(/localStorage\./g, 'safeStorage.');
 
         // If main.js, intercept loadAtlases to use inlined remoteAtlases directly and make onloadFunc idempotent
         if (relPath === 'main.js') {

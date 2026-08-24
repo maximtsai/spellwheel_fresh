@@ -615,9 +615,9 @@
         globalObjects.textPopupManager.hideInfoText();
          gameVars.latestLevel = this.level;
          gameVars.currLevel = this.level + 1;
-         localStorage.setItem("latestLevel", gameVars.latestLevel.toString());
+         safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
          gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
-         localStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+         safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
 
         if (this.rune3) {
             this.rune3.visible = false;
@@ -664,33 +664,38 @@
                      duration: 900,
                      onComplete: () => {
                          this.addTimeout(() => {
-                             globalObjects.bannerTextManager.setDialog([getLangText('level_water_victory')]);
-                             globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
-                             globalObjects.bannerTextManager.showBanner(false);
-                             globalObjects.bannerTextManager.setOnFinishFunc(() => {
-                                 globalObjects.bannerTextManager.setOnFinishFunc(() => {});
-                                 globalObjects.bannerTextManager.closeBanner();
+                              globalObjects.bannerTextManager.setDialog([getLangText('level_water_victory')]);
+                              globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
+                              globalObjects.bannerTextManager.showBanner(false);
+                              if (this.dieClickBlocker) {
+                                  this.dieClickBlocker.setOnMouseUpFunc(() => {
+                                      globalObjects.bannerTextManager.continueDialog();
+                                  });
+                              }
+                              globalObjects.bannerTextManager.setOnFinishFunc(() => {
+                                  globalObjects.bannerTextManager.setOnFinishFunc(() => {});
+                                  globalObjects.bannerTextManager.closeBanner();
 
-                                 let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999).setVisible(false);
-                                 playSound('victory_2');
-                                 this.addTween({
-                                     targets: rune,
-                                     x: gameConsts.halfWidth,
-                                     y: gameConsts.halfHeight - 170,
-                                     scaleX: 1,
-                                     scaleY: 1,
-                                     ease: "Cubic.easeOut",
-                                     duration: 650,
-                                     onComplete: () => {
-                                         this.showVictory(rune);
-                                     }
-                                 });
+                                  let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999);
+                                  playSound('victory_2');
+                                  this.addTween({
+                                      targets: rune,
+                                      x: gameConsts.halfWidth,
+                                      y: gameConsts.halfHeight - 170,
+                                      scaleX: 1,
+                                      scaleY: 1,
+                                      ease: "Cubic.easeOut",
+                                      duration: 650,
+                                      onComplete: () => {
+                                          this.showVictory(rune);
+                                      }
+                                  });
 
-                             });
+                              });
 
-                         }, 1200);
-                     }
-                 });
+                          }, 1200);
+                      }
+                  });
              }
          });
     }
@@ -741,6 +746,7 @@
                              canvas.style.cursor = 'default';
                          }
                          this.dieClickBlocker.destroy();
+                         this.dieClickBlocker = null;
                          PhaserScene.tweens.add({
                              targets: [victoryText, banner],
                              alpha: 0,
@@ -784,9 +790,9 @@
          globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
          globalObjects.bannerTextManager.showBanner(false);
          globalObjects.bannerTextManager.setOnFinishFunc(() => {
-             this.destroy();
              globalObjects.bannerTextManager.setOnFinishFunc(() => {});
              globalObjects.bannerTextManager.closeBanner();
+             this.destroy();
              setTimeout(() => {
                  beginPreLevel(this.level + 1)
              }, 750)

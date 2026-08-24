@@ -477,7 +477,7 @@
          this.setDefaultSprite('mantis_dead.png', this.sprite.startScale, true);
          this.sprite.setRotation(0).setScale(this.sprite.startScale);
          this.addTimeout(() => {
-            let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999).setVisible(false);
+            let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999);
             playSound('victory_2');
             this.addTween({
                 targets: rune,

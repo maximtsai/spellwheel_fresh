@@ -92,6 +92,7 @@ class BannerTextManager {
                 onMouseUp: () => {
                 }
             });
+            this.dialogButton.setDepth(100003);
 
             setTimeout(() => {
                 if (this.dialogButton) {

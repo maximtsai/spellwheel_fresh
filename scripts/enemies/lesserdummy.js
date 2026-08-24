@@ -159,7 +159,7 @@ class LesserDummy extends Enemy {
                         this.firstPopupClosed = true;
                         // globalObjects.textPopupManager.hideInfoText();
                         messageBus.publish("unhighlightRunes");
-                        if (this.glowCirc.currAnim) {
+                        if (this.glowCirc && this.glowCirc.currAnim) {
                             this.glowCirc.currAnim.stop();
                         }
                         if (this.hintArrow && this.hintArrow.currAnim) {
@@ -171,12 +171,14 @@ class LesserDummy extends Enemy {
                                 duration: 500,
                             });
                         }
-                        this.glowCirc.currAnim = this.addTween({
-                            targets: [this.glowCirc],
-                            alpha: 0,
-                            ease: "Cubic.easeOut",
-                            duration: 500,
-                        });
+                        if (this.glowCirc) {
+                            this.glowCirc.currAnim = this.addTween({
+                                targets: [this.glowCirc],
+                                alpha: 0,
+                                ease: "Cubic.easeOut",
+                                duration: 500,
+                            });
+                        }
                         spellListener.unsubscribe();
                         if (this.currShadowTween) {
                             this.currShadowTween.stop();
@@ -219,7 +221,9 @@ class LesserDummy extends Enemy {
                                     scaleY: 8,
                                     duration: 750,
                                     onComplete: () => {
-                                        this.eyeSprite.play('dummyblink');
+                                         if (this.eyeSprite && typeof this.eyeSprite.play === 'function') {
+                                             this.eyeSprite.play('dummyblink');
+                                         }
                                     }
                                 });
                             }
@@ -423,7 +427,7 @@ class LesserDummy extends Enemy {
                     // globalObjects.textPopupManager.setInfoText(gameConsts.halfWidth, 30, getLangText('level0_tut_b'), 'left');
                 }
                 this.addTimeout(() => {
-                    if (!this.dead) {
+                    if (!this.dead && this.eyeSprite && typeof this.eyeSprite.play === 'function') {
                         this.eyeSprite.play('dummyblink');
                     }
 
@@ -531,7 +535,9 @@ class LesserDummy extends Enemy {
         }
         if (newHealth > 0) {
             if (newHealth > 14) {
-                this.eyeSprite.play('dummyblink');
+                if (this.eyeSprite && typeof this.eyeSprite.play === 'function') {
+                    this.eyeSprite.play('dummyblink');
+                }
             } else {
                 let oldOriginX = this.sprite.originX;
                 let oldOriginY = this.sprite.originY;
@@ -579,34 +585,37 @@ class LesserDummy extends Enemy {
                 })
             }
 
+            let shakeTargets = this.eyeSprite ? [this.sprite, this.eyeSprite] : [this.sprite];
             this.addTween({
-                targets: [this.sprite, this.eyeSprite],
+                targets: shakeTargets,
                 rotation: -0.1,
                 ease: "Quart.easeOut",
                 duration: 50,
                 onComplete: () => {
                     this.addTween({
-                        targets: [this.sprite, this.eyeSprite],
+                        targets: shakeTargets,
                         rotation: 0,
                         ease: "Back.easeOut",
                         duration: 400,
                     });
                 }
             });
-            this.addTween({
-                targets: [this.eyeSprite],
-                x: "-=3",
-                ease: "Quart.easeOut",
-                duration: 50,
-                onComplete: () => {
-                    this.addTween({
-                        targets: [this.eyeSprite],
-                        x: this.x,
-                        ease: "Back.easeOut",
-                        duration: 400,
-                    });
-                }
-            });
+            if (this.eyeSprite) {
+                this.addTween({
+                    targets: [this.eyeSprite],
+                    x: "-=3",
+                    ease: "Quart.easeOut",
+                    duration: 50,
+                    onComplete: () => {
+                        this.addTween({
+                            targets: [this.eyeSprite],
+                            x: this.x,
+                            ease: "Back.easeOut",
+                            duration: 400,
+                        });
+                    }
+                });
+            }
         }
     }
 

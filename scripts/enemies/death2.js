@@ -60,12 +60,15 @@
          this.rightArm = this.addImage(this.x + xOffsetRight, this.y + yOffsetRight, 'deathfinal', 'max_death_2_right.png').setDepth(2).setScale(this.sprite.startScale).setAlpha(0);
          this.leftArm.startX = this.leftArm.x;
          this.rightArm.startX = this.rightArm.x;
+         this.leftArm.startY = this.leftArm.y;
+         this.rightArm.startY = this.rightArm.y;
          this.leftArm.startScaleX = this.leftArm.scaleX;
          this.rightArm.startScaleX = this.rightArm.scaleX;
 
          this.leftShoulder = this.addImage(this.x, this.y, 'deathfinal', 'max_death_2_shoulder.png').setDepth(2).setScale(this.sprite.startScale).setOrigin(0.5, this.sprite.originY).setAlpha(0);
         this.leftShoulder.startX = this.leftShoulder.x;
-         this.leftShoulder.startScaleX = this.leftShoulder.scaleX;
+        this.leftShoulder.startY = this.leftShoulder.y;
+        this.leftShoulder.startScaleX = this.leftShoulder.scaleX;
 
          this.scene.tweens.add({
              targets: [this.leftArm, this.rightArm, this.leftShoulder],
@@ -101,7 +104,7 @@
          let initEase = 'Quad.easeInOut';
          this.addTween({
              targets: this.sprite,
-             y: 90,
+             y: this.startY,
              scaleY: this.sprite.startScale,
              ease: initEase,
              duration: initDur,
@@ -111,7 +114,7 @@
              scaleX: this.leftShoulder.startScaleX,
              scaleY: this.leftShoulder.startScaleX,
              x: this.leftShoulder.startX,
-             y: 90,
+             y: this.leftShoulder.startY,
              ease: initEase,
              duration: initDur,
          });
@@ -119,7 +122,7 @@
              targets: this.leftArm,
              scaleX: this.leftArm.startScaleX,
              scaleY: this.leftArm.startScaleX,
-             y: 140.15,
+             y: this.leftArm.startY,
              x: this.leftArm.startX,
              rotation: 0.08,
              ease: initEase,
@@ -1555,7 +1558,7 @@
          // 1120 duration
          this.addTween({
              targets: this.sprite,
-             y: 93,
+             y: this.startY + 3,
              scaleY: this.sprite.startScale * 1.01,
              ease: 'Cubic.easeOut',
              duration: mult * 700,
@@ -1565,7 +1568,7 @@
              targets: this.leftArm,
              scaleX: this.leftArm.startScaleX * 0.94,
              x: this.leftArm.startX + 2,
-             y: 139,
+             y: this.leftArm.startY - 1.15,
              rotation: 0.33,
              ease: 'Cubic.easeOut',
              duration: mult * 700,
@@ -1575,7 +1578,7 @@
              targets: this.rightArm,
              scaleX: this.rightArm.startScaleX * 0.94,
              x: this.rightArm.startX,
-             y: 139,
+             y: this.rightArm.startY - 0.3,
              rotation: -0.33,
              ease: 'Cubic.easeOut',
              duration: mult * 700,
@@ -1583,7 +1586,7 @@
 
          this.addTween({
              targets: this.leftShoulder,
-             y: 91,
+             y: this.leftShoulder.startY + 1,
              scaleX: this.leftShoulder.startScaleX * 1,
              rotation: 0.15,
              ease: 'Cubic.easeOut',
@@ -1591,7 +1594,7 @@
              onComplete: () => {
                  this.addTween({
                      targets: this.sprite,
-                     y: 94,
+                     y: this.startY + 4,
                      scaleY: this.sprite.startScale * 0.983,
                      ease: 'Quart.easeIn',
                      duration: mult * 420,
@@ -1601,14 +1604,14 @@
                      rotation: 0,
                      scaleX: this.leftShoulder.startScaleX * 1.12,
                      x: this.leftShoulder.startX + 1,
-                     y: 93,
+                     y: this.leftShoulder.startY + 3,
                      ease: 'Cubic.easeIn',
                      duration: mult * 420,
                  });
                  this.addTween({
                      targets: this.leftArm,
                      x: this.leftArm.startX - 6,
-                     y: 141,
+                     y: this.leftArm.startY + 0.85,
                      rotation: -0.38,
                      ease: 'Quart.easeIn',
                      duration: mult * 420,

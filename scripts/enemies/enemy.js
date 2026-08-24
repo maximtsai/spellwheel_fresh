@@ -1516,7 +1516,7 @@ class Enemy {
     }
 
     takeDamage(amt, isAttack = true, yOffset = 0, type) {
-        if (globalObjects.player.isDead()) {
+        if (this.isDestroyed || this.dead || (globalObjects.player && globalObjects.player.isDead())) {
             return;
         }
         if (this.delayLoad) {

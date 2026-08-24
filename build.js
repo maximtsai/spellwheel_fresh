@@ -15,6 +15,7 @@ const JS_FILES = [
     'textData3.js',
     'textData4.js',
     // Utilities
+    'util/safeStorage.js',
     'util/messageBus.js',
     'util/buttonManager.js',
     'util/updateManager.js',

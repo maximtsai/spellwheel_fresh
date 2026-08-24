@@ -534,8 +534,8 @@ class PostFightScreen {
 
         if (level > gameVars.latestLevel) {
             gameVars.latestLevel = level;
-            localStorage.setItem("latestLevel", gameVars.latestLevel.toString());
-            localStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+            safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
+            safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
         }
 
         gameVars.currLevel = level;

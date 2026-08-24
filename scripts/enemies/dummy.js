@@ -97,7 +97,7 @@
                  scaleY: scale*1.01,
                  alpha: 1,
                  onComplete: () => {
-                     playSound('balloon', 0.3).detune = -800;
+                    playSound('balloon', 0.3).detune = -800;
                      this.addTween({
                          targets: this.sprite,
                          duration: 200,
@@ -125,9 +125,9 @@
 
      initTutorial() {
          gameVars.latestLevel = this.level - 1;
-         localStorage.setItem("latestLevel", gameVars.latestLevel.toString());
+         safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
          gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
-         localStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+         safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
 
         this.bgMusic = playMusic('bite_down_simplified', 0.65, true);
         globalObjects.magicCircle.disableMovement();
@@ -289,26 +289,38 @@
 
     clearStartShadow() {
         globalObjects.textPopupManager.hideInfoText();
-        if (this.shadow.currAnim) {
-            this.shadow.currAnim.stop();
-        }
-        if (this.shadowSmall.currAnim) {
-            this.shadowSmall.currAnim.stop();
-        }
-        if (this.glowCirc2.currAnim) {
-            this.glowCirc2.currAnim.stop();
-        }
-        this.addTween({
-            targets: [this.shadow, this.shadowSmall, this.glowCirc2],
-            alpha: 0,
-            ease: "Cubic.easeOut",
-            duration: 500,
-            onComplete: () => {
-                this.glowCirc2.visible = false;
-                this.shadow.visible = false;
-                this.shadowSmall.visible = false;
+        let targets = [];
+        if (this.shadow) {
+            if (this.shadow.currAnim) {
+                this.shadow.currAnim.stop();
             }
-        });
+            targets.push(this.shadow);
+        }
+        if (this.shadowSmall) {
+            if (this.shadowSmall.currAnim) {
+                this.shadowSmall.currAnim.stop();
+            }
+            targets.push(this.shadowSmall);
+        }
+        if (this.glowCirc2) {
+            if (this.glowCirc2.currAnim) {
+                this.glowCirc2.currAnim.stop();
+            }
+            targets.push(this.glowCirc2);
+        }
+        if (targets.length > 0) {
+            this.addTween({
+                targets: targets,
+                alpha: 0,
+                ease: "Cubic.easeOut",
+                duration: 500,
+                onComplete: () => {
+                    if (this.glowCirc2) this.glowCirc2.visible = false;
+                    if (this.shadow) this.shadow.visible = false;
+                    if (this.shadowSmall) this.shadowSmall.visible = false;
+                }
+            });
+        }
     }
 
     clearEnhancePopup() {
@@ -644,11 +656,11 @@
              duration: 1000,
              onComplete: () => {
                  this.x -= 80;
-                 this.y = 262;
+                 this.y = this.startY + 137;
                  this.sprite.y = this.y;
                  this.addTween({
                      targets: this.sprite,
-                     y: 262,
+                     y: this.y,
                      ease: 'Cubic.easeOut',
                      duration: 100,
                  });

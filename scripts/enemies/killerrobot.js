@@ -785,7 +785,7 @@
                              this.blush.rotation = 0;
                              this.kyaTween = this.addTween({
                                  targets: [this.sprite, this.blush],
-                                 y: 240,
+                                 y: this.sprite.startY + 70,
                                  ease: 'Cubic.easeIn',
                                  duration: 550,
                                  onComplete: () => {
@@ -1665,7 +1665,7 @@
                                                          playSound('clunk2');
 
                                                          this.addTimeout(() => {
-                                                             let rune = this.addSprite(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0).setVisible(false);
+                                                             let rune = this.addSprite(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0);
                                                              this.addTween({
                                                                  targets: rune,
                                                                  x: gameConsts.halfWidth,

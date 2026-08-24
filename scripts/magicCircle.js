@@ -1,5 +1,5 @@
 const DECAY = 0.000036;
-let STATIC = 0.008;
+let STATIC = 0.0095;
 const MIN_VEL = 0.0001;
 const ENABLE_KEYBOARD = true;
 
@@ -483,7 +483,7 @@ const ENABLE_KEYBOARD = true;
             let horizForce = -dragPointYOrigin * dragDistXOrigin;
             let dragForceSqr = horizForce + vertForce;
 
-            let torqueConst = gameVars.wasTouch ? 0.045 : 0.0435;
+            let torqueConst = gameVars.wasTouch ? 0.075 : 0.0435;
             if (gameVars.maxLevel >= 5) {
                 torqueConst += 0.014;
             }  else if (gameVars.maxLevel >= 2) {
@@ -1294,7 +1294,7 @@ const ENABLE_KEYBOARD = true;
         // flat drag amount
         let alteredDT = dt + 0.1;
         let multDT = alteredDT * alteredDT;
-        let angleCutoff = gameVars.wasTouch ? 0.15 : 0.08;
+        let angleCutoff = gameVars.wasTouch ? 0.18 : 0.08;
         if (this.storedDragAngleDiff > angleCutoff) {
             this.storedDragAngleDiff = angleCutoff;
         } else if (this.storedDragAngleDiff < -angleCutoff) {

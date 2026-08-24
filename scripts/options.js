@@ -467,7 +467,7 @@ class Options {
                     this.infoCenterButton.setState(NORMAL);
                     this.infoNoneButton.setState(NORMAL);
                     gameOptions.infoBoxAlign = "left";
-                    localStorage.setItem("info_align", gameOptions.infoBoxAlign);
+                    safeStorage.setItem("info_align", gameOptions.infoBoxAlign);
                     messageBus.publish('refreshHoverDisplay');
                     if (canvas) {
                         canvas.style.cursor = 'default';
@@ -515,7 +515,7 @@ class Options {
                     this.infoCenterButton.setState(DISABLE);
                     this.infoNoneButton.setState(NORMAL);
                     gameOptions.infoBoxAlign = "center";
-                    localStorage.setItem("info_align", gameOptions.infoBoxAlign);
+                    safeStorage.setItem("info_align", gameOptions.infoBoxAlign);
                     messageBus.publish('refreshHoverDisplay');
                     if (canvas) {
                         canvas.style.cursor = 'default';
@@ -563,7 +563,7 @@ class Options {
                     this.infoCenterButton.setState(NORMAL);
                     this.infoNoneButton.setState(DISABLE);
                     gameOptions.infoBoxAlign = "none";
-                    localStorage.setItem("info_align", gameOptions.infoBoxAlign);
+                    safeStorage.setItem("info_align", gameOptions.infoBoxAlign);
                     messageBus.publish('refreshHoverDisplay');
                     if (canvas) {
                         canvas.style.cursor = 'default';
@@ -901,7 +901,7 @@ class Options {
                     gameOptions.skipIntro = !gameOptions.skipIntro;
                     this.introToggleVisual.setFrame(gameOptions.skipIntro ? 'check_box_on.png' : 'check_box_normal.png');
 
-                    localStorage.setItem("skip_intro", gameOptions.skipIntro.toString());
+                    safeStorage.setItem("skip_intro", gameOptions.skipIntro.toString());
                 },
             });
             this.introButton.setDepth(this.baseDepth + 10);
@@ -949,14 +949,13 @@ class Options {
                 },
                 onMouseUp: (x, y) => {
                     gameOptions.fullscreen = !gameOptions.fullscreen;
+                    safeStorage.setItem("fullscreen", gameOptions.fullscreen.toString());
                     if (gameOptions.fullscreen) {
                         openFullscreen()
                     } else {
                         document.exitFullscreen();
                     }
                     this.fullscreenToggleVisual.setFrame(gameOptions.fullscreen ? 'check_box_on.png' : 'check_box_normal.png');
-
-                    localStorage.setItem("fullscreen", gameOptions.fullscreen.toString());
                 },
             });
             this.fullscreenButton.setDepth(this.baseDepth + 10);

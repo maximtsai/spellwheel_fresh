@@ -116,8 +116,8 @@ let timeUpdateCounterMax = 3;
 
 function preload() {
     handleBorders();
-    gameVars.latestLevel = parseInt(localStorage.getItem("latestLevel"));
-    gameVars.maxLevel = parseInt(localStorage.getItem("maxLevel"));
+    gameVars.latestLevel = parseInt(safeStorage.getItem("latestLevel"));
+    gameVars.maxLevel = parseInt(safeStorage.getItem("maxLevel"));
     if (!gameVars.latestLevel) {
         gameVars.latestLevel = 0;
     }
@@ -253,10 +253,10 @@ document.addEventListener('fullscreenchange', (event) => {
 });
 
 function initializeMiscLocalstorage() {
-    language = localStorage.getItem("language") || 'en_us';
-    gameOptions.infoBoxAlign = localStorage.getItem("info_align") || 'center';
+    language = safeStorage.getItem("language") || 'en_us';
+    gameOptions.infoBoxAlign = safeStorage.getItem("info_align") || 'center';
 
-    let storedSkipIntro = localStorage.getItem("skip_intro");
+    let storedSkipIntro = safeStorage.getItem("skip_intro");
     // let storedFullscreen = localStorage.getItem("fullscreen");
     // if (storedFullscreen) {
     //     gameOptions.fullscreen = storedFullscreen === 'true';

@@ -944,7 +944,11 @@ let textData = {
 
 function setLanguage(lang) {
     language = lang;
-    localStorage.setItem("language", lang);
+    if (typeof safeStorage !== 'undefined') {
+        safeStorage.setItem("language", lang);
+    } else {
+        try { localStorage.setItem("language", lang); } catch (e) {}
+    }
 
     messageBus.publish('language_switch', lang)
 }
