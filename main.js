@@ -1,5 +1,5 @@
 let isMobile = true;
-let pixelWidth = 588;
+let pixelWidth = 575;
 let pixelHeight = 900;
 handleBorders();
 let gameVersion = "v.1.19";
