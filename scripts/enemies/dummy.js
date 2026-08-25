@@ -658,7 +658,7 @@
             duration: 1000,
             onComplete: () => {
                 this.x = gameConsts.halfWidth - 70;
-                this.y = this.startY + 137;
+                this.y = this.sprite.startY + 137;
                 this.sprite.setPosition(this.x, this.y);
                 this.setSprite('dummy_broken.png', this.sprite.scaleX, true, 5);
                 this.sprite.setAlpha(1).setVisible(true);

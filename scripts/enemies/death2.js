@@ -104,7 +104,7 @@
          let initEase = 'Quad.easeInOut';
          this.addTween({
              targets: this.sprite,
-             y: this.startY,
+             y: this.sprite.startY,
              scaleY: this.sprite.startScale,
              ease: initEase,
              duration: initDur,
@@ -1558,7 +1558,7 @@
          // 1120 duration
          this.addTween({
              targets: this.sprite,
-             y: this.startY + 3,
+             y: this.sprite.startY + 3,
              scaleY: this.sprite.startScale * 1.01,
              ease: 'Cubic.easeOut',
              duration: mult * 700,
@@ -1594,7 +1594,7 @@
              onComplete: () => {
                  this.addTween({
                      targets: this.sprite,
-                     y: this.startY + 4,
+                     y: this.sprite.startY + 4,
                      scaleY: this.sprite.startScale * 0.983,
                      ease: 'Quart.easeIn',
                      duration: mult * 420,

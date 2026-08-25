@@ -18,9 +18,29 @@ const configSandbox = {};
 eval(configContent.replace('const assets =', 'configSandbox.assets ='));
 const assets = configSandbox.assets;
 
-// External URL for combined Atlases + Combat bundle (uploaded to GitHub / CDN) with automatic cache-busting timestamp
-const REMOTE_EXTERNAL_BASE_URL = 'https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@astro/release/external.min.js';
-const REMOTE_EXTERNAL_URL = REMOTE_EXTERNAL_BASE_URL ? `${REMOTE_EXTERNAL_BASE_URL}?v=${Date.now()}` : '';
+// External URL for the combined Atlases + Combat bundle (uploaded to GitHub / CDN).
+//
+// RELEASE_REF must be an IMMUTABLE git ref — a tag or a full commit SHA. Do not
+// point it at a branch: jsDelivr caches branch refs for ~12h and serves them
+// mutably, so a player can end up with a stale external.min.js paired with a
+// freshly built index.html. That mismatch is silent and does not reproduce
+// locally. Because the ref is immutable, the bundle is also permanently
+// cacheable — no ?v= timestamp, so returning players do not re-download 428 KB
+// on every build.
+//
+// BUMP THIS after committing + pushing a new release/external.min.js:
+//   git rev-parse HEAD
+const RELEASE_REF = '995428430161377b2b33cb37a29356cbb62755c6';
+const REMOTE_EXTERNAL_BASE_URL = `https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@${RELEASE_REF}/release/external.min.js`;
+const REMOTE_EXTERNAL_URL = REMOTE_EXTERNAL_BASE_URL;
+
+// Guard against someone reintroducing a branch/mutable ref.
+if (!/^[0-9a-f]{40}$/.test(RELEASE_REF) && !/^v[\d.]+$/.test(RELEASE_REF)) {
+    console.warn(
+        `[buildAstro] WARNING: RELEASE_REF "${RELEASE_REF}" is not a commit SHA or version tag. ` +
+        `jsDelivr serves branch refs mutably with a ~12h cache — players may get a stale bundle.`
+    );
+}
 
 function getAssetUrl(filename) {
     if (assets[filename]) return assets[filename].url;
@@ -418,8 +438,15 @@ async function buildAstro() {
         }
         let code = fs.readFileSync(fullPath, 'utf8');
 
-        // Replace any remaining localStorage calls with safeStorage
-        code = code.replace(/localStorage\./g, 'safeStorage.');
+        // Replace any remaining localStorage calls with safeStorage.
+        // safeStorage.js is the implementation and must be exempt: rewriting its
+        // internal `window.localStorage.getItem` to `window.safeStorage.getItem`
+        // makes every method call itself. The recursion throws, the surrounding
+        // try/catch swallows it, and the wrapper silently degrades to
+        // memory-only storage — i.e. saves never persist across a reload.
+        if (relPath !== 'util/safeStorage.js') {
+            code = code.replace(/localStorage\./g, 'safeStorage.');
+        }
 
         // If main.js, intercept loadAtlases to use inlined remoteAtlases directly and make onloadFunc idempotent
         if (relPath === 'main.js') {
@@ -621,6 +648,16 @@ html, body {
     overflow: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    /* Stop the browser's own touch gestures from stealing drags on the wheel:
+       no pull-to-refresh / rubber-banding, no double-tap zoom, no text
+       selection or long-press callout, no blue tap flash. */
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 /* The page colour lives on <html> ONLY. If <body> also paints a background,
    that background is drawn AFTER negative-z-index elements, which hides
@@ -645,6 +682,9 @@ canvas {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    /* The game handles all pointer input itself — hand it every touch instead
+       of letting the browser scroll/zoom the page mid-drag. */
+    touch-action: none;
 }
 #spellwheel {
     margin: 0 auto;
@@ -712,7 +752,7 @@ ${css}
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
     ${remoteExternalTag}
 </head>
-<body onload="onloadFunc()" onresize="resizeGame()">
+<body>
     <script>
         // Warm the webfonts. A rejection here just means the CDN was
         // unreachable: the text still renders in the fallback family, so
@@ -734,6 +774,19 @@ ${css}
     <div id="preload-notice">Loading Preloader ...</div>
     <script>
 ${minifiedInlinedJs.code}
+    </script>
+    <script>
+        // Bound here, after the bundle above has defined them. The old
+        // <body onload=... onresize=...> attributes could fire before this
+        // ~600 KB of inline JS finished parsing, throwing "resizeGame is not
+        // defined" on a resize during load. onloadFunc keeps its original
+        // window-load timing; if load already fired, it is called directly.
+        window.addEventListener('resize', function () { resizeGame(); });
+        if (document.readyState === 'complete') {
+            onloadFunc();
+        } else {
+            window.addEventListener('load', function () { onloadFunc(); });
+        }
     </script>
 </body>
 </html>`;
