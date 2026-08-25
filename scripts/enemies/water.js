@@ -676,7 +676,7 @@
                                   globalObjects.bannerTextManager.setOnFinishFunc(() => {});
                                   globalObjects.bannerTextManager.closeBanner();
 
-                                  let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999);
+                                  let rune = this.addImage(this.x, this.y, 'tutorial', 'rune_protect_large.png').setScale(0.5).setDepth(9999).setVisible(false);
                                   playSound('victory_2');
                                   this.addTween({
                                       targets: rune,

@@ -132,6 +132,7 @@ class BannerTextManager {
     }
 
     setPosition(x, y, textOffsetY = -4) {
+        y += 30;
         this.textBG.setPosition(x, y);
         this.text.setPosition(x, y + textOffsetY);
     }

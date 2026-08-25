@@ -128,6 +128,7 @@
          safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
          gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
          safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+         saveSpellwheelProgress();
 
         this.bgMusic = playMusic('bite_down_simplified', 0.65, true);
         globalObjects.magicCircle.disableMovement();
@@ -657,7 +658,7 @@
             ease: "Cubic.easeIn",
             duration: 1000,
             onComplete: () => {
-                this.x = gameConsts.halfWidth - 70;
+                this.x = gameConsts.halfWidth;
                 this.y = this.sprite.startY + 137;
                 this.sprite.setPosition(this.x, this.y);
                 this.setSprite('dummy_broken.png', this.sprite.scaleX, true, 5);

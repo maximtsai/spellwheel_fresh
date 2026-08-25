@@ -14,6 +14,7 @@
             safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
             gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
             safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+         saveSpellwheelProgress();
 
             fadeInSound(this.windSfx, 0.85, 1500);
             globalObjects.player.reInitStats();
@@ -689,6 +690,7 @@
          safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
          gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
          safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+         saveSpellwheelProgress();
 
          PhaserScene.tweens.add({
             targets: this.mainScythe,

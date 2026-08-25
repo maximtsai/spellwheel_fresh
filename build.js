@@ -215,7 +215,7 @@ async function build() {
             top: -3%;
             left: 0;
         }
-        #leftborder {
+        #topborder {
             margin: 0;
             z-index: -1;
             background-image: url("sprites/preload/handshield_back.webp");
@@ -228,7 +228,7 @@ async function build() {
             animation-duration: 0.6s;
             position: fixed;
         }
-        #rightborder {
+        #bottomborder {
             margin: 0;
             z-index: -1;
             background-image: url("sprites/preload/handshield_back.webp");
@@ -338,8 +338,8 @@ async function build() {
     </script>
     <div id="background"></div>
     <div id="preload"></div>
-    <div id="leftborder"></div>
-    <div id="rightborder"></div>
+    <div id="topborder"></div>
+    <div id="bottomborder"></div>
     <div style="font-family:robotomedium, 'Roboto'; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div style="font-family:garamondbold, 'EB Garamond'; font-weight:800; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div style="font-family:garamondmax, 'EB Garamond'; font-weight:500; position:absolute; left:-1000px; visibility:hidden;">.</div>

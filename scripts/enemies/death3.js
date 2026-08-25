@@ -11,6 +11,7 @@ class Death3 extends Enemy {
         safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
         gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level + 1);
         safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+        saveSpellwheelProgress();
 
         this.initSprite('max_death_3_white.png', 1, 0, 0, 'deathfinal');
         this.bgtemp = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfall.png').setDepth(-6).setScale(1, 1.03);

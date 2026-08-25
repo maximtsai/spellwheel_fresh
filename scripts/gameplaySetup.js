@@ -989,6 +989,7 @@ function resetGame() {
     for (let i in globalObjects) {
         globalObjects[i].destroy();
     }
+    resetSpellwheelSave();
 }
 
 function setupGame() {

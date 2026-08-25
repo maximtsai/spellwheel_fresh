@@ -536,6 +536,7 @@ class PostFightScreen {
             gameVars.latestLevel = level;
             safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
             safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+            saveSpellwheelProgress();
         }
 
         gameVars.currLevel = level;

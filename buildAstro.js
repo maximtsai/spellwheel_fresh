@@ -308,8 +308,21 @@ async function buildAstro() {
     for (const m of imageFilesSrc.matchAll(/name:\s*'([^']+)',\s*src:\s*'sprites\/preload\/([^']+)'/g)) {
         imageFilesPreload.push({
             name: m[1],
-            src: getAssetUrl(m[2])
+            src: getAssetUrl(m[2]) || getAssetUrl(m[1])
         });
+    }
+
+    // backgroundUrls: filename -> CDN URL for every sprites/preload asset.
+    // switchBackground()/preloadImage() set CSS background-image at runtime and
+    // would otherwise build a relative "sprites/preload/..." path, which does
+    // not exist in dist. main.js falls back to that path when this map is
+    // absent, so unbundled dev runs are unaffected.
+    const backgroundUrls = {};
+    const preloadDir = path.join(SRC, 'sprites', 'preload');
+    if (fs.existsSync(preloadDir)) {
+        for (const entry of fs.readdirSync(preloadDir)) {
+            backgroundUrls[entry] = getAssetUrl(entry);
+        }
     }
 
     // imageAtlases and deferredImageAtlases
@@ -379,6 +392,7 @@ async function buildAstro() {
     // 6. Build generated registries, audio bank index, and remote atlases
     let generated = '// AUTO-GENERATED Remote Asset Registries (Astro Build)\n';
     generated += 'const imageFilesPreload = ' + JSON.stringify(imageFilesPreload) + ';\n';
+    generated += 'const backgroundUrls = ' + JSON.stringify(backgroundUrls) + ';\n';
     generated += 'const imageAtlases = ' + JSON.stringify(imageAtlases) + ';\n';
     generated += 'const deferredImageAtlases = ' + JSON.stringify(deferredImageAtlases) + ';\n';
     generated += 'const imageFiles = [];\n';
@@ -450,14 +464,23 @@ async function buildAstro() {
 
         // If main.js, intercept loadAtlases to use inlined remoteAtlases directly and make onloadFunc idempotent
         if (relPath === 'main.js') {
+            const beforeOnload = code;
             code = code.replace(
-                /function onloadFunc\(\)\s*\{[\s\S]*?\n\}/,
-                `function onloadFunc() {
+                /(?:async\s+)?function onloadFunc\(\)\s*\{[\s\S]*?\n\}/,
+                `async function onloadFunc() {
+    if (game) return game;
+    // Await the save before constructing the game: preload() must stay
+    // synchronous or Phaser runs create() with nothing loaded.
+    await loadSpellwheelProgress();
     if (game) return game;
     game = new Phaser.Game(config);
     return game;
 }`
             );
+            if (code === beforeOnload) {
+                console.error('[buildAstro] FATAL: onloadFunc patch did not match main.js.');
+                process.exit(1);
+            }
             code = code.replace(
                 /function loadAtlases\s*\(scene\)\s*\{[\s\S]*?\n\}/,
                 `function loadAtlases(scene) {
@@ -591,7 +614,7 @@ window.run = run;\n`;
     top: -3%;
     left: 0;
 }
-#leftborder {
+#topborder {
     margin: 0;
     z-index: -1;
     background-image: url("${handshieldBackUrl}");
@@ -607,7 +630,7 @@ window.run = run;\n`;
     transform-origin: center center;
     transform: translate(-50%, -50%) rotate(90deg);
 }
-#rightborder {
+#bottomborder {
     margin: 0;
     z-index: -1;
     background-image: url("${handshieldBackUrl}");
@@ -764,8 +787,8 @@ ${css}
     </script>
     <div id="background"></div>
     <div id="preload"></div>
-    <div id="leftborder"></div>
-    <div id="rightborder"></div>
+    <div id="topborder"></div>
+    <div id="bottomborder"></div>
     <div style="font-family:robotomedium, 'Roboto', 'Helvetica Neue', Arial, sans-serif; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div style="font-family:garamondbold, 'EB Garamond', Garamond, Georgia, 'Times New Roman', serif; font-weight:800; position:absolute; left:-1000px; visibility:hidden;">.</div>
     <div style="font-family:garamondmax, 'EB Garamond', Garamond, Georgia, 'Times New Roman', serif; font-weight:500; position:absolute; left:-1000px; visibility:hidden;">.</div>

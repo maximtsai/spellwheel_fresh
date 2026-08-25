@@ -5,8 +5,8 @@
          this.bgMusic = playMusic('but_never_forgotten_metal', 1, true);
          switchBackgroundInstant('star_bg.webp');
 
-         this.bgMain = this.addSprite(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'star.png').setDepth(-5).setScale(1.04, 1.05)
-         this.bgBlur = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'star_blur.png').setDepth(-5).setScale(2.63).setAlpha(1.5);
+         this.bgMain = this.addSprite(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'star.png').setDepth(-5).setScale(1.0816, 1.092)
+         this.bgBlur = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'star_blur.png').setDepth(-5).setScale(2.7352).setAlpha(1.5);
          globalObjects.player.reInitStats();
          globalObjects.player.refreshHealthBar();
          messageBus.publish('showCircleShadow', 0.7, -50);
@@ -23,8 +23,8 @@
                  this.bgBlur.currAnim = this.addTween({
                      targets: this.bgBlur,
                      alpha: 0.38,
-                     scaleX: 2.64,
-                     scaleY: 2.64,
+                     scaleX: 2.7456,
+                     scaleY: 2.7456,
                      ease: 'Quad.easeInOut',
                      repeat: -1,
                      yoyo: true,
@@ -236,7 +236,7 @@
      }
 
     nowgivemeyourall() {
-        let darkBG = this.addImage(0, 0, 'blackPixel').setScale(1000);
+        let darkBG = this.addImage(0, 0, 'blackPixel').setScale(1080);
         darkBG.setDepth(-4).setAlpha(0.3);
         this.addTween({
             targets: darkBG,
@@ -3119,6 +3119,7 @@
          safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
          gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
          safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+         saveSpellwheelProgress();
 
         if (this.oldStartScale) {
             this.sprite.startScale = this.oldStartScale

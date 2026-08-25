@@ -1,7 +1,7 @@
  class Tree extends Enemy {
      constructor(scene, x, y, level) {
          super(scene, x, y, level);
-         this.initSprite('tree.png', 0.875);// 0.7
+         this.initSprite('tree.png', 0.949375);// 8.5% larger
          this.sprite.setOrigin(0.52, 0.88); // 0.9
          this.shieldAdded = false;
          this.bgMusic = playMusic('echos_of_time', 0.9, true);
@@ -31,7 +31,7 @@
                  this.sprite.setVisible(false);
 
                  if (!this.tempOverlaySprite) {
-                     this.tempOverlaySprite = this.addSprite(this.x, this.y, 'enemies', 'tree_shock1.png').setScale(2.1).setDepth(7);
+                     this.tempOverlaySprite = this.addSprite(this.x, this.y, 'enemies', 'tree_shock1.png').setScale(2.2785).setDepth(7);
                  }
                  this.tempOverlaySprite.setFrame('tree_shock1.png').setVisible(true);
                  this.tempOverlaySprite.x = this.x + 10;
@@ -49,7 +49,7 @@
                  }
                  this.addDelay(() => {
                      this.tempOverlaySprite.setFrame('tree_shock2.png');
-                     this.tempOverlaySprite.setScale(2.1)
+                     this.tempOverlaySprite.setScale(2.2785)
                      if (this.preparingTimber) {
                          this.tempOverlaySprite.setOrigin(0.52, 0.7);
                      } else {
@@ -93,14 +93,14 @@
              let eyePosX = this.x + 130 * this.sprite.startScale;
              let eyePosY = this.y - 68.5 * this.sprite.startScale;
 
-             let tree = this.addImage(this.x, this.y, 'enemies', 'tree_open.png').setDepth(1).setOrigin(this.sprite.originX, this.sprite.originY).setScale(this.sprite.startScale).setAlpha(0);
+             let tree = this.addImage(this.x, this.y, 'enemies', 'tree_open.png').setDepth(1).setOrigin(this.sprite.originX, this.sprite.originY).setScale(this.sprite.startScale * 1.085).setAlpha(0);
              this.addExtraSprite(tree);
 
-             let eye = this.addImage(eyePosX, eyePosY, 'enemies', 'tree_eye.png').setDepth(10).setOrigin(0.5, 0.5).setRotation(-0.13).setScale(0, this.sprite.startScale);
+             let eye = this.addImage(eyePosX, eyePosY, 'enemies', 'tree_eye.png').setDepth(10).setOrigin(0.5, 0.5).setRotation(-0.13).setScale(0, this.sprite.startScale * 1.085);
              // this.thorns1 = this.addImage(this.x, this.y - 70, 'enemies', 'thorns.png').setDepth(999).setOrigin(0.5, -0.25);
 
-             this.thorns1 = this.addImage(this.x - 4, this.y - 95, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57 + 3.1415).setOrigin(0.5, -0.6).setScale(0.7, 0.5);
-             this.thorns2 = this.addImage(this.x - 4, this.y - 95, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57).setOrigin(0.5, -0.6).setScale(0.7, 0.5);
+             this.thorns1 = this.addImage(this.x - 4, this.y - 95, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57 + 3.1415).setOrigin(0.5, -0.6).setScale(0.7595, 0.5425);
+             this.thorns2 = this.addImage(this.x - 4, this.y - 95, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57).setOrigin(0.5, -0.6).setScale(0.7595, 0.5425);
              this.thorns1.alpha = 0;
              this.thorns2.alpha = 0;
 
@@ -592,7 +592,7 @@
                  });
              }
          });
-        let spikeTemp = this.addImage(gameConsts.halfWidth, this.y - 150, 'spells', 'brickPattern1.png').setScale(0.75).setDepth(0).setAlpha(0).setRotation(-3);
+        let spikeTemp = this.addImage(gameConsts.halfWidth, this.y - 150, 'spells', 'brickPattern1.png').setScale(0.81375).setDepth(0).setAlpha(0).setRotation(-3);
 
          this.addTween({
             delay: 300,
@@ -952,7 +952,7 @@
                          this.pullbackDurMult = 1.13;
 
                          if (!this.glowBG) {
-                             this.glowBG = this.addImage(this.sprite.x, this.sprite.y, 'blurry', 'explod.webp').setDepth(-1).setAlpha(0.01).setScale(9).setBlendMode(Phaser.BlendModes.MULTIPLY);
+                             this.glowBG = this.addImage(this.sprite.x, this.sprite.y, 'blurry', 'explod.webp').setDepth(-1).setAlpha(0.01).setScale(9.765).setBlendMode(Phaser.BlendModes.MULTIPLY);
                          }
 
                          this.finalGlowTween = this.addTween({
@@ -974,7 +974,7 @@
                                  this.bgMusic = playMusic('echos_of_time_finale');
                              }
                          }, 3200)
-                        let greenSpike = this.addImage(this.sprite.x, this.sprite.y, 'lowq', 'green_spike.png').setDepth(20).setScale(5).setRotation(-3).setAlpha(0);
+                        let greenSpike = this.addImage(this.sprite.x, this.sprite.y, 'lowq', 'green_spike.png').setDepth(20).setScale(5.425).setRotation(-3).setAlpha(0);
                          this.addTween({
                              targets: greenSpike,
                              ease: 'Cubic.easeIn',
@@ -1019,7 +1019,7 @@
                              duration: 1000
                          })
 
-                        let greenSpike = this.addImage(this.sprite.x, this.sprite.y, 'lowq', 'green_spike.png').setDepth(20).setScale(0.1).setRotation(Math.PI * 0.25);
+                        let greenSpike = this.addImage(this.sprite.x, this.sprite.y, 'lowq', 'green_spike.png').setDepth(20).setScale(0.1085).setRotation(Math.PI * 0.25);
                          this.addTween({
                              targets: greenSpike,
                              ease: 'Quad.easeOut',
@@ -1052,9 +1052,9 @@
                          playSound('body_slam')
                          let dmgEffect = poolManager.getItemFromPool('brickPattern2')
                          if (!dmgEffect) {
-                             dmgEffect = this.addImage(gameConsts.halfWidth, globalObjects.player.getY() - 120, 'spells', 'brickPattern2.png').setDepth(998).setScale(0.75);
+                             dmgEffect = this.addImage(gameConsts.halfWidth, globalObjects.player.getY() - 120, 'spells', 'brickPattern2.png').setDepth(998).setScale(0.795);
                          }
-                         dmgEffect.setDepth(998).setScale(0.85).setAlpha(1);
+                         dmgEffect.setDepth(998).setScale(0.9225).setAlpha(1);
                          this.addTween({
                              targets: dmgEffect,
                              rotation: 1,
@@ -1077,8 +1077,8 @@
                      startFunction: () => {
                          this.addTween({
                              targets: this.sprite,
-                             scaleX: this.sprite.startScale,
-                             scaleY: this.sprite.startScale,
+                             scaleX: this.sprite.startScale * 1.085,
+                             scaleY: this.sprite.startScale * 1.085,
                              duration: 2000,
                              ease: 'Cubic.easeInOut'
                          })
@@ -1161,14 +1161,14 @@
          let oldScale = this.sprite.scaleX;
          let treeTop = this.addImage(this.sprite.x + 10, this.sprite.y, 'enemies', 'tree_top.png');
         this.clearThorns()
-         treeTop.setScale(this.sprite.scaleX, this.sprite.scaleY).setOrigin(this.sprite.originX, this.sprite.originY).setDepth(this.sprite.depth - 1);
+         treeTop.setScale(this.sprite.scaleX * 1.085, this.sprite.scaleY * 1.085).setOrigin(this.sprite.originX, this.sprite.originY).setDepth(this.sprite.depth - 1);
          this.setDefaultSprite('tree_stumped.png', this.sprite.startScale, true);
          this.sprite.setScale(oldScale);
 
          this.addTween({
              targets: this.sprite,
-             scaleX: this.sprite.startScale,
-             scaleY: this.sprite.startScale,
+             scaleX: this.sprite.startScale * 1.085,
+             scaleY: this.sprite.startScale * 1.085,
              duration: 2000,
              ease: 'Quad.easeOut',
          });
@@ -1208,7 +1208,7 @@
                 });
             }
         });
-        this.glowBG = this.addImage(spikeGlow1.x, spikeGlow1.y, 'blurry', 'explod.webp').setDepth(-1).setAlpha(0.01).setScale(9).setBlendMode(Phaser.BlendModes.MULTIPLY);
+        this.glowBG = this.addImage(spikeGlow1.x, spikeGlow1.y, 'blurry', 'explod.webp').setDepth(-1).setAlpha(0.01).setScale(9.765).setBlendMode(Phaser.BlendModes.MULTIPLY);
         this.addTween({
             targets: [this.glowBG],
             scaleX: 16,

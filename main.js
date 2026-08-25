@@ -51,8 +51,12 @@ function isSafariIOS() {
 }
 var game;
 
-function onloadFunc() {
+async function onloadFunc() {
+    // Resolve the platform/local save BEFORE booting Phaser, so preload() can
+    // stay synchronous and still see the restored level data.
+    await loadSpellwheelProgress();
     game = new Phaser.Game(config); // var canvas = game.canvas;
+    return game;
 }
 
 let gameConsts = {
@@ -111,13 +115,135 @@ let updateFunctions = {};
 let PhaserScene = null; // Global
 let oldTime = 0;
 let deltaScale = 1;
-let timeUpdateCounter = 0;
-let timeUpdateCounterMax = 3;
 
-function preload() {
-    handleBorders();
+// Platform persistence mirrors storageexample.html. The host provides `lib`
+// in production; safeStorage remains a local development fallback.
+const SPELLWHEEL_SAVE_VERSION = 1;
+const SPELLWHEEL_SAVE_DEBOUNCE_MS = 1500;
+const SPELLWHEEL_SAVE_MIN_INTERVAL_MS = 1000;
+let spellwheelSaveTimer = null;
+let spellwheelLastSaveTime = 0;
+let spellwheelSaveInFlight = false;
+let spellwheelSaveDirty = false;
+let spellwheelSaveResetting = false;
+
+function spellwheelSaveState() {
+    return {
+        v: SPELLWHEEL_SAVE_VERSION,
+        latestLevel: gameVars.latestLevel || 0,
+        maxLevel: gameVars.maxLevel || 0,
+        language: typeof language !== 'undefined' ? language : 'en_us',
+        infoBoxAlign: gameOptions.infoBoxAlign || 'center',
+        skipIntro: !!gameOptions.skipIntro
+    };
+}
+
+async function flushSpellwheelSave(force = false) {
+    if (spellwheelSaveTimer) {
+        clearTimeout(spellwheelSaveTimer);
+        spellwheelSaveTimer = null;
+    }
+    if (spellwheelSaveResetting) return;
+    if (spellwheelSaveInFlight) {
+        spellwheelSaveDirty = true;
+        return;
+    }
+    const now = Date.now();
+    if (!force && now - spellwheelLastSaveTime < SPELLWHEEL_SAVE_MIN_INTERVAL_MS) {
+        spellwheelSaveTimer = setTimeout(() => flushSpellwheelSave(false), SPELLWHEEL_SAVE_MIN_INTERVAL_MS - (now - spellwheelLastSaveTime));
+        return;
+    }
+    spellwheelSaveInFlight = true;
+    spellwheelSaveDirty = false;
+    spellwheelLastSaveTime = now;
+    try {
+        if (typeof lib !== 'undefined' && lib && typeof lib.saveUserGameState === 'function') {
+            await lib.saveUserGameState(spellwheelSaveState());
+        } else {
+            safeStorage.setItem('spellwheelState', JSON.stringify(spellwheelSaveState()));
+        }
+    } catch (err) {
+        if (typeof lib !== 'undefined' && lib && typeof lib.log === 'function') lib.log('Spellwheel save error: ' + err.message);
+    } finally {
+        spellwheelSaveInFlight = false;
+        if (spellwheelSaveDirty && !spellwheelSaveResetting) {
+            requestSpellwheelSave();
+        }
+    }
+}
+
+function requestSpellwheelSave() {
+    if (spellwheelSaveResetting) return;
+    if (spellwheelSaveTimer) clearTimeout(spellwheelSaveTimer);
+    spellwheelSaveTimer = setTimeout(() => flushSpellwheelSave(false), SPELLWHEEL_SAVE_DEBOUNCE_MS);
+}
+
+function saveSpellwheelProgress() {
+    if (spellwheelSaveResetting) return;
+    safeStorage.setItem('latestLevel', String(gameVars.latestLevel || 0));
+    safeStorage.setItem('maxLevel', String(gameVars.maxLevel || 0));
+    requestSpellwheelSave();
+}
+
+if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') flushSpellwheelSave(true);
+    });
+}
+if (typeof window !== 'undefined') {
+    window.addEventListener('pagehide', () => flushSpellwheelSave(true));
+}
+
+async function resetSpellwheelSave() {
+    spellwheelSaveResetting = true;
+    spellwheelSaveDirty = false;
+    if (spellwheelSaveTimer) {
+        clearTimeout(spellwheelSaveTimer);
+        spellwheelSaveTimer = null;
+    }
+    safeStorage.removeItem('latestLevel');
+    safeStorage.removeItem('maxLevel');
+    safeStorage.removeItem('spellwheelState');
+    try {
+        if (typeof lib !== 'undefined' && lib && typeof lib.deleteUserGameState === 'function') {
+            await lib.deleteUserGameState();
+        }
+    } catch (err) {
+        if (typeof lib !== 'undefined' && lib && typeof lib.log === 'function') lib.log('Spellwheel reset error: ' + err.message);
+    } finally {
+        spellwheelSaveResetting = false;
+        spellwheelLastSaveTime = 0;
+    }
+}
+
+async function loadSpellwheelProgress(){
+    try {
+        if (typeof lib !== 'undefined' && lib && typeof lib.getUserGameState === 'function') {
+            const savedData = await lib.getUserGameState();
+            const state = savedData && (savedData.state || savedData);
+            if (state && state.v === SPELLWHEEL_SAVE_VERSION) {
+                if (Number.isFinite(state.latestLevel)) gameVars.latestLevel = Math.max(0, Math.floor(state.latestLevel));
+                if (Number.isFinite(state.maxLevel)) gameVars.maxLevel = Math.max(gameVars.latestLevel, Math.floor(state.maxLevel));
+                if (typeof state.language === 'string') language = state.language;
+                if (typeof state.infoBoxAlign === 'string') gameOptions.infoBoxAlign = state.infoBoxAlign;
+                if (typeof state.skipIntro === 'boolean') gameOptions.skipIntro = state.skipIntro;
+                return;
+            }
+        }
+    } catch (err) {
+        if (typeof lib !== 'undefined' && lib && typeof lib.log === 'function') lib.log('Spellwheel load error: ' + err.message);
+    }
     gameVars.latestLevel = parseInt(safeStorage.getItem("latestLevel"));
     gameVars.maxLevel = parseInt(safeStorage.getItem("maxLevel"));
+}
+
+// MUST stay synchronous. Phaser checks load.list.size the instant preload()
+// returns; an async preload returns a pending promise with nothing queued yet,
+// so Phaser skips straight to create() and every texture create() touches is
+// still missing (green placeholder squares). The save is loaded in onloadFunc,
+// before the game is constructed, so gameVars is already populated here.
+function preload() {
+    handleBorders();
     if (!gameVars.latestLevel) {
         gameVars.latestLevel = 0;
     }
@@ -217,7 +343,7 @@ for (let i in deferredAudioFiles) {
 function onLoadComplete(scene) {
     initializeSounds(scene);
     initializeBitmapFonts(scene);
-    initializeMiscLocalstorage();
+    initializeMiscSettings();
     setupGame(scene);
     // Start loading the deferred assets in the background now that the game
     // has started. The main menu shows a small progress bar for them.
@@ -252,7 +378,7 @@ document.addEventListener('fullscreenchange', (event) => {
     }
 });
 
-function initializeMiscLocalstorage() {
+function initializeMiscSettings() {
     language = safeStorage.getItem("language") || 'en_us';
     gameOptions.infoBoxAlign = safeStorage.getItem("info_align") || 'center';
 
@@ -268,13 +394,15 @@ function initializeMiscLocalstorage() {
         gameOptions.skipIntro = storedSkipIntro === 'true';
     } else {
         gameOptions.isFirstTime = true;
-        localStorage.setItem("skip_intro", 'true');
+        safeStorage.setItem("skip_intro", 'true');
     }
 }
 
 let lastUpdateValues = [1, 1, 1, 1, 1];
 let lastUpdateValuesIdx = 0;
 let avgDeltaScale = 1;
+let timeUpdateCounter = 0;
+let timeUpdateCounterMax = 3;
 function update(time, delta) {
 
     if (loadObjects.loadingSpinner && loadObjects.loadingSpinner.goalRot) {
@@ -400,87 +528,57 @@ function initializeBitmapFonts(scene) {
 
 let lastShakeLeft = true;
 
-function screenShake(amt, durMultManual = 1) {
+// All three shakes are the same motion: alternate the starting direction, kick
+// the camera out to `amt`, then settle back to 0 with a bounce. They differ
+// only in timing, and whether there is an extra rebound before the settle.
+function runScreenShake(amt, outDuration, settleDuration, durMultManual = 1, rebound = false) {
     lastShakeLeft = !lastShakeLeft;
     if (lastShakeLeft) {
         amt = -amt;
     }
-    PhaserScene.cameras.main.scrollX = -amt;
-    let durMult = 1 + 0.1 * amt;
-    durMult *= durMultManual;
+    const camera = PhaserScene.cameras.main;
+    camera.scrollX = -amt;
+    const durMult = (1 + 0.1 * amt) * durMultManual;
+
+    const settle = () => {
+        PhaserScene.tweens.add({
+            targets: camera,
+            scrollX: 0,
+            ease: "Bounce.easeOut",
+            easeParams: [3],
+            duration: settleDuration * durMult,
+        });
+    };
+
     PhaserScene.tweens.add({
-        targets: PhaserScene.cameras.main,
+        targets: camera,
         scrollX: amt,
         ease: "Quint.easeOut",
-        duration: 50 * durMult,
-        onComplete: () => {
-            PhaserScene.tweens.add({
-                targets: PhaserScene.cameras.main,
-                scrollX: 0,
-                ease: "Bounce.easeOut",
-                easeParams: [3],
-                duration: 150 * durMult,
-            });
-        }
+        duration: outDuration * durMult,
+        onComplete: rebound
+            ? () => {
+                PhaserScene.tweens.add({
+                    targets: camera,
+                    scrollX: -amt * 0.9,
+                    ease: "Quint.easeInOut",
+                    duration: outDuration * durMult,
+                    onComplete: settle
+                });
+            }
+            : settle
     });
 }
 
+function screenShake(amt, durMultManual = 1) {
+    runScreenShake(amt, 50, 150, durMultManual);
+}
 
 function screenShakeLong(amt) {
-    lastShakeLeft = !lastShakeLeft;
-    if (lastShakeLeft) {
-        amt = -amt;
-    }
-    PhaserScene.cameras.main.scrollX = -amt;
-    let durMult = 1 + 0.1 * amt;
-    PhaserScene.tweens.add({
-        targets: PhaserScene.cameras.main,
-        scrollX: amt,
-        ease: "Quint.easeOut",
-        duration: 150 * durMult,
-        onComplete: () => {
-            PhaserScene.tweens.add({
-                targets: PhaserScene.cameras.main,
-                scrollX: 0,
-                ease: "Bounce.easeOut",
-                easeParams: [3],
-                duration: 400 * durMult,
-            });
-        }
-    });
+    runScreenShake(amt, 150, 400);
 }
 
 function screenShakeManual(amt, durMultManual = 1) {
-    lastShakeLeft = !lastShakeLeft;
-    if (lastShakeLeft) {
-        amt = -amt;
-    }
-    PhaserScene.cameras.main.scrollX = -amt;
-    let durMult = 1 + 0.1 * amt;
-    durMult *= durMultManual;
-    PhaserScene.tweens.add({
-        targets: PhaserScene.cameras.main,
-        scrollX: amt,
-        ease: "Quint.easeOut",
-        duration: 50 * durMult,
-        onComplete: () => {
-            PhaserScene.tweens.add({
-                targets: PhaserScene.cameras.main,
-                scrollX: -amt * 0.9,
-                ease: "Quint.easeInOut",
-                duration: 50 * durMult,
-                onComplete: () => {
-                    PhaserScene.tweens.add({
-                        targets: PhaserScene.cameras.main,
-                        scrollX: 0,
-                        ease: "Bounce.easeOut",
-                        easeParams: [3],
-                        duration: 150 * durMult,
-                    });
-                }
-            });
-        }
-    });
+    runScreenShake(amt, 50, 150, durMultManual, true);
 }
 
 function zoomTemp(zoomAmt) {
@@ -511,8 +609,8 @@ function zoomTempSlow(zoomAmt) {
 }
 
 function handleBorders() {
-    let topBorder = document.getElementById('leftborder');
-    let bottomBorder = document.getElementById('rightborder');
+    let topBorder = document.getElementById('topborder');
+    let bottomBorder = document.getElementById('bottomborder');
     if (!topBorder || !bottomBorder) {
         return;
     }
@@ -556,8 +654,8 @@ function handleBorders() {
 }
 
 function showBackground() {
-    let topBorder = document.getElementById('leftborder');
-    let bottomBorder = document.getElementById('rightborder');
+    let topBorder = document.getElementById('topborder');
+    let bottomBorder = document.getElementById('bottomborder');
     let background = document.getElementById('background');
 
     if (background) {
@@ -575,49 +673,68 @@ function showBackground() {
     }
 }
 
+// Resolves a background filename to a loadable URL.
+//
+// Bundled builds have no local sprites/ directory — every asset lives on the
+// CDN — so they emit a backgroundUrls map. Unbundled dev runs have no map and
+// fall back to the on-disk path. Without this, background switches silently
+// 404 in dist and the backdrop goes blank.
+function getBackgroundUrl(name) {
+    if (typeof backgroundUrls !== 'undefined' && backgroundUrls[name]) {
+        return backgroundUrls[name];
+    }
+    return 'sprites/preload/' + name;
+}
+
 let currBackground = 'grass_bg.webp';
-function switchBackground(newBG) {
+
+// instant: swap immediately with a short fade-in. Otherwise fade the old
+// background out first, then swap once it has gone.
+function switchBackground(newBG, instant = false) {
     if (currBackground === newBG) {
         return;
     }
-    let background = document.getElementById('background');
+    const background = document.getElementById('background');
+    const applyNewBG = () => {
+        currBackground = newBG;
+        if (!background) {
+            return;
+        }
+        background.style['background-image'] = 'url("' + getBackgroundUrl(newBG) + '")';
+        background.style.opacity = '1';
+        background.style['animation-duration'] = instant ? '0.5s' : '1.5s';
+        background.style['animation-name'] = instant ? 'fastChange' : 'changeShadow';
+    };
+
+    if (instant) {
+        applyNewBG();
+        return;
+    }
+
     if (background) {
         background.style['animation-name'] = 'fadeAway';
         background.style['animation-duration'] = '1.5s';
         background.style.opacity = '0';
     }
-    setTimeout(() => {
-        currBackground = newBG;
-        if (background) {
-            background.style['background-image'] = 'url("sprites/preload/' + newBG + '")';
-            background.style['animation-name'] = 'changeShadow';
-            background.style.opacity = '1';
-        }
-    }, 1400);
+    setTimeout(applyNewBG, 1400);
 }
 
 function switchBackgroundInstant(newBG) {
-    if (currBackground === newBG) {
-        return;
-    }
-    currBackground = newBG;
-    let background = document.getElementById('background');
-    if (background) {
-        background.style['background-image'] = 'url("sprites/preload/' + newBG + '")';
-        background.style.opacity = '1';
-        background.style['animation-duration'] = '0.5s';
-        background.style['animation-name'] = 'fastChange';
-    }
+    switchBackground(newBG, true);
 }
 
 function preloadImage(newBG) {
     let preload = document.getElementById('preload');
-    preload.style['content'] = 'url("sprites/preload/' + newBG + '")'
+    if (preload) {
+        preload.style['content'] = 'url("' + getBackgroundUrl(newBG) + '")';
+    }
 }
 
 function fadeBackground() {
     let background = document.getElementById('background');
-    background.style.opacity = '0';
-    background.style['animation-name'] = 'fadeAway';
-    background.style['animation-duration'] = '3s';
+    if (background) {
+        background.style.opacity = '0';
+        background.style['animation-name'] = 'fadeAway';
+        background.style['animation-duration'] = '3s';
+    }
 }

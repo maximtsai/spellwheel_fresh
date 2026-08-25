@@ -592,6 +592,7 @@
           safeStorage.setItem("latestLevel", gameVars.latestLevel.toString());
           gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
           safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+          saveSpellwheelProgress();
         playSound('rock_crumble', 0.4).detune = -300;
         playSound('shield_break', 0.6).detune = -800;
         globalObjects.textPopupManager.hideInfoText();

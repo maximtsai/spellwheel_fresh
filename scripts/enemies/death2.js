@@ -1124,6 +1124,7 @@
         safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
         gameVars.maxLevel = Math.max(gameVars.maxLevel, this.level);
         safeStorage.setItem("maxLevel", gameVars.maxLevel.toString());
+        saveSpellwheelProgress();
 
         playSound('death_attack', 0.4).detune = -800;
         messageBus.publish("closeCombatText")
