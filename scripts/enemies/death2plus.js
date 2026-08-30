@@ -314,8 +314,8 @@
                                  this.bgBlur.currAnim = this.addTween({
                                      targets: this.bgBlur,
                                      alpha: 0.3,
-                                     scaleX: 2.64,
-                                     scaleY: 2.64,
+                                     scaleX: 2.7456,
+                                     scaleY: 2.7456,
                                      ease: 'Quad.easeInOut',
                                      repeat: -1,
                                      yoyo: true,
@@ -739,7 +739,7 @@
                         screenShake(3);
                         zoomTemp(1.02)
                         this.bgMusic3 = playMusic('but_never_forgotten_epicchoir', 1, true);
-                        this.bgMain.setFrame('star_red.png').setScale(1.32);
+                        this.bgMain.setFrame('star_red.png').setScale(1.3728);
                         playSound('sound_of_death', 1.2).setSeek(0.2);
 
                          messageBus.publish('showCircleShadow', 0.7, -50);
@@ -3317,19 +3317,19 @@
          }, 0);
          this.bgMain.setFrame('star_shatter.png').setAlpha(1);
 
-         this.glassBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'glass_break.png').setOrigin(0.5, 0.5).setAlpha(1).setDepth(1000).setBlendMode(Phaser.BlendModes.ADD).setScale(1.333);
-         this.glassBG2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'glass_break.png').setOrigin(0.5, 0.5).setAlpha(1).setDepth(0).setBlendMode(Phaser.BlendModes.MULTIPLY).setScale(1.333);
+         this.glassBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'glass_break.png').setOrigin(0.5, 0.5).setAlpha(1).setDepth(1000).setBlendMode(Phaser.BlendModes.ADD).setScale(1.38632);
+         this.glassBG2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'glass_break.png').setOrigin(0.5, 0.5).setAlpha(1).setDepth(0).setBlendMode(Phaser.BlendModes.MULTIPLY).setScale(1.38632);
          this.addTween({
              targets: this.bgMain,
-             scaleX: 1.09,
-             scaleY: 1.09,
+             scaleX: 1.1336,
+             scaleY: 1.1336,
              duration: 50,
              ease: 'Quart.easeOut',
              onComplete: () => {
                  this.addTween({
                      targets: this.bgMain,
-                     scaleX: 1.06,
-                     scaleY: 1.06,
+                     scaleX: 1.1024,
+                     scaleY: 1.1024,
                      duration: 250,
                      ease: 'Quart.easeOut'
                  })
@@ -3339,15 +3339,15 @@
 
          this.addTween({
              targets: [this.glassBG, this.glassBG2],
-             scaleX: 1.37,
-             scaleY: 1.37,
+             scaleX: 1.4248,
+             scaleY: 1.4248,
              duration: 50,
              ease: 'Quart.easeOut',
              onComplete: () => {
                  this.addTween({
                      targets: [this.glassBG, this.glassBG2],
-                     scaleX: 1.333,
-                     scaleY: 1.333,
+                     scaleX: 1.38632,
+                     scaleY: 1.38632,
                      duration: 250,
                      ease: 'Quart.easeOut',
                      onComplete: () => {
