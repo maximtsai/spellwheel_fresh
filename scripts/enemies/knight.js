@@ -184,7 +184,7 @@
      initFog() {
          this.bg1 = PhaserScene.add.image(gameConsts.halfWidth, gameConsts.halfHeight * 0.7 + 1, 'backgrounds', 'background8.webp').setDepth(-10).setScale(1.04).setAlpha(0).setOrigin(0.5, 0.35);
 
-        this.fogThick = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 200, 'blurry', 'fogthick.png').setDepth(9).setAlpha(0).setOrigin(0.5, 0.25).setScale(2.16);
+        this.fogThick = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 200, 'blurry', 'fogthick.png').setDepth(9).setAlpha(0).setOrigin(0.5, 0.25).setScale(2.2);
         this.graves = this.addImage(gameConsts.halfWidth, gameConsts.height + 8, 'backgrounds', 'graves.png').setDepth(9).setScale(1.25, 1).setAlpha(0).setOrigin(0.5, 1);
 
          this.addTween({
@@ -198,7 +198,7 @@
              targets: [this.fogThick],
              duration: 1000,
              alpha: 1,
-             scaleX: 2.16,
+             scaleX: 2.2,
              ease: 'Cubic.easeInOut',
          });
         this.addTween({
@@ -313,7 +313,7 @@
 
         let goalY = gameConsts.halfHeight - 200 + (fogExpand ? 3 : -2);
         let goalX = gameConsts.halfWidth + (fogExpand ? 40 : -40);
-        let goalScaleX = 2.16 + (fogExpand ? 0.0648 : 0);
+        let goalScaleX = 2.2 + (fogExpand ? 0.07 : 0);
 
         this.fogTween = this.addTween({
             targets: this.fogThick,
@@ -1318,7 +1318,7 @@
          this.sprite.setDepth(2);
          playSound('meat_click_right');
          this.setMaxHealth(gameVars.isHardMode ? 110 : 90);
-         this.bg2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'gravedark.png').setDepth(-4).setScale(1.1);
+         this.bg2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 10, 'backgrounds', 'gravedark.png').setDepth(-4).setScale(1.24);
          this.graves.setVisible(false);
          this.heal(this.healthMax);
          this.setAwake();
@@ -1423,15 +1423,15 @@
          this.addTween({
              targets: [this.fogThick, this.fogSpook],
              duration: 1000,
-             scaleX: 10.8,
-             scaleY: 10.8,
+              scaleX: 11.02,
+             scaleY: 11.02,
              ease: 'Cubic.easeOut',
          })
          this.addTween({
              targets: [this.fogThick, this.fogSpook],
              duration: 1000,
-             scaleX: -9.72,
-             scaleY: 9.72,
+             scaleX: -9.91,
+             scaleY: 9.91,
              ease: 'Cubic.easeOut',
          })
          this.addTween({
@@ -1454,7 +1454,7 @@
          this.addExtraSprite(arm);
 
          this.addTimeout(() => {
-            this.fogSpook = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 200, 'blurry', 'fogspook.png').setDepth(9).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD).setOrigin(0.5, 0.25).setScale(-2.16, 2.16);
+            this.fogSpook = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 200, 'blurry', 'fogspook.png').setDepth(9).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD).setOrigin(0.5, 0.25).setScale(-2.2, 2.2);
             this.fogSpookTween = this.addTween({
                 targets: this.fogSpook,
                 alpha: 1,
