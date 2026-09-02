@@ -1,43 +1,43 @@
- class Death2 extends Enemy {
-     constructor(scene, x, y, level) {
-         super(scene, x, y, level);
-         switchBackground('fire_bg.webp');
-         this.initSprite('max_death_2.png', 0.85, 0, 0, 'deathfinal');
-         this.baseSprite = 'max_death_2.png';
-         this.sprite.setOrigin(0.5, 0.2);
-         this.forcedOriginY = 0.2;
-         this.blackBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(550).setAlpha(0.05).setDepth(-2);
-         this.createAnimatedHellBG();
-         globalObjects.player.reInitStats();
-         globalObjects.player.refreshHealthBar();
-         this.createArms();
-         this.blackBG.currAnim = this.addTween({
-             targets: this.blackBG,
-             alpha: 0.25,
-             duration: 1000,
-         })
+class Death2 extends Enemy {
+    constructor(scene, x, y, level) {
+        super(scene, x, y, level);
+        switchBackground('fire_bg.webp');
+        this.initSprite('max_death_2.png', 0.85, 0, 0, 'deathfinal');
+        this.baseSprite = 'max_death_2.png';
+        this.sprite.setOrigin(0.5, 0.2);
+        this.forcedOriginY = 0.2;
+        this.blackBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'blackPixel').setScale(550).setAlpha(0.05).setDepth(-2);
+        this.createAnimatedHellBG();
+        globalObjects.player.reInitStats();
+        globalObjects.player.refreshHealthBar();
+        this.createArms();
+        this.blackBG.currAnim = this.addTween({
+            targets: this.blackBG,
+            alpha: 0.25,
+            duration: 1000,
+        })
         globalObjects.magicCircle.disableMovement();
-         this.addTimeout(() => {
-             this.bgMusic = playMusic('but_never_forgotten', 1, true);
-             this.setAsleep();
-             this.introSpeech();
+        this.addTimeout(() => {
+            this.bgMusic = playMusic('but_never_forgotten', 1, true);
+            this.setAsleep();
+            this.introSpeech();
             globalObjects.encyclopedia.hideButton();
             globalObjects.options.hideButton();
-         }, 10)
-         console.log("made death 2");
-     }
+        }, 10)
+        console.log("made death 2");
+    }
 
-     initSpriteAnim(scale) {
-         this.sprite.setScale(scale);
-         if (!this.delayLoad) {
-             this.scene.tweens.add({
-                 targets: this.sprite,
-                 duration: gameVars.gameManualSlowSpeedInverse * 750,
-                 ease: 'Quad.easeOut',
-                 alpha: 1
-             });
-         }
-     }
+    initSpriteAnim(scale) {
+        this.sprite.setScale(scale);
+        if (!this.delayLoad) {
+            this.scene.tweens.add({
+                targets: this.sprite,
+                duration: gameVars.gameManualSlowSpeedInverse * 750,
+                ease: 'Quad.easeOut',
+                alpha: 1
+            });
+        }
+    }
 
     introSpeech() {
         globalObjects.bannerTextManager.setDialog([getLangText('deathFight2a')]);
@@ -51,176 +51,176 @@
         })
     }
 
-     createArms() {
-         let xOffsetLeft = -56 * this.sprite.startScale;
-         let xOffsetRight = 72 * this.sprite.startScale;
-         let yOffsetLeft = + 59 * this.sprite.startScale;
-         let yOffsetRight = + 58 * this.sprite.startScale;
-         this.leftArm = this.addImage(this.x + xOffsetLeft, this.y + yOffsetLeft, 'deathfinal', 'max_death_2_left.png').setDepth(2).setScale(this.sprite.startScale).setAlpha(0);
-         this.rightArm = this.addImage(this.x + xOffsetRight, this.y + yOffsetRight, 'deathfinal', 'max_death_2_right.png').setDepth(2).setScale(this.sprite.startScale).setAlpha(0);
-         this.leftArm.startX = this.leftArm.x;
-         this.rightArm.startX = this.rightArm.x;
-         this.leftArm.startY = this.leftArm.y;
-         this.rightArm.startY = this.rightArm.y;
-         this.leftArm.startScaleX = this.leftArm.scaleX;
-         this.rightArm.startScaleX = this.rightArm.scaleX;
+    createArms() {
+        let xOffsetLeft = -56 * this.sprite.startScale;
+        let xOffsetRight = 72 * this.sprite.startScale;
+        let yOffsetLeft = + 59 * this.sprite.startScale;
+        let yOffsetRight = + 58 * this.sprite.startScale;
+        this.leftArm = this.addImage(this.x + xOffsetLeft, this.y + yOffsetLeft, 'deathfinal', 'max_death_2_left.png').setDepth(2).setScale(this.sprite.startScale).setAlpha(0);
+        this.rightArm = this.addImage(this.x + xOffsetRight, this.y + yOffsetRight, 'deathfinal', 'max_death_2_right.png').setDepth(2).setScale(this.sprite.startScale).setAlpha(0);
+        this.leftArm.startX = this.leftArm.x;
+        this.rightArm.startX = this.rightArm.x;
+        this.leftArm.startY = this.leftArm.y;
+        this.rightArm.startY = this.rightArm.y;
+        this.leftArm.startScaleX = this.leftArm.scaleX;
+        this.rightArm.startScaleX = this.rightArm.scaleX;
 
-         this.leftShoulder = this.addImage(this.x, this.y, 'deathfinal', 'max_death_2_shoulder.png').setDepth(2).setScale(this.sprite.startScale).setOrigin(0.5, this.sprite.originY).setAlpha(0);
+        this.leftShoulder = this.addImage(this.x, this.y, 'deathfinal', 'max_death_2_shoulder.png').setDepth(2).setScale(this.sprite.startScale).setOrigin(0.5, this.sprite.originY).setAlpha(0);
         this.leftShoulder.startX = this.leftShoulder.x;
         this.leftShoulder.startY = this.leftShoulder.y;
         this.leftShoulder.startScaleX = this.leftShoulder.scaleX;
 
-         this.scene.tweens.add({
-             targets: [this.leftArm, this.rightArm, this.leftShoulder],
-             duration: gameVars.gameManualSlowSpeedInverse * 920,
-             ease: 'Quad.easeOut',
-             alpha: 1
-         });
+        this.scene.tweens.add({
+            targets: [this.leftArm, this.rightArm, this.leftShoulder],
+            duration: gameVars.gameManualSlowSpeedInverse * 920,
+            ease: 'Quad.easeOut',
+            alpha: 1
+        });
 
-         this.leftArm.setRotation(0.08);
-         this.rightArm.setRotation(-0.08);
-         this.raiseArmsAnim(() => {
-             if (this.blackBG.currAnim) {
-                 this.blackBG.currAnim.stop();
-             }
-             this.blackBG.alpha = 0;
+        this.leftArm.setRotation(0.08);
+        this.rightArm.setRotation(-0.08);
+        this.raiseArmsAnim(() => {
+            if (this.blackBG.currAnim) {
+                this.blackBG.currAnim.stop();
+            }
+            this.blackBG.alpha = 0;
 
 
-             this.whiteBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'whitePixel').setScale(500).setAlpha(0.62);
-             this.addTween({
-                 targets: [this.whiteBG],
-                 alpha: 0,
-                 duration: 1000,
-                 onComplete: () => {
-                 }
-             })
-             playSound('heartbeatfast');
-             this.startIdleAnim(true)
-         })
-     }
+            this.whiteBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'whitePixel').setScale(500).setAlpha(0.62);
+            this.addTween({
+                targets: [this.whiteBG],
+                alpha: 0,
+                duration: 1000,
+                onComplete: () => {
+                }
+            })
+            playSound('heartbeatfast');
+            this.startIdleAnim(true)
+        })
+    }
 
-     startIdleAnim(isSlow, isRepeat = true) {
-         let initDur = isSlow ? 700 : 300;
-         let initEase = 'Quad.easeInOut';
-         this.addTween({
-             targets: this.sprite,
-             y: this.sprite.startY,
-             scaleY: this.sprite.startScale,
-             ease: initEase,
-             duration: initDur,
-         })
-         this.addTween({
-             targets: this.leftShoulder,
-             scaleX: this.leftShoulder.startScaleX,
-             scaleY: this.leftShoulder.startScaleX,
-             x: this.leftShoulder.startX,
-             y: this.leftShoulder.startY,
-             ease: initEase,
-             duration: initDur,
-         });
-         this.addTween({
-             targets: this.leftArm,
-             scaleX: this.leftArm.startScaleX,
-             scaleY: this.leftArm.startScaleX,
-             y: this.leftArm.startY,
-             x: this.leftArm.startX,
-             rotation: 0.08,
-             ease: initEase,
-             duration: initDur,
-         });
-         if (this.leftFire) {
-             let xOffset = -108;
-             let yOffset = -40;
-             this.addTween({
-                 targets: this.leftFire,
-                 x: gameConsts.halfWidth + xOffset,
-                 y: this.y + yOffset,
-                 ease: initEase,
-                 duration: initDur,
-             });
-             this.addTween({
-                 targets: this.rightFire,
-                 x: gameConsts.halfWidth - xOffset,
-                 y: this.y + yOffset,
-                 ease: initEase,
-                 duration: initDur,
-             });
-         }
+    startIdleAnim(isSlow, isRepeat = true) {
+        let initDur = isSlow ? 700 : 300;
+        let initEase = 'Quad.easeInOut';
+        this.addTween({
+            targets: this.sprite,
+            y: this.sprite.startY,
+            scaleY: this.sprite.startScale,
+            ease: initEase,
+            duration: initDur,
+        })
+        this.addTween({
+            targets: this.leftShoulder,
+            scaleX: this.leftShoulder.startScaleX,
+            scaleY: this.leftShoulder.startScaleX,
+            x: this.leftShoulder.startX,
+            y: this.leftShoulder.startY,
+            ease: initEase,
+            duration: initDur,
+        });
+        this.addTween({
+            targets: this.leftArm,
+            scaleX: this.leftArm.startScaleX,
+            scaleY: this.leftArm.startScaleX,
+            y: this.leftArm.startY,
+            x: this.leftArm.startX,
+            rotation: 0.08,
+            ease: initEase,
+            duration: initDur,
+        });
+        if (this.leftFire) {
+            let xOffset = -108;
+            let yOffset = -40;
+            this.addTween({
+                targets: this.leftFire,
+                x: gameConsts.halfWidth + xOffset,
+                y: this.y + yOffset,
+                ease: initEase,
+                duration: initDur,
+            });
+            this.addTween({
+                targets: this.rightFire,
+                x: gameConsts.halfWidth - xOffset,
+                y: this.y + yOffset,
+                ease: initEase,
+                duration: initDur,
+            });
+        }
 
-         this.addTween({
-             targets: this.rightArm,
-             scaleX: this.rightArm.startScaleX,
-             scaleY: this.rightArm.startScaleX,
-             x: this.rightArm.startX,
-             y: 139.3,
-             rotation: -0.08,
-             ease: initEase,
-             duration: initDur,
-             onComplete: () => {
-                 this.idleAnimations.push(this.addTween({
-                     targets: this.sprite,
-                     y: "+=4",
-                     scaleY: this.sprite.startScale * 0.983,
-                     yoyo: true,
-                     ease: 'Cubic.easeInOut',
-                     repeat: isRepeat ? -1 : 0,
-                     duration: 2000
-                 }));
-                 this.idleAnimations.push(this.addTween({
-                     targets: this.leftArm,
-                     rotation: -0.07,
-                     x: this.leftArm.startX - 2,
-                     y: "+=3",
-                     yoyo: true,
-                     ease: 'Cubic.easeInOut',
-                     repeat: isRepeat ? -1 : 0,
-                     duration: 2000
-                 }));
-                 this.idleAnimations.push(this.addTween({
-                     targets: this.rightArm,
-                     rotation: 0.07,
-                     x: this.rightArm.startX + 2,
-                     y: "+=3",
-                     yoyo: true,
-                     ease: 'Cubic.easeInOut',
-                     repeat: isRepeat ? -1 : 0,
-                     duration: 2000
-                 }));
+        this.addTween({
+            targets: this.rightArm,
+            scaleX: this.rightArm.startScaleX,
+            scaleY: this.rightArm.startScaleX,
+            x: this.rightArm.startX,
+            y: 139.3,
+            rotation: -0.08,
+            ease: initEase,
+            duration: initDur,
+            onComplete: () => {
+                this.idleAnimations.push(this.addTween({
+                    targets: this.sprite,
+                    y: "+=4",
+                    scaleY: this.sprite.startScale * 0.983,
+                    yoyo: true,
+                    ease: 'Cubic.easeInOut',
+                    repeat: isRepeat ? -1 : 0,
+                    duration: 2000
+                }));
+                this.idleAnimations.push(this.addTween({
+                    targets: this.leftArm,
+                    rotation: -0.07,
+                    x: this.leftArm.startX - 2,
+                    y: "+=3",
+                    yoyo: true,
+                    ease: 'Cubic.easeInOut',
+                    repeat: isRepeat ? -1 : 0,
+                    duration: 2000
+                }));
+                this.idleAnimations.push(this.addTween({
+                    targets: this.rightArm,
+                    rotation: 0.07,
+                    x: this.rightArm.startX + 2,
+                    y: "+=3",
+                    yoyo: true,
+                    ease: 'Cubic.easeInOut',
+                    repeat: isRepeat ? -1 : 0,
+                    duration: 2000
+                }));
 
-                 if (this.leftFire) {
-                     let xOffset = -122;
-                     let yOffset = -28;
-                     this.idleAnimations.push(this.addTween({
-                         targets: this.leftFire,
-                         x: gameConsts.halfWidth + xOffset,
-                         y: this.y + yOffset,
-                         yoyo: true,
-                         ease: 'Cubic.easeInOut',
-                         duration: 2000,
-                         repeat: isRepeat ? -1 : 0,
-                     }));
-                     this.idleAnimations.push(this.addTween({
-                         targets: this.rightFire,
-                         x: gameConsts.halfWidth - xOffset,
-                         y: this.y + yOffset,
-                         yoyo: true,
-                         ease: 'Cubic.easeInOut',
-                         duration: 2000,
-                         repeat: isRepeat ? -1 : 0,
-                     }));
-                 }
+                if (this.leftFire) {
+                    let xOffset = -122;
+                    let yOffset = -28;
+                    this.idleAnimations.push(this.addTween({
+                        targets: this.leftFire,
+                        x: gameConsts.halfWidth + xOffset,
+                        y: this.y + yOffset,
+                        yoyo: true,
+                        ease: 'Cubic.easeInOut',
+                        duration: 2000,
+                        repeat: isRepeat ? -1 : 0,
+                    }));
+                    this.idleAnimations.push(this.addTween({
+                        targets: this.rightFire,
+                        x: gameConsts.halfWidth - xOffset,
+                        y: this.y + yOffset,
+                        yoyo: true,
+                        ease: 'Cubic.easeInOut',
+                        duration: 2000,
+                        repeat: isRepeat ? -1 : 0,
+                    }));
+                }
 
-                 this.idleAnimations.push(this.addTween({
-                     targets: this.leftShoulder,
-                     y: "+=3",
-                     yoyo: true,
-                     ease: 'Cubic.easeInOut',
-                     repeat: isRepeat ? -1 : 0,
-                     duration: 2000
-                 }));
-             }
-         });
-     }
+                this.idleAnimations.push(this.addTween({
+                    targets: this.leftShoulder,
+                    y: "+=3",
+                    yoyo: true,
+                    ease: 'Cubic.easeInOut',
+                    repeat: isRepeat ? -1 : 0,
+                    duration: 2000
+                }));
+            }
+        });
+    }
 
     stopIdleAnim() {
         for (let i = 0; i < this.idleAnimations.length; i++) {
@@ -295,18 +295,18 @@
     }
 
     showLaughText2() {
-         if (this.sprite) {
-             this.sprite.stop();
-         }
-         this.addTween({
-             targets: this.laughText,
-             alpha: 0,
-             duration: 250,
-             onComplete: () => {
-                 this.laughText.stop();
-                 this.laughText.visible = false;
-             }
-         })
+        if (this.sprite) {
+            this.sprite.stop();
+        }
+        this.addTween({
+            targets: this.laughText,
+            alpha: 0,
+            duration: 250,
+            onComplete: () => {
+                this.laughText.stop();
+                this.laughText.visible = false;
+            }
+        })
 
         if (!this.isUsingAttack) {
             this.setSpriteIfNotInactive(this.defaultSprite);
@@ -330,11 +330,11 @@
                 }
             })
         }
-         if (this.showedSecondLaughText || this.dead || this.thornForm || this.fireForm) {
-             messageBus.publish("closeCombatText")
-             return;
-         }
-         this.showedSecondLaughText = true;
+        if (this.showedSecondLaughText || this.dead || this.thornForm || this.fireForm) {
+            messageBus.publish("closeCombatText")
+            return;
+        }
+        this.showedSecondLaughText = true;
         messageBus.publish("showCombatText", getLangText('deathFight2CombatLaugh2'), -5);
         this.addTimeout(() => {
             this.playerSpellCastSub = messageBus.subscribe('playerCastedSpell', () => {
@@ -349,126 +349,126 @@
         }, 3000)
     }
 
-     setHealth(newHealth) {
-         super.setHealth(newHealth);
-         let currHealthPercent = this.health / this.healthMax;
-         if (currHealthPercent == 0) {
-             // dead, can't do anything
-             return;
-         } else {
-             let prevHealthPercent = this.prevHealth / this.healthMax;
-             if (this.fireForm) {
-                 if (this.prevHealth > 200 && this.health <= 200 && !this.thornForm) {
+    setHealth(newHealth) {
+        super.setHealth(newHealth);
+        let currHealthPercent = this.health / this.healthMax;
+        if (currHealthPercent == 0) {
+            // dead, can't do anything
+            return;
+        } else {
+            let prevHealthPercent = this.prevHealth / this.healthMax;
+            if (this.fireForm) {
+                if (this.prevHealth > 200 && this.health <= 200 && !this.thornForm) {
                     this.emergencyShield();
-                     globalObjects.bannerTextManager.setDialog([getLangText('deathFight2cx')]);
-                     globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
-                     globalObjects.bannerTextManager.showBanner(0);
-                     globalObjects.bannerTextManager.setOnFinishFunc(() => {
-                         this.setAwake();
-                     })
-                 }
-             } else {
-                 if (this.prevHealth > 300 && this.health <= 300 && !this.thornForm) {
-                     this.emergencyShield();
-                     globalObjects.bannerTextManager.setDialog([getLangText('deathFight2c')]);
-                     globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
-                     globalObjects.bannerTextManager.showBanner(0);
-                     globalObjects.bannerTextManager.setOnFinishFunc(() => {
-                         this.setAwake();
-                     })
-                 } else if (this.health <= this.healthMax - 20 && this.canLaugh && !this.firstLaugh && !this.isUsingAttack) {
-                     this.firstLaugh = true;
-                     if (this.thornForm || this.fireForm) {
-                         // nope too late
-                     } else {
-                         this.showLaughText();
-                     }
-                 }
-             }
-         }
-     }
+                    globalObjects.bannerTextManager.setDialog([getLangText('deathFight2cx')]);
+                    globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
+                    globalObjects.bannerTextManager.showBanner(0);
+                    globalObjects.bannerTextManager.setOnFinishFunc(() => {
+                        this.setAwake();
+                    })
+                }
+            } else {
+                if (this.prevHealth > 300 && this.health <= 300 && !this.thornForm) {
+                    this.emergencyShield();
+                    globalObjects.bannerTextManager.setDialog([getLangText('deathFight2c')]);
+                    globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
+                    globalObjects.bannerTextManager.showBanner(0);
+                    globalObjects.bannerTextManager.setOnFinishFunc(() => {
+                        this.setAwake();
+                    })
+                } else if (this.health <= this.healthMax - 20 && this.canLaugh && !this.firstLaugh && !this.isUsingAttack) {
+                    this.firstLaugh = true;
+                    if (this.thornForm || this.fireForm) {
+                        // nope too late
+                    } else {
+                        this.showLaughText();
+                    }
+                }
+            }
+        }
+    }
 
 
-     setSpriteIfNotInactive(name, scale, noAnim, depth = 1) {
-         super.setSpriteIfNotInactive(name, scale, noAnim, depth);
-         if (name !== "max_death_2") {
-             this.setArmsVisible(false);
-         }
-         if (name === "death2windup.png" || name === "death2windupflip.png") {
-             if (!this.windupVfx) {
-                 this.windupVfx = this.addImage(this.x, this.y, 'deathfinal', 'death2windupvfx.png').setOrigin(0.5, 0.12);
-             }
-             let isFlipped = name === "death2windupflip.png";
-             this.windupVfx.setScale(isFlipped ? -1.1 : 1.1, 1.1).setAlpha(1);
-             this.addTween({
-                 targets: this.windupVfx,
-                 duration: 400,
-                 alpha: 0,
-             });
-             this.addTween({
-                 targets: this.windupVfx,
-                 duration: 400,
-                 scaleX: isFlipped ? -1.25 : 1.25,
-                 scaleY: 1.2,
-                 ease: 'Cubic.easeOut',
-             });
-         }
+    setSpriteIfNotInactive(name, scale, noAnim, depth = 1) {
+        super.setSpriteIfNotInactive(name, scale, noAnim, depth);
+        if (name !== "max_death_2") {
+            this.setArmsVisible(false);
+        }
+        if (name === "death2windup.png" || name === "death2windupflip.png") {
+            if (!this.windupVfx) {
+                this.windupVfx = this.addImage(this.x, this.y, 'deathfinal', 'death2windupvfx.png').setOrigin(0.5, 0.12);
+            }
+            let isFlipped = name === "death2windupflip.png";
+            this.windupVfx.setScale(isFlipped ? -1.1 : 1.1, 1.1).setAlpha(1);
+            this.addTween({
+                targets: this.windupVfx,
+                duration: 400,
+                alpha: 0,
+            });
+            this.addTween({
+                targets: this.windupVfx,
+                duration: 400,
+                scaleX: isFlipped ? -1.25 : 1.25,
+                scaleY: 1.2,
+                ease: 'Cubic.easeOut',
+            });
+        }
 
-     }
+    }
 
-     clearThorns() {
-         this.thornsAmt = 0;
-         this.addTween({
-             targets: this.thornsList,
-             scaleX: 0,
-             scaleY: 0,
-             alpha: 0,
-             ease: 'Quad.easeIn',
-             duration: 1000,
-             onComplete: () => {
-                 for (let i = 0; i < this.thornsList.length; i++) {
-                     this.thornsList[i].destroy();
-                 }
-             }
-         })
-     }
+    clearThorns() {
+        this.thornsAmt = 0;
+        this.addTween({
+            targets: this.thornsList,
+            scaleX: 0,
+            scaleY: 0,
+            alpha: 0,
+            ease: 'Quad.easeIn',
+            duration: 1000,
+            onComplete: () => {
+                for (let i = 0; i < this.thornsList.length; i++) {
+                    this.thornsList[i].destroy();
+                }
+            }
+        })
+    }
 
-     applyFire(amt) {
-         messageBus.publish('playerAddDelayedDamage', amt);
-         if (!this.mindBurn) {
-             this.mindBurn = this.addImage(gameConsts.halfWidth, globalObjects.player.getY() - 68, 'spells', 'mindBurn1.png').setScale(3.35).setDepth(5);
-         }
-         this.mindBurn.scaleX = -this.mindBurn.scaleX;
-         this.mindBurn.alpha = 1;
-         this.addTween({
-             targets: this.mindBurn,
-             alpha: 0,
-             duration: 1300,
-             ease: 'Cubic.easeOut'
-         })
-     }
+    applyFire(amt) {
+        messageBus.publish('playerAddDelayedDamage', amt);
+        if (!this.mindBurn) {
+            this.mindBurn = this.addImage(gameConsts.halfWidth, globalObjects.player.getY() - 68, 'spells', 'mindBurn1.png').setScale(3.35).setDepth(5);
+        }
+        this.mindBurn.scaleX = -this.mindBurn.scaleX;
+        this.mindBurn.alpha = 1;
+        this.addTween({
+            targets: this.mindBurn,
+            alpha: 0,
+            duration: 1300,
+            ease: 'Cubic.easeOut'
+        })
+    }
 
-     checkFireForm() {
-         if (!this.fireForm) {
-             if ((this.punchCycleCount == 1 && !this.thornForm) || this.punchCycleCount >= 2) {
-                 this.fireForm = true;
-                 this.currentAttackSetIndex = 2;
-                 this.nextAttackIndex = 1;
-                 this.setAsleep();
-                 let usedLangText = globalObjects.player.getHealth() >= 30 ? getLangText('deathFight2d') : getLangText('deathFight2dx')
+    checkFireForm() {
+        if (!this.fireForm) {
+            if ((this.punchCycleCount == 1 && !this.thornForm) || this.punchCycleCount >= 2) {
+                this.fireForm = true;
+                this.currentAttackSetIndex = 2;
+                this.nextAttackIndex = 1;
+                this.setAsleep();
+                let usedLangText = globalObjects.player.getHealth() >= 30 ? getLangText('deathFight2d') : getLangText('deathFight2dx')
 
-                 if (!globalObjects.player.isDead()) {
-                     globalObjects.bannerTextManager.setDialog([usedLangText]);
-                     globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
-                     globalObjects.bannerTextManager.showBanner(0);
-                     globalObjects.bannerTextManager.setOnFinishFunc(() => {
-                         this.setAwake();
-                         this.playFireFistsInitAnim();
-                     })
-                 }
-             }
-         }
-     }
+                if (!globalObjects.player.isDead()) {
+                    globalObjects.bannerTextManager.setDialog([usedLangText]);
+                    globalObjects.bannerTextManager.setPosition(gameConsts.halfWidth, gameConsts.halfHeight, 0);
+                    globalObjects.bannerTextManager.showBanner(0);
+                    globalObjects.bannerTextManager.setOnFinishFunc(() => {
+                        this.setAwake();
+                        this.playFireFistsInitAnim();
+                    })
+                }
+            }
+        }
+    }
 
     initAttacks() {
         this.attacks = [
@@ -513,7 +513,7 @@
                         this.sprite.attackNum = 0;
                     },
                     attackFinishFunction: () => {
-                    // this.makeSlashEffect();
+                        // this.makeSlashEffect();
                         this.createPunchEffect();
                     },
                 },
@@ -892,7 +892,7 @@
     }
 
     launchFists() {
-         let tempFistObjs = [...this.fistObjects];
+        let tempFistObjs = [...this.fistObjects];
         for (let i = 0; i < this.fistObjects.length; i++) {
             let markObj = tempFistObjs[i];
             if (markObj.currAnim) {
@@ -923,202 +923,202 @@
     }
 
     createLaunchedFist(x, pauseScreen, isFlipped = false) {
-         if (this.dead) {
-             return;
-         }
-         let isLeft = x < gameConsts.halfWidth;
-         let punchPortal = getTempPoolObject('deathfinal', 'punchportal.png', 'punchPortal', 2000);
+        if (this.dead) {
+            return;
+        }
+        let isLeft = x < gameConsts.halfWidth;
+        let punchPortal = getTempPoolObject('deathfinal', 'punchportal.png', 'punchPortal', 2000);
         let randScale = 0.88 + Math.random() * 0.08;
-         punchPortal.setPosition(gameConsts.halfWidth * 0.5 + x * 0.5, globalObjects.player.getY() - 210 - randScale * 100 - Math.abs(x - gameConsts.halfWidth) * 0.1).setScale(0);
-         let rotAmt = 0.0015*(x - gameConsts.halfWidth);
-         punchPortal.setRotation(rotAmt).setDepth(119);
+        punchPortal.setPosition(gameConsts.halfWidth * 0.5 + x * 0.5, globalObjects.player.getY() - 210 - randScale * 100 - Math.abs(x - gameConsts.halfWidth) * 0.1).setScale(0);
+        let rotAmt = 0.0015 * (x - gameConsts.halfWidth);
+        punchPortal.setRotation(rotAmt).setDepth(119);
         let detuneAmt = -200 + Math.random() * 100;
 
-         this.addTween({
-             targets: punchPortal,
-             scaleX: randScale,
-             scaleY: randScale,
-             ease: 'Quart.easeOut',
-             duration: 250,
-             completeDelay: 50,
-             onComplete: () => {
-                 punchPortal.setDepth(120);
+        this.addTween({
+            targets: punchPortal,
+            scaleX: randScale,
+            scaleY: randScale,
+            ease: 'Quart.easeOut',
+            duration: 250,
+            completeDelay: 50,
+            onComplete: () => {
+                punchPortal.setDepth(120);
                 let punchFist = this.addImage(punchPortal.x, punchPortal.y, 'deathfinal', 'puncharmblur.png');
-                 let punchFistFade = this.addImage(punchPortal.x, punchPortal.y, 'deathfinal', 'puncharmblur.png');
-                 punchFist.setScale(isLeft ? 0.85 : -0.85, 0).setRotation(punchPortal.rotation * 0.4).setDepth(121);
-                 punchFist.setOrigin(0.6, 0.5);
-                 punchFist.x += isLeft ? 27 : - 27;
-                 punchFistFade.setScale(punchFist.scaleX, punchFist.scaleY).setRotation(punchFist.rotation).setDepth(punchFist.depth + 1);
-                 punchFistFade.setOrigin(0.6, 0.5).setAlpha(0.3);
-                 punchFistFade.x = punchFist.x;
-                 let swishSound = playSound('swish');
-                 swishSound.detune = detuneAmt;
-                 swishSound.pan = isLeft ? -0.4 : 0.4;
-                 this.addTween({
-                     targets: punchFistFade,
-                     scaleX: isLeft ? randScale * 1.1: randScale * -1.1,
-                     rotation: punchPortal.rotation * 1.1,
-                     scaleY: randScale * 1.15,
-                     alpha: 0.6,
-                     ease: 'Cubic.easeIn',
-                     duration: 140,
-                     onComplete: () => {
-                         this.addTween({
-                             targets: punchFistFade,
-                             scaleX: isLeft ? randScale : -randScale,
-                             scaleY: randScale,
-                             rotation: punchPortal.rotation,
-                             ease: 'Back.easeOut',
-                             alpha: 0,
-                             duration: 40,
-                         })
-                     }
-                 })
-                 this.addTween({
-                     delay: 120,
-                     targets: punchFist,
-                     scaleX: isLeft ? randScale * 1.1: randScale * -1.1,
+                let punchFistFade = this.addImage(punchPortal.x, punchPortal.y, 'deathfinal', 'puncharmblur.png');
+                punchFist.setScale(isLeft ? 0.85 : -0.85, 0).setRotation(punchPortal.rotation * 0.4).setDepth(121);
+                punchFist.setOrigin(0.6, 0.5);
+                punchFist.x += isLeft ? 27 : - 27;
+                punchFistFade.setScale(punchFist.scaleX, punchFist.scaleY).setRotation(punchFist.rotation).setDepth(punchFist.depth + 1);
+                punchFistFade.setOrigin(0.6, 0.5).setAlpha(0.3);
+                punchFistFade.x = punchFist.x;
+                let swishSound = playSound('swish');
+                swishSound.detune = detuneAmt;
+                swishSound.pan = isLeft ? -0.4 : 0.4;
+                this.addTween({
+                    targets: punchFistFade,
+                    scaleX: isLeft ? randScale * 1.1 : randScale * -1.1,
                     rotation: punchPortal.rotation * 1.1,
-                     scaleY: randScale * 1.15,
-                     ease: 'Cubic.easeIn',
-                     duration: 150,
-                     onComplete: () => {
-                         if (pauseScreen) {
-                             messageBus.publish('tempPause', 200, 0.05);
-                             playSound('death_attack', 1).detune = 800;
-                             let scaleX = isFlipped ? -1.92 : 1.92;
-                             let fakeDeathBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight * 0.43, 'backgrounds', pauseScreen).setScale(scaleX, 1.92).setDepth(30).setOrigin(0.5, 0.25);
-                             fakeDeathBG.scrollFactorX = -0.1;
-                             fakeDeathBG.scrollFactorY = 0;
-                             this.addTween({
-                                 targets: fakeDeathBG,
-                                 scaleX: scaleX * 1.1,
-                                 scaleY: 1.9 * 1.1,
-                                 ease: 'Quart.easeOut',
-                                 duration: 150,
-                             })
-                             this.addTween({
-                                 targets: fakeDeathBG,
-                                 alpha: 0,
-                                 ease: 'Quad.easeIn',
-                                 duration: 220,
-                                 onComplete: () => {
-                                     fakeDeathBG.destroy();
-                                 }
-                             })
-                         }
+                    scaleY: randScale * 1.15,
+                    alpha: 0.6,
+                    ease: 'Cubic.easeIn',
+                    duration: 140,
+                    onComplete: () => {
+                        this.addTween({
+                            targets: punchFistFade,
+                            scaleX: isLeft ? randScale : -randScale,
+                            scaleY: randScale,
+                            rotation: punchPortal.rotation,
+                            ease: 'Back.easeOut',
+                            alpha: 0,
+                            duration: 40,
+                        })
+                    }
+                })
+                this.addTween({
+                    delay: 120,
+                    targets: punchFist,
+                    scaleX: isLeft ? randScale * 1.1 : randScale * -1.1,
+                    rotation: punchPortal.rotation * 1.1,
+                    scaleY: randScale * 1.15,
+                    ease: 'Cubic.easeIn',
+                    duration: 150,
+                    onComplete: () => {
+                        if (pauseScreen) {
+                            messageBus.publish('tempPause', 200, 0.05);
+                            playSound('death_attack', 1).detune = 800;
+                            let scaleX = isFlipped ? -1.92 : 1.92;
+                            let fakeDeathBG = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight * 0.43, 'backgrounds', pauseScreen).setScale(scaleX, 1.92).setDepth(30).setOrigin(0.5, 0.25);
+                            fakeDeathBG.scrollFactorX = -0.1;
+                            fakeDeathBG.scrollFactorY = 0;
+                            this.addTween({
+                                targets: fakeDeathBG,
+                                scaleX: scaleX * 1.1,
+                                scaleY: 1.9 * 1.1,
+                                ease: 'Quart.easeOut',
+                                duration: 150,
+                            })
+                            this.addTween({
+                                targets: fakeDeathBG,
+                                alpha: 0,
+                                ease: 'Quad.easeIn',
+                                duration: 220,
+                                onComplete: () => {
+                                    fakeDeathBG.destroy();
+                                }
+                            })
+                        }
 
-                         punchFist.setFrame('puncharm.png');
-                         punchFist.setOrigin(0.6, 0.5);
-                         messageBus.publish("selfTakeDamage", 6);
-                         let powEffect = getTempPoolObject('spells', 'damageEffect3.png', 'damageEffect3', 130);
-                         powEffect.setPosition(gameConsts.halfWidth * 0.4 + 0.6 * punchPortal.x, globalObjects.player.getY() - 185).setDepth(998).setScale(1.4);
-                         screenShake(2);
-                         playSound(isLeft ? 'punch' : 'punch2').detune = detuneAmt + 150;
-                         this.addTween({
-                             targets: punchFist,
-                             scaleX: isLeft ? randScale : -randScale,
-                             scaleY: randScale,
-                             rotation: punchPortal.rotation,
-                             ease: 'Back.easeOut',
-                             duration: 40,
-                             onComplete: () => {
-                                 this.addTween({
-                                     delay: 150,
-                                     targets: [punchFist],
-                                     ease: 'Quart.easeIn',
-                                     scaleY: 0,
-                                     duration: 250,
-                                     onComplete: () => {
-                                         punchFist.destroy();
-                                     }
-                                 })
-                                 this.addTween({
-                                     targets: [punchFist, punchPortal],
-                                     ease: 'Cubic.easeIn',
-                                     alpha: 0,
-                                     duration: 350
-                                 })
-                             }
-                         })
-                     }
-                 })
-             }
-         })
+                        punchFist.setFrame('puncharm.png');
+                        punchFist.setOrigin(0.6, 0.5);
+                        messageBus.publish("selfTakeDamage", 6);
+                        let powEffect = getTempPoolObject('spells', 'damageEffect3.png', 'damageEffect3', 130);
+                        powEffect.setPosition(gameConsts.halfWidth * 0.4 + 0.6 * punchPortal.x, globalObjects.player.getY() - 185).setDepth(998).setScale(1.4);
+                        screenShake(2);
+                        playSound(isLeft ? 'punch' : 'punch2').detune = detuneAmt + 150;
+                        this.addTween({
+                            targets: punchFist,
+                            scaleX: isLeft ? randScale : -randScale,
+                            scaleY: randScale,
+                            rotation: punchPortal.rotation,
+                            ease: 'Back.easeOut',
+                            duration: 40,
+                            onComplete: () => {
+                                this.addTween({
+                                    delay: 150,
+                                    targets: [punchFist],
+                                    ease: 'Quart.easeIn',
+                                    scaleY: 0,
+                                    duration: 250,
+                                    onComplete: () => {
+                                        punchFist.destroy();
+                                    }
+                                })
+                                this.addTween({
+                                    targets: [punchFist, punchPortal],
+                                    ease: 'Cubic.easeIn',
+                                    alpha: 0,
+                                    duration: 350
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
     }
 
     createPunchEffect() {
         let isSwingingLeft = this.sprite.attackNum % 2 == 0;
         playSound(isSwingingLeft ? 'punch' : 'punch2');
         screenShake(2);
-         let powEffect = getTempPoolObject('spells', 'damageEffect3.png', 'damageEffect3', 400);
-         let xOffset = isSwingingLeft ? -30 : 30;
-         powEffect.setPosition(gameConsts.halfWidth + xOffset, globalObjects.player.getY() - 185).setDepth(998).setScale(1.5);
+        let powEffect = getTempPoolObject('spells', 'damageEffect3.png', 'damageEffect3', 400);
+        let xOffset = isSwingingLeft ? -30 : 30;
+        powEffect.setPosition(gameConsts.halfWidth + xOffset, globalObjects.player.getY() - 185).setDepth(998).setScale(1.5);
 
-         let fistEffect = getTempPoolObject('deathfinal', 'deathfist.png', 'fist', 280);
+        let fistEffect = getTempPoolObject('deathfinal', 'deathfist.png', 'fist', 280);
         fistEffect.visible = true;
-         let xOffset2 = isSwingingLeft ? -34 : 39;
+        let xOffset2 = isSwingingLeft ? -34 : 39;
         let yOffset2 = isSwingingLeft ? 50 : 58;
-         let leftMult = isSwingingLeft ? 1 : -1;
-         fistEffect.setPosition(this.sprite.x + xOffset2, this.y + yOffset2).setDepth(11).setScale(1.24 * leftMult, 1.24);
-         this.addTween({
-             delay: 30,
-             targets: fistEffect,
-             duration: 250,
-             y: '-=5',
-             scaleX: this.sprite.startScale * 0.82 * leftMult,
-             scaleY: this.sprite.startScale * 0.82,
-             ease: 'Quart.easeIn',
-             onComplete: () => {
-                 fistEffect.visible = false;
-             }
-         });
+        let leftMult = isSwingingLeft ? 1 : -1;
+        fistEffect.setPosition(this.sprite.x + xOffset2, this.y + yOffset2).setDepth(11).setScale(1.24 * leftMult, 1.24);
+        this.addTween({
+            delay: 30,
+            targets: fistEffect,
+            duration: 250,
+            y: '-=5',
+            scaleX: this.sprite.startScale * 0.82 * leftMult,
+            scaleY: this.sprite.startScale * 0.82,
+            ease: 'Quart.easeIn',
+            onComplete: () => {
+                fistEffect.visible = false;
+            }
+        });
 
     }
 
-     useMove() {
-         // if (this.nextAttack.damage !== 0) {
-         //     this.leftArm.visible = false;
-         //     this.rightArm.visible = false;
-         //     this.leftShoulder.visible = false;
-         // }
-         super.useMove();
-     }
+    useMove() {
+        // if (this.nextAttack.damage !== 0) {
+        //     this.leftArm.visible = false;
+        //     this.rightArm.visible = false;
+        //     this.leftShoulder.visible = false;
+        // }
+        super.useMove();
+    }
 
-     setArmsVisible(val) {
-         if (this.preventArmsVisible && val) {
-             return;
-         }
-         this.leftArm.visible = val;
-         this.rightArm.visible = val;
-         this.leftShoulder.visible = val;
-         if (this.leftFire) {
-             this.leftFire.visible = val;
-             this.rightFire.visible = val;
-         }
-     }
+    setArmsVisible(val) {
+        if (this.preventArmsVisible && val) {
+            return;
+        }
+        this.leftArm.visible = val;
+        this.rightArm.visible = val;
+        this.leftShoulder.visible = val;
+        if (this.leftFire) {
+            this.leftFire.visible = val;
+            this.rightFire.visible = val;
+        }
+    }
 
-     clearFistObjects() {
-         if (this.fistObjects.length > 0) {
-             PhaserScene.tweens.add({
-                 targets: this.fistObjects,
-                 duration: 500,
-                 ease: 'Back.easeIn',
-                 scaleX: 0,
-                 scaleY: 0,
-                 onComplete: () => {
-                     for (let i = 0; i < this.fistObjects.length; i++) {
-                         this.fistObjects[i].destroy();
-                     }
-                     this.fistObjects = [];
-                 }
-             })
-         }
-     }
+    clearFistObjects() {
+        if (this.fistObjects.length > 0) {
+            PhaserScene.tweens.add({
+                targets: this.fistObjects,
+                duration: 500,
+                ease: 'Back.easeIn',
+                scaleX: 0,
+                scaleY: 0,
+                onComplete: () => {
+                    for (let i = 0; i < this.fistObjects.length; i++) {
+                        this.fistObjects[i].destroy();
+                    }
+                    this.fistObjects = [];
+                }
+            })
+        }
+    }
 
     die() {
-         super.die();
-         this.stopIdleAnim();
+        super.die();
+        this.stopIdleAnim();
         gameVars.latestLevel = this.level;
         gameVars.currLevel = this.level;
         safeStorage.setItem("latestLevel", (gameVars.latestLevel).toString());
@@ -1141,10 +1141,10 @@
             this.leftFire.destroy();
             this.rightFire.destroy();
         }
-         this.clearFistObjects();
-         if (this.bgMusic) {
-             fadeAwaySound(this.bgMusic);
-         }
+        this.clearFistObjects();
+        if (this.bgMusic) {
+            fadeAwaySound(this.bgMusic);
+        }
         this.setArmsVisible(false);
         //this.forceOverrideSprite = 'death2fall.png';
         //this.setDefaultSprite('death2fall.png', this.sprite.startScale);
@@ -1229,7 +1229,7 @@
                     this.sprite.visible = false;
                     this.setArmsVisible(false);
 
-                    let death6arm = this.addImage(this.sprite.x, this.sprite.y + 70, 'deathfinal', 'death2final_white.png').setScale(0.95).setDepth(10020).setAlpha(0);
+                    let death6arm = this.addImage(this.sprite.x, this.sprite.y + 70, 'deathfinal', 'death2final_white.png').setScale(0.985).setDepth(10020).setAlpha(0);
                     death6arm.currAnim = this.addTween({
                         targets: [death6arm],
                         duration: 2000,
@@ -1296,15 +1296,15 @@
     }
 
     createAnimatedHellBG() {
-        this.bg2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 28, 'backgrounds', 'firebg1.png').setDepth(-5).setScale(1.02);
-        this.bg1 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 28, 'backgrounds', 'firebg0.png').setDepth(-5).setScale(1.02).setAlpha(0);
+        this.bg2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 18, 'backgrounds', 'firebg1.png').setDepth(-5).setScale(1.08);
+        this.bg1 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 18, 'backgrounds', 'firebg0.png').setDepth(-5).setScale(1.08).setAlpha(0);
         this.nextBG = 0;
         this.useFirstBG = true;
         this.animateBGRepeat();
     }
 
     createThornsAnimation() {
-         let yOffset = 120;
+        let yOffset = 120;
         this.thorns1 = this.addImage(this.x, this.y + yOffset, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57 + 3.1415).setOrigin(0.5, -0.55).setScale(0.7, 0.5);
         this.thorns2 = this.addImage(this.x, this.y + yOffset, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57 + 3.1415).setOrigin(0.5, -0.55).setScale(0.7, 0.5);
         this.thorns3 = this.addImage(this.x, this.y + yOffset, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57 + 3.1415).setOrigin(0.5, -0.55).setScale(0.7, 0.5);
@@ -1458,202 +1458,202 @@
         })
     }
 
-     finishThornsAnimation() {
-         this.clearShield();
-         if (this.dead) {
-             return;
-         }
-         this.thorns7 = this.addImage(this.x, 0, 'enemies', 'thorns2.png').setDepth(-1).setOrigin(0.5, 0.5).setScale(0.9, 0).setRotation(-0.5);
-         this.thorns8 = this.addImage(-15, 110, 'enemies', 'thorns2.png').setDepth(-1).setOrigin(0.5, 0.5).setScale(0.9, 0).setRotation(Math.PI * -0.5 + 0.24 - 0.5);
-         this.thorns9 = this.addImage(gameConsts.width + 15, 110, 'enemies', 'thorns2.png').setDepth(-1).setOrigin(0.5, 0.5).setScale(0.9, 0).setRotation(Math.PI * 0.5 - 0.24 -0.5);
+    finishThornsAnimation() {
+        this.clearShield();
+        if (this.dead) {
+            return;
+        }
+        this.thorns7 = this.addImage(this.x, 0, 'enemies', 'thorns2.png').setDepth(-1).setOrigin(0.5, 0.5).setScale(0.9, 0).setRotation(-0.5);
+        this.thorns8 = this.addImage(-15, 110, 'enemies', 'thorns2.png').setDepth(-1).setOrigin(0.5, 0.5).setScale(0.9, 0).setRotation(Math.PI * -0.5 + 0.24 - 0.5);
+        this.thorns9 = this.addImage(gameConsts.width + 15, 110, 'enemies', 'thorns2.png').setDepth(-1).setOrigin(0.5, 0.5).setScale(0.9, 0).setRotation(Math.PI * 0.5 - 0.24 - 0.5);
 
-         this.thornsList.push(this.thorns7);
-         this.thornsList.push(this.thorns8);
-         this.thornsList.push(this.thorns9);
+        this.thornsList.push(this.thorns7);
+        this.thornsList.push(this.thorns8);
+        this.thornsList.push(this.thorns9);
 
-         this.addTween({
-             targets: [this.thorns7, this.thorns8, this.thorns9],
-             duration: 750,
-             rotation: "+=0.5",
-             easeParams: [3],
-             ease: 'Back.easeOut',
-             scaleX: 1,
-             scaleY: 1.1,
-             onComplete: () => {
-                 this.addTween({
-                     targets: [this.thorns7],
-                     duration: 550,
-                     ease: 'Cubic.easeInOut',
-                     scaleY: 0.9,
-                 })
-             }
-         })
-         this.addTween({
-             targets: [this.thorns7],
-             duration: 1250,
-             ease: 'Cubic.easeInOut',
-             alpha: 0.7,
-             y: -27,
-         })
-         this.addTween({
-             targets: [this.thorns8],
-             duration: 1250,
-             ease: 'Cubic.easeInOut',
-             alpha: 0.7,
-             x: -24,
-         })
-         this.addTween({
-             targets: [this.thorns9],
-             duration: 1250,
-             ease: 'Cubic.easeInOut',
-             alpha: 0.7,
-             x: gameConsts.width + 24,
-             onComplete: () => {
-                 this.addTween({
-                     targets: this.blackBG,
-                     alpha: 0,
-                     duration: 600
-                 })
-             }
-         })
-     }
+        this.addTween({
+            targets: [this.thorns7, this.thorns8, this.thorns9],
+            duration: 750,
+            rotation: "+=0.5",
+            easeParams: [3],
+            ease: 'Back.easeOut',
+            scaleX: 1,
+            scaleY: 1.1,
+            onComplete: () => {
+                this.addTween({
+                    targets: [this.thorns7],
+                    duration: 550,
+                    ease: 'Cubic.easeInOut',
+                    scaleY: 0.9,
+                })
+            }
+        })
+        this.addTween({
+            targets: [this.thorns7],
+            duration: 1250,
+            ease: 'Cubic.easeInOut',
+            alpha: 0.7,
+            y: -27,
+        })
+        this.addTween({
+            targets: [this.thorns8],
+            duration: 1250,
+            ease: 'Cubic.easeInOut',
+            alpha: 0.7,
+            x: -24,
+        })
+        this.addTween({
+            targets: [this.thorns9],
+            duration: 1250,
+            ease: 'Cubic.easeInOut',
+            alpha: 0.7,
+            x: gameConsts.width + 24,
+            onComplete: () => {
+                this.addTween({
+                    targets: this.blackBG,
+                    alpha: 0,
+                    duration: 600
+                })
+            }
+        })
+    }
 
-     playFireFistsInitAnim() {
-         this.stopIdleAnim();
-         this.raiseArmsAnim(() => {
-             this.leftFire = this.addSprite(gameConsts.halfWidth - 160, this.y - 25, 'spells').play('mindBurnSlow').setOrigin(0.5, 0.65).setDepth(20).setBlendMode(Phaser.BlendModes.ADD).setScale(0.45).setAlpha(0.5);
-             this.rightFire = this.addSprite(gameConsts.halfWidth + 160, this.y - 25, 'spells').play('mindBurnSlow').setOrigin(0.5, 0.65).setDepth(20).setBlendMode(Phaser.BlendModes.ADD).setScale(0.45).setAlpha(0.5);
+    playFireFistsInitAnim() {
+        this.stopIdleAnim();
+        this.raiseArmsAnim(() => {
+            this.leftFire = this.addSprite(gameConsts.halfWidth - 160, this.y - 25, 'spells').play('mindBurnSlow').setOrigin(0.5, 0.65).setDepth(20).setBlendMode(Phaser.BlendModes.ADD).setScale(0.45).setAlpha(0.5);
+            this.rightFire = this.addSprite(gameConsts.halfWidth + 160, this.y - 25, 'spells').play('mindBurnSlow').setOrigin(0.5, 0.65).setDepth(20).setBlendMode(Phaser.BlendModes.ADD).setScale(0.45).setAlpha(0.5);
 
-             this.addTween({
-                 targets: [this.leftFire, this.rightFire],
-                 scaleX: 1.5,
-                 scaleY: 1.5,
-                 alpha: 1.1,
-                 duration: 110,
-                 ease: 'Quart.easeIn',
-                 onComplete: () => {
+            this.addTween({
+                targets: [this.leftFire, this.rightFire],
+                scaleX: 1.5,
+                scaleY: 1.5,
+                alpha: 1.1,
+                duration: 110,
+                ease: 'Quart.easeIn',
+                onComplete: () => {
 
-                     this.whiteBG.alpha = 0.43;
-                     this.addTween({
-                         targets: [this.whiteBG],
-                         alpha: 0,
-                         ease: 'Quad.easeOut',
-                         duration: 1200,
-                     })
-                     this.addTween({
-                         targets: [this.leftFire, this.rightFire],
-                         scaleX: 0.6,
-                         scaleY: 0.6,
-                         alpha: 0.65,
-                         duration: 600,
-                         ease: 'Back.easeOut',
-                     })
-                 }
-             })
-             playSound('mind_enhance');
-             this.startIdleAnim(true)
-         });
-     }
+                    this.whiteBG.alpha = 0.43;
+                    this.addTween({
+                        targets: [this.whiteBG],
+                        alpha: 0,
+                        ease: 'Quad.easeOut',
+                        duration: 1200,
+                    })
+                    this.addTween({
+                        targets: [this.leftFire, this.rightFire],
+                        scaleX: 0.6,
+                        scaleY: 0.6,
+                        alpha: 0.65,
+                        duration: 600,
+                        ease: 'Back.easeOut',
+                    })
+                }
+            })
+            playSound('mind_enhance');
+            this.startIdleAnim(true)
+        });
+    }
 
-     raiseArmsAnim(completeFunc, mult = 1) {
-         // 1120 duration
-         this.addTween({
-             targets: this.sprite,
-             y: this.sprite.startY + 3,
-             scaleY: this.sprite.startScale * 1.01,
-             ease: 'Cubic.easeOut',
-             duration: mult * 700,
-         })
+    raiseArmsAnim(completeFunc, mult = 1) {
+        // 1120 duration
+        this.addTween({
+            targets: this.sprite,
+            y: this.sprite.startY + 3,
+            scaleY: this.sprite.startScale * 1.01,
+            ease: 'Cubic.easeOut',
+            duration: mult * 700,
+        })
 
-         this.addTween({
-             targets: this.leftArm,
-             scaleX: this.leftArm.startScaleX * 0.94,
-             x: this.leftArm.startX + 2,
-             y: this.leftArm.startY - 1.15,
-             rotation: 0.33,
-             ease: 'Cubic.easeOut',
-             duration: mult * 700,
-         });
+        this.addTween({
+            targets: this.leftArm,
+            scaleX: this.leftArm.startScaleX * 0.94,
+            x: this.leftArm.startX + 2,
+            y: this.leftArm.startY - 1.15,
+            rotation: 0.33,
+            ease: 'Cubic.easeOut',
+            duration: mult * 700,
+        });
 
-         this.addTween({
-             targets: this.rightArm,
-             scaleX: this.rightArm.startScaleX * 0.94,
-             x: this.rightArm.startX,
-             y: this.rightArm.startY - 0.3,
-             rotation: -0.33,
-             ease: 'Cubic.easeOut',
-             duration: mult * 700,
-         });
+        this.addTween({
+            targets: this.rightArm,
+            scaleX: this.rightArm.startScaleX * 0.94,
+            x: this.rightArm.startX,
+            y: this.rightArm.startY - 0.3,
+            rotation: -0.33,
+            ease: 'Cubic.easeOut',
+            duration: mult * 700,
+        });
 
-         this.addTween({
-             targets: this.leftShoulder,
-             y: this.leftShoulder.startY + 1,
-             scaleX: this.leftShoulder.startScaleX * 1,
-             rotation: 0.15,
-             ease: 'Cubic.easeOut',
-             duration: mult * 700,
-             onComplete: () => {
-                 this.addTween({
-                     targets: this.sprite,
-                     y: this.sprite.startY + 4,
-                     scaleY: this.sprite.startScale * 0.983,
-                     ease: 'Quart.easeIn',
-                     duration: mult * 420,
-                 })
-                 this.addTween({
-                     targets: this.leftShoulder,
-                     rotation: 0,
-                     scaleX: this.leftShoulder.startScaleX * 1.12,
-                     x: this.leftShoulder.startX + 1,
-                     y: this.leftShoulder.startY + 3,
-                     ease: 'Cubic.easeIn',
-                     duration: mult * 420,
-                 });
-                 this.addTween({
-                     targets: this.leftArm,
-                     x: this.leftArm.startX - 6,
-                     y: this.leftArm.startY + 0.85,
-                     rotation: -0.38,
-                     ease: 'Quart.easeIn',
-                     duration: mult * 420,
-                 });
-                 this.addTween({
-                     targets: this.leftArm,
-                     scaleX: this.leftArm.startScaleX * 1.2,
-                     scaleY: this.leftArm.startScaleX * 1.2,
-                     ease: 'Quint.easeIn',
-                     duration: mult * 420,
-                 });
-                 // this.addTween({
-                 //     targets: this.leftArm,
-                 //     ease: 'Quad.easeIn',
-                 //     duration: 500,
-                 // });
+        this.addTween({
+            targets: this.leftShoulder,
+            y: this.leftShoulder.startY + 1,
+            scaleX: this.leftShoulder.startScaleX * 1,
+            rotation: 0.15,
+            ease: 'Cubic.easeOut',
+            duration: mult * 700,
+            onComplete: () => {
+                this.addTween({
+                    targets: this.sprite,
+                    y: this.sprite.startY + 4,
+                    scaleY: this.sprite.startScale * 0.983,
+                    ease: 'Quart.easeIn',
+                    duration: mult * 420,
+                })
+                this.addTween({
+                    targets: this.leftShoulder,
+                    rotation: 0,
+                    scaleX: this.leftShoulder.startScaleX * 1.12,
+                    x: this.leftShoulder.startX + 1,
+                    y: this.leftShoulder.startY + 3,
+                    ease: 'Cubic.easeIn',
+                    duration: mult * 420,
+                });
+                this.addTween({
+                    targets: this.leftArm,
+                    x: this.leftArm.startX - 6,
+                    y: this.leftArm.startY + 0.85,
+                    rotation: -0.38,
+                    ease: 'Quart.easeIn',
+                    duration: mult * 420,
+                });
+                this.addTween({
+                    targets: this.leftArm,
+                    scaleX: this.leftArm.startScaleX * 1.2,
+                    scaleY: this.leftArm.startScaleX * 1.2,
+                    ease: 'Quint.easeIn',
+                    duration: mult * 420,
+                });
+                // this.addTween({
+                //     targets: this.leftArm,
+                //     ease: 'Quad.easeIn',
+                //     duration: 500,
+                // });
 
-                 this.addTween({
-                     targets: this.rightArm,
-                     scaleX: this.rightArm.startScaleX * 1.2,
-                     scaleY: this.rightArm.startScaleX * 1.2,
-                     ease: 'Quint.easeIn',
-                     duration: mult * 420,
-                 });
-                 this.addTween({
-                     targets: this.rightArm,
-                     x: this.rightArm.startX + 8,
-                     y: 140,
-                     rotation: 0.36,
-                     ease: 'Quart.easeIn',
-                     duration: mult * 420,
-                     onComplete: () => {
+                this.addTween({
+                    targets: this.rightArm,
+                    scaleX: this.rightArm.startScaleX * 1.2,
+                    scaleY: this.rightArm.startScaleX * 1.2,
+                    ease: 'Quint.easeIn',
+                    duration: mult * 420,
+                });
+                this.addTween({
+                    targets: this.rightArm,
+                    x: this.rightArm.startX + 8,
+                    y: 140,
+                    rotation: 0.36,
+                    ease: 'Quart.easeIn',
+                    duration: mult * 420,
+                    onComplete: () => {
                         if (completeFunc) {
                             completeFunc()
                         }
-                     }
-                 });
-             }
-         });
+                    }
+                });
+            }
+        });
 
-     }
+    }
 
     animateBGRepeat() {
         if (this.dead) {
@@ -1694,93 +1694,93 @@
         })
     }
 
-     adjustDamageTaken(amt, isAttack, isTrue ) {
-         if (isAttack && this.hasThorns && !this.dead) {
-             let glowSpike = getTempPoolObject('enemies', 'glowSpike2.png', 'glowSpike2', 1800);
-             let isLeft = Math.random() < 0.5;
-             glowSpike.setScale(0.5).setAlpha(0.9).setPosition(gameConsts.halfWidth + (isLeft ? -50 : 50), this.y).setDepth(999).setRotation(isLeft ? -8 : 8);
+    adjustDamageTaken(amt, isAttack, isTrue) {
+        if (isAttack && this.hasThorns && !this.dead) {
+            let glowSpike = getTempPoolObject('enemies', 'glowSpike2.png', 'glowSpike2', 1800);
+            let isLeft = Math.random() < 0.5;
+            glowSpike.setScale(0.5).setAlpha(0.9).setPosition(gameConsts.halfWidth + (isLeft ? -50 : 50), this.y).setDepth(999).setRotation(isLeft ? -8 : 8);
 
-             this.addTween({
-                 targets: glowSpike,
-                 x: gameConsts.halfWidth + (isLeft ? -80 : 80),
-                 ease: 'Cubic.easeOut',
-                 duration: 300,
-                 rotation: 0,
-                 onComplete: () => {
-                     this.addTween({
-                         rotation: isLeft ? 10 : -10,
-                         targets: glowSpike,
-                         ease: 'Cubic.easeIn',
-                         x: gameConsts.halfWidth,
-                         duration: 1100,
-                     });
-                 }
-             });
-             this.addTween({
-                 targets: glowSpike,
-                 ease: 'Quart.easeIn',
-                 scaleX: 1.8,
-                 scaleY: 1.8,
-                 duration: 300,
-                 onComplete: () => {
-                     playSound('matter_body');
-                     this.addTween({
-                         targets: glowSpike,
-                         ease: 'Cubic.easeOut',
-                         scaleX: 1,
-                         scaleY: 1,
-                         duration: 1100,
-                         onComplete: () => {
-                             glowSpike.setScale(1.15);
-                         }
-                     });
-                 }
-             });
+            this.addTween({
+                targets: glowSpike,
+                x: gameConsts.halfWidth + (isLeft ? -80 : 80),
+                ease: 'Cubic.easeOut',
+                duration: 300,
+                rotation: 0,
+                onComplete: () => {
+                    this.addTween({
+                        rotation: isLeft ? 10 : -10,
+                        targets: glowSpike,
+                        ease: 'Cubic.easeIn',
+                        x: gameConsts.halfWidth,
+                        duration: 1100,
+                    });
+                }
+            });
+            this.addTween({
+                targets: glowSpike,
+                ease: 'Quart.easeIn',
+                scaleX: 1.8,
+                scaleY: 1.8,
+                duration: 300,
+                onComplete: () => {
+                    playSound('matter_body');
+                    this.addTween({
+                        targets: glowSpike,
+                        ease: 'Cubic.easeOut',
+                        scaleX: 1,
+                        scaleY: 1,
+                        duration: 1100,
+                        onComplete: () => {
+                            glowSpike.setScale(1.15);
+                        }
+                    });
+                }
+            });
 
-             this.addTween({
-                 targets: glowSpike,
-                 y: globalObjects.player.getY() - 270,
-                 alpha: 1.2,
-                 duration: 1300,
-                 easeParams: [2.5],
-                 ease: 'Back.easeIn',
-                 onComplete: () => {
-                     glowSpike.setDepth(20);
-                     this.addTween({
-                         targets: glowSpike,
-                         y: globalObjects.player.getY() - 205,
-                         duration: 100,
-                         onComplete: () => {
-                             messageBus.publish("selfTakeDamage", this.thornsAmt, false, glowSpike.x);
-                             playSound('razor_leaf', 0.75)
-                             this.addTween({
-                                 targets: glowSpike,
-                                 alpha: 0,
-                                 ease: 'Cubic.easeIn',
-                                 duration: 300,
-                             });
-                         }
-                     });
-                 }
-             });
+            this.addTween({
+                targets: glowSpike,
+                y: globalObjects.player.getY() - 270,
+                alpha: 1.2,
+                duration: 1300,
+                easeParams: [2.5],
+                ease: 'Back.easeIn',
+                onComplete: () => {
+                    glowSpike.setDepth(20);
+                    this.addTween({
+                        targets: glowSpike,
+                        y: globalObjects.player.getY() - 205,
+                        duration: 100,
+                        onComplete: () => {
+                            messageBus.publish("selfTakeDamage", this.thornsAmt, false, glowSpike.x);
+                            playSound('razor_leaf', 0.75)
+                            this.addTween({
+                                targets: glowSpike,
+                                alpha: 0,
+                                ease: 'Cubic.easeIn',
+                                duration: 300,
+                            });
+                        }
+                    });
+                }
+            });
 
-             this.thorns1.setScale(0.8).setAlpha(1);
-             this.thorns4.setScale(0.8).setAlpha(1);
-             this.thornsTween = this.addTween({
-                 targets: [this.thorns1, this.thorns4],
-                 scaleX: 0.65,
-                 scaleY: 0.65,
-                 alpha: 0.78,
-                 ease: 'Quart.easeOut',
-                 duration: 400,
-             });
-         }
-         return super.adjustDamageTaken(amt, isAttack, isTrue);
-     }
+            this.thorns1.setScale(0.8).setAlpha(1);
+            this.thorns4.setScale(0.8).setAlpha(1);
+            this.thornsTween = this.addTween({
+                targets: [this.thorns1, this.thorns4],
+                scaleX: 0.65,
+                scaleY: 0.65,
+                alpha: 0.78,
+                ease: 'Quart.easeOut',
+                duration: 400,
+            });
+        }
+        return super.adjustDamageTaken(amt, isAttack, isTrue);
+    }
 
-     beginDeath3() {
-         gameVars.fromDeath2 = true;
-         this.destroy();
-         createEnemy(this.level + 1);
-     }
+    beginDeath3() {
+        gameVars.fromDeath2 = true;
+        this.destroy();
+        createEnemy(this.level + 1);
+    }
 }

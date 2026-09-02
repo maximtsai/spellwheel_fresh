@@ -14,9 +14,9 @@ class Death3 extends Enemy {
         saveSpellwheelProgress();
 
         this.initSprite('max_death_3_white.png', 1, 0, 0, 'deathfinal');
-        this.bgtemp = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfall.png').setDepth(-6).setScale(1.1, 1.1124);
+        this.bgtemp = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfall.png').setDepth(-6).setScale(1.13, 1.13);
         this.bgtemprocks = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfallrocks.png').setDepth(-4).setScale(1.1,1.1124);
-        this.bgtemp2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfall.png').setBlendMode(Phaser.BlendModes.ADD).setDepth(-6).setScale(1.1,1.1124).setAlpha(0);
+        this.bgtemp2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight, 'backgrounds', 'waterfall.png').setBlendMode(Phaser.BlendModes.ADD).setDepth(-6).setScale(1.13,1.13).setAlpha(0);
         this.addTween({
             targets: this.bgtemp2,
             alpha: 0.1,

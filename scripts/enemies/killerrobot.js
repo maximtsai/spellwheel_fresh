@@ -143,7 +143,7 @@
      }
 
      showStartupAnim() {
-         this.tunnelBG = this.addSprite(gameConsts.halfWidth, gameConsts.halfHeight * 0.7, 'backgrounds', 'tunnel2.png').setScale(1).setDepth(-9).setAlpha(0).setOrigin(0.5, 0.35);
+         this.tunnelBG = this.addSprite(gameConsts.halfWidth, gameConsts.halfHeight * 0.7, 'backgrounds', 'tunnel2.png').setScale(1.05).setDepth(-9).setAlpha(0).setOrigin(0.5, 0.35);
          this.addTween({
              targets: this.tunnelBG,
              duration: 1600,
@@ -178,7 +178,7 @@
                              scaleY: this.sprite.startScale * 0.5,
                              rotation: 0,
                          });
-                         this.tunnelBG.setFrame('tunnel3.png').setScale(1.02).setOrigin(0.5, 0.35);
+                         this.tunnelBG.setFrame('tunnel3.png').setScale(1.071).setOrigin(0.5, 0.35);
 
                         this.lightShineLeft.setAlpha(0.3).setScale(0.5);
                         this.lightShineRight.setAlpha(0.3).setScale(0.5);
@@ -217,8 +217,8 @@
                              duration: 500,
                              alpha: 0.9,
                              ease: 'Quad.easeOut',
-                             scaleX: 1,
-                             scaleY: 1,
+                             scaleX: 1.05,
+                             scaleY: 1.05,
                          });
 
                          this.addTween({
@@ -226,8 +226,8 @@
                              duration: 500,
                              alpha: 0.9,
                              ease: 'Quad.easeOut',
-                             scaleX: 1,
-                             scaleY: 1,
+                             scaleX: 1.05,
+                             scaleY: 1.05,
                          });
                          this.setDefaultSprite('robot_heart.png');
                          this.disco = this.addSprite(gameConsts.halfWidth, gameConsts.halfHeight + 18, 'shields', 'frame0000.png').setScale(1.7).setDepth(5).play('disco');
@@ -321,7 +321,7 @@
      }
 
      initStatsCustom() {
-         this.health = gameVars.isHardMode ? 350 : 320;
+         this.health = gameVars.isHardMode ? 330 : 300;
          this.criticalThreshold = 60;
          this.nextShieldHealth = gameVars.isHardMode ? 100 : 80;
          this.shieldsBroken = 0;

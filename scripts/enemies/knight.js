@@ -1318,7 +1318,7 @@
          this.sprite.setDepth(2);
          playSound('meat_click_right');
          this.setMaxHealth(gameVars.isHardMode ? 110 : 90);
-         this.bg2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 10, 'backgrounds', 'gravedark.png').setDepth(-4).setScale(1.24);
+         this.bg2 = this.addImage(gameConsts.halfWidth, gameConsts.halfHeight - 10, 'backgrounds', 'gravedark.png').setDepth(-4).setScale(1.14);
          this.graves.setVisible(false);
          this.heal(this.healthMax);
          this.setAwake();
