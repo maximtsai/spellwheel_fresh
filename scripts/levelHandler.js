@@ -568,7 +568,7 @@ function switchLevelBackground(lvl) {
             break;
         case -7:
             switchBackground('grave_bg.webp');
-            fadeInBackgroundAtlas('backgrounds', 'background8.webp', 1500, 1.01, 1, 1,'Quart.easeIn', 0, false, 1);
+            fadeInBackgroundAtlas('backgrounds', 'background8.webp', 1500, 1.0504, 1.04, 1.04,'Quart.easeIn', 0, false, 1);
             break;
         case -6:
         case -5:
@@ -639,7 +639,7 @@ function switchLevelBackground(lvl) {
             break;
         case 7:
             switchBackground('grave_bg.webp');
-            fadeInBackgroundAtlas('backgrounds', 'background7.webp', 1500, 1.2, 1.25, 1.25,'Quart.easeIn', 0, false, 1);
+            fadeInBackgroundAtlas('backgrounds', 'background7.webp', 1500, 1.248, 1.3, 1.3,'Quart.easeIn', 0, false, 1);
             break;
         case 8:
             switchBackground('grass_bg.webp');
@@ -651,7 +651,7 @@ function switchLevelBackground(lvl) {
             break;
         case 10:
             switchBackground('grave_bg.webp');
-            fadeInBackgroundAtlas('backgrounds', 'background8.webp', 1500, 1, 1, 1,'Quart.easeIn', 0, false);
+            fadeInBackgroundAtlas('backgrounds', 'background8.webp', 1500, 1.04, 1.04, 1.04,'Quart.easeIn', 0, false);
             break;
         case 11:
             switchBackground('tunnel.webp');

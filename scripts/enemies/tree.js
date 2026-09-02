@@ -93,10 +93,10 @@
              let eyePosX = this.x + 130 * this.sprite.startScale;
              let eyePosY = this.y - 68.5 * this.sprite.startScale;
 
-             let tree = this.addImage(this.x, this.y, 'enemies', 'tree_open.png').setDepth(1).setOrigin(this.sprite.originX, this.sprite.originY).setScale(this.sprite.startScale * 1.085).setAlpha(0);
+             let tree = this.addImage(this.x, this.y, 'enemies', 'tree_open.png').setDepth(1).setOrigin(this.sprite.originX, this.sprite.originY).setScale(this.sprite.startScale * 1.095).setAlpha(0);
              this.addExtraSprite(tree);
 
-             let eye = this.addImage(eyePosX, eyePosY, 'enemies', 'tree_eye.png').setDepth(10).setOrigin(0.5, 0.5).setRotation(-0.13).setScale(0, this.sprite.startScale * 1.085);
+             let eye = this.addImage(eyePosX, eyePosY, 'enemies', 'tree_eye.png').setDepth(10).setOrigin(0.5, 0.5).setRotation(-0.13).setScale(0, this.sprite.startScale * 1.095);
              // this.thorns1 = this.addImage(this.x, this.y - 70, 'enemies', 'thorns.png').setDepth(999).setOrigin(0.5, -0.25);
 
              this.thorns1 = this.addImage(this.x - 4, this.y - 95, 'enemies', 'thorns.png').setDepth(8).setRotation(1.57 + 3.1415).setOrigin(0.5, -0.6).setScale(0.7595, 0.5425);
@@ -1077,8 +1077,8 @@
                      startFunction: () => {
                          this.addTween({
                              targets: this.sprite,
-                             scaleX: this.sprite.startScale * 1.085,
-                             scaleY: this.sprite.startScale * 1.085,
+                             scaleX: this.sprite.startScale * 1.095,
+                             scaleY: this.sprite.startScale * 1.095,
                              duration: 2000,
                              ease: 'Cubic.easeInOut'
                          })
@@ -1161,14 +1161,14 @@
          let oldScale = this.sprite.scaleX;
          let treeTop = this.addImage(this.sprite.x + 10, this.sprite.y, 'enemies', 'tree_top.png');
         this.clearThorns()
-         treeTop.setScale(this.sprite.scaleX * 1.085, this.sprite.scaleY * 1.085).setOrigin(this.sprite.originX, this.sprite.originY).setDepth(this.sprite.depth - 1);
+         treeTop.setScale(this.sprite.scaleX * 1.095, this.sprite.scaleY * 1.095).setOrigin(this.sprite.originX, this.sprite.originY).setDepth(this.sprite.depth - 1);
          this.setDefaultSprite('tree_stumped.png', this.sprite.startScale, true);
          this.sprite.setScale(oldScale);
 
          this.addTween({
              targets: this.sprite,
-             scaleX: this.sprite.startScale * 1.085,
-             scaleY: this.sprite.startScale * 1.085,
+             scaleX: this.sprite.startScale * 1.095,
+             scaleY: this.sprite.startScale * 1.095,
              duration: 2000,
              ease: 'Quad.easeOut',
          });

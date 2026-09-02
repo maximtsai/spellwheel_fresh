@@ -1146,15 +1146,15 @@ class Player {
             this.swirl2 = this.scene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight - 200, 'backgrounds', 'fog_swirl_glow.png').setDepth(30);
             this.swirl1 = this.scene.add.sprite(gameConsts.halfWidth, gameConsts.halfHeight - 200, 'backgrounds', 'fog_swirl.png').setDepth(30);
         }
-        this.swirl1.setAlpha(0).setScale(3);
-        this.swirl2.setAlpha(0).setScale(3);
+        this.swirl1.setAlpha(0).setScale(3.27);
+        this.swirl2.setAlpha(0).setScale(3.27);
 
         this.currentSwirlAnim = this.scene.tweens.add({
             targets: [this.swirl1, this.swirl2],
             duration: 2500,
             alpha: 0.5,
-            scaleX: 1.3,
-            scaleY: 1.3,
+            scaleX: 1.417,
+            scaleY: 1.417,
             ease: 'Cubic.easeInOut',
             onComplete: () => {
 

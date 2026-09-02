@@ -318,6 +318,7 @@ class Options {
         this.createInfoBoxPosText();
         this.createSkipIntroToggle();
         this.createFullScreenToggle();
+        this.createUnlockLevelsButton();
 
         createGlobalClickBlocker();
         if (!this.closeButton) {
@@ -906,6 +907,59 @@ class Options {
             });
             this.introButton.setDepth(this.baseDepth + 10);
             this.listOfButtonsToDisable.push(this.introButton);
+        }
+    }
+
+    // Cheat: one-way unlock of every level (1-15). Marks the save as cheated,
+    // same as the access-code cheats, and persists through the normal saves.
+    createUnlockLevelsButton() {
+        if (!this.unlockText) {
+            let startPos = gameConsts.halfHeight + 150;
+            this.unlockText = PhaserScene.add.text(gameConsts.halfWidth + 83, startPos, 'Unlock all levels', {fontFamily: 'germania', fontSize: 23, color: '#200000', align: 'left'}).setOrigin(0, 0.5).setDepth(this.baseDepth).setAlpha(0.82);
+            this.listOfThingsToHideSemiAlpha.push(this.unlockText);
+
+            this.unlockToggleVisual = PhaserScene.add.sprite(this.unlockText.x + 40, startPos, 'buttons', gameVars.maxLevel >= 15 ? 'check_box_on.png' : 'check_box_normal.png')
+            this.unlockToggleVisual.setDepth(this.baseDepth + 1);
+            this.listOfThingsToHide.push(this.unlockToggleVisual);
+
+            this.unlockButton = new Button({
+                normal: {
+                    atlas: 'buttons',
+                    ref: "check_box_normal.png",
+                    alpha: 0,
+                    x: this.unlockToggleVisual.x,
+                    y: startPos,
+                },
+                onHover: () => {
+                    if (canvas) {
+                        canvas.style.cursor = 'pointer';
+                    }
+                    if (gameVars.maxLevel < 15) {
+                        this.unlockToggleVisual.setFrame('check_box_hover.png');
+                    }
+                },
+                onHoverOut: () => {
+                    if (canvas) {
+                        canvas.style.cursor = 'default';
+                    }
+                    this.unlockToggleVisual.setFrame(gameVars.maxLevel >= 15 ? 'check_box_on.png' : 'check_box_normal.png');
+                },
+                onMouseUp: (x, y) => {
+                    if (gameVars.maxLevel >= 15) {
+                        return;
+                    }
+                    gameVars.maxLevel = 15;
+                    gameVars.hasCheated = true;
+                    updateCheatsDisplay();
+                    updateSpellState(gameVars.maxLevel);
+                    safeStorage.setItem("maxLevel", "15");
+                    saveSpellwheelProgress();
+                    this.unlockToggleVisual.setFrame('check_box_on.png');
+                    playSound('magic', 0.7);
+                },
+            });
+            this.unlockButton.setDepth(this.baseDepth + 10);
+            this.listOfButtonsToDisable.push(this.unlockButton);
         }
     }
 

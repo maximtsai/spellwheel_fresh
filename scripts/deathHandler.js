@@ -2,7 +2,7 @@ function showVictoryScreen() {
     globalObjects.player.getPlayerCastSpellsCount();
 }
 
-function swirlInReaperFog(customScale = 1.83, offsetY = 0, depth = -5) {
+function swirlInReaperFog(customScale = 1.9947, offsetY = 0, depth = -5) {
     let fogSwirlGlow = getFogSwirlGlow(offsetY);
     let fogSwirl = getFogSwirl(offsetY);
     fogSwirlGlow.setDepth(depth);
@@ -37,8 +37,8 @@ function clearDeathFog() {
     console.log("clear death fog");
     PhaserScene.tweens.add({
         targets: [globalObjects.fogSwirl],
-        scaleX: 2.475,
-        scaleY: 2.475,
+        scaleX: 2.69775,
+        scaleY: 2.69775,
         alpha: 0,
         ease: 'Quad.easeIn',
         duration: 550,
@@ -46,8 +46,8 @@ function clearDeathFog() {
 
     PhaserScene.tweens.add({
         targets: [globalObjects.fogSwirlGlow],
-        scaleX: 2.2,
-        scaleY: 2.2,
+        scaleX: 2.398,
+        scaleY: 2.398,
         alpha: 0,
         ease: 'Cubic.easeIn',
         duration: 600,
@@ -72,12 +72,12 @@ function getFogSliceDarken() {
 
 function getFogSwirl(offsetY) {
     if (!globalObjects.fogSwirl) {
-        globalObjects.fogSwirl = PhaserScene.add.image(gameConsts.halfWidth, 240, 'backgrounds', 'fog_swirl.png').setDepth(-3).setScale(2.42).setRotation(-1).setAlpha(0);
+        globalObjects.fogSwirl = PhaserScene.add.image(gameConsts.halfWidth, 240, 'backgrounds', 'fog_swirl.png').setDepth(-3).setScale(2.6378).setRotation(-1).setAlpha(0);
         globalObjects.fogSwirl.scrollFactorX = 0.25;
         globalObjects.fogSwirl.scrollFactorY = 0.25;
     }
     if (globalObjects.fogSwirl.alpha == 0) {
-        globalObjects.fogSwirl.setScale(2.475).setRotation(-1);
+        globalObjects.fogSwirl.setScale(2.69775).setRotation(-1);
     }
     globalObjects.fogSwirl.setPosition(gameConsts.halfWidth, 240 + offsetY);
     return globalObjects.fogSwirl;
@@ -142,12 +142,12 @@ function getFloatingDeath() {
 
 function getFogSwirlGlow(offsetY) {
     if (!globalObjects.fogSwirlGlow) {
-        globalObjects.fogSwirlGlow = PhaserScene.add.image(gameConsts.halfWidth, 225, 'backgrounds', 'fog_swirl_glow.png').setDepth(-3).setAlpha(0);
+        globalObjects.fogSwirlGlow = PhaserScene.add.image(gameConsts.halfWidth, 225, 'backgrounds', 'fog_swirl_glow.png').setDepth(-3).setScale(1.09).setAlpha(0);
         globalObjects.fogSwirlGlow.scrollFactorX = 0.25;
         globalObjects.fogSwirlGlow.scrollFactorY = 0.25;
     }
     if (globalObjects.fogSwirlGlow.alpha == 0) {
-        globalObjects.fogSwirlGlow.setScale(2.2).setRotation(-1);
+        globalObjects.fogSwirlGlow.setScale(2.398).setRotation(-1);
     }
     globalObjects.fogSwirlGlow.setPosition(gameConsts.halfWidth, 225 + offsetY)
     return globalObjects.fogSwirlGlow;
@@ -1003,8 +1003,8 @@ function setupReaperArrival() {
         // });
         globalObjects.fogSwirl.currAnim = PhaserScene.tweens.add({
             targets: [globalObjects.fogSwirl, globalObjects.fogSwirlGlow],
-            scaleX: 1.15,
-            scaleY: 1.15,
+            scaleX: 1.2535,
+            scaleY: 1.2535,
             alpha: 0.9,
             ease: 'Cubic.easeInOut',
             rotation: "+=1.5",
@@ -1019,8 +1019,8 @@ function setupReaperArrival() {
             onStart: () => {
                 PhaserScene.tweens.add({
                     targets: [globalObjects.fogSwirl, globalObjects.fogSwirlGlow],
-                    scaleX: 1.17,
-                    scaleY: 1.17,
+                    scaleX: 1.2753,
+                    scaleY: 1.2753,
                     alpha: 0.92,
                     ease: 'Quad.easeOut',
                     duration: 1000,

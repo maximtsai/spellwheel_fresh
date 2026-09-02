@@ -2486,7 +2486,7 @@
         this.destroy();
         gameVars.showFinaleDeathSpeech = true;
          fadeInBackgroundAtlas('backgrounds', 'background4.png', 2000, 1, 1, 1, 'Cubic.easeInOut', 0, false);
-        swirlInReaperFog(1.375);
+        swirlInReaperFog(1.49875);
         PhaserScene.tweens.add({
             delay: 200,
             targets: explosion,
