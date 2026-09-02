@@ -410,7 +410,7 @@ function createLvlCloseButton(lvl, items, offsetX = 0, offsetY = 0, instaClose =
             ref: "menu_btn_normal.png",
             atlas: 'buttons',
             x: gameConsts.halfWidth + offsetX,
-            y: gameConsts.height - 110 + offsetY,
+            y: gameConsts.height - 150 + offsetY,
         },
         hover: {
             ref: "menu_btn_hover.png",
