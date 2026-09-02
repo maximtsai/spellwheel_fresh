@@ -12,6 +12,17 @@ class InternalMouseManager {
         messageBus.publish("pointerMove", handPos.x, handPos.y);
     }
 
+    onPointerMovePhaserInGame(pointer) {
+        // Phaser input space: pointer.x/y are already canvas/game coordinates,
+        // the same space used by onPointerDown (baseTouchLayer). Convert WITHOUT
+        // the window->game re-scaling that onPointerMove (window event) applies.
+        gameVars.wasTouch = pointer.wasTouch || pointer.pointerType === "touch";
+        let handPos = mouseToHand(pointer.x, pointer.y, false);
+        gameVars.mouseposx = handPos.x;
+        gameVars.mouseposy = handPos.y;
+        messageBus.publish("pointerMove", handPos.x, handPos.y);
+    }
+
     // onTouchMove(x, y) {
     //     gameVars.wasTouch = true;
     //     let handPos = mouseToHand(x, y, true);
@@ -94,6 +105,11 @@ function setupMouseInteraction(scene) {
         x: 0, y: 0, key: 'whitePixel', add: true, scale: {x: gameConsts.width, y: gameConsts.height}, alpha: 0.001});
     baseTouchLayer.setInteractive();
     baseTouchLayer.on('pointerdown', mouseManager.onPointerDown, scene);
+    // Phaser's unified input manager reliably delivers pointermove for BOTH mouse
+    // and touch drags (window.onpointermove below often does NOT fire for mobile
+    // touch drags, which left mousepos frozen after the initial pointerdown and
+    // made the wheel only move on the first frame on mobile).
+    scene.input.on('pointermove', mouseManager.onPointerMovePhaserInGame, scene);
     // baseTouchLayer.on('pointerup', mouseManager.onPointerUp, scene);
     // baseTouchLayer.on('pointermove', mouseManager.onPointerDown, scene); // doesn't work outside
 
