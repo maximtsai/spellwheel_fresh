@@ -97,14 +97,6 @@ class PostFightScreen {
                 },
                 onHover: () => {
                     playSound('button_hover').detune = 100;
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
                 },
                 onMouseUp: () => {
 
@@ -115,9 +107,6 @@ class PostFightScreen {
             text.alpha = 0;
             this.continueButton.setOnHoverFunc(() => {
                 playSound('button_hover').detune = 75;
-                if (canvas) {
-                    canvas.style.cursor = 'pointer';
-                }
                 text.alpha = 1;
             });
             this.continueButton.setOnHoverOutFunc(() => {
@@ -155,14 +144,6 @@ class PostFightScreen {
                 },
                 onHover: () => {
                     playSound('button_hover').detune = 60;
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
                 },
                 onMouseUp: () => {
 
@@ -193,9 +174,6 @@ class PostFightScreen {
                     alpha: 0
                 },
                 onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                     if (this.gloom.currAnim) {
                         this.gloom.currAnim.stop();
                     }

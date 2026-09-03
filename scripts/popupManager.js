@@ -63,12 +63,6 @@ function showYesNoPopup(yesText, noText, titleText = '...', bodyText = "...", on
         onHover: () => {
             if (canvas) {
                 playSound('click').detune = 50;
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
             }
         },
         onMouseUp: () => {
@@ -118,12 +112,6 @@ function showYesNoPopup(yesText, noText, titleText = '...', bodyText = "...", on
         onHover: () => {
             if (canvas) {
                 playSound('click').detune = -50;
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
             }
         },
         onMouseUp: () => {
@@ -163,12 +151,6 @@ function showYesNoPopup(yesText, noText, titleText = '...', bodyText = "...", on
         onHover: () => {
             if (canvas) {
                 playSound('click').detune = -100;
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
             }
         },
         onMouseUp: () => {

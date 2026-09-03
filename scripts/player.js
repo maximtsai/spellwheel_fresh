@@ -1221,14 +1221,6 @@ class Player {
                             },
                             onHover: () => {
                                 playSound('click',1.1).detune = -100;
-                                if (canvas) {
-                                    canvas.style.cursor = 'pointer';
-                                }
-                            },
-                            onHoverOut: () => {
-                                if (canvas) {
-                                    canvas.style.cursor = 'default';
-                                }
                             },
                             onMouseUp: () => {
                                 if (canvas) {
@@ -1270,14 +1262,6 @@ class Player {
                             },
                             onHover: () => {
                                 playSound('click',1.1);
-                                if (canvas) {
-                                    canvas.style.cursor = 'pointer';
-                                }
-                            },
-                            onHoverOut: () => {
-                                if (canvas) {
-                                    canvas.style.cursor = 'default';
-                                }
                             },
                             onMouseUp: () => {
                                 if (canvas) {
@@ -1337,9 +1321,6 @@ class Player {
                             },
                             onHover: () => {
                                 playSound('click',1.1);
-                                if (canvas) {
-                                    canvas.style.cursor = 'pointer';
-                                }
                                 locket.alpha = 1;
                                 locket.setScale(0.765);
                             },

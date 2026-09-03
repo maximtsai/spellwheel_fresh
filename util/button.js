@@ -198,6 +198,9 @@ class Button {
         if (this.state === NORMAL) {
             this.setState(HOVER);
         }
+        if (typeof canvas !== 'undefined' && canvas) {
+            canvas.style.cursor = 'pointer';
+        }
         if (this.onHoverFunc) {
             this.onHoverFunc();
         }
@@ -206,6 +209,9 @@ class Button {
     onHoverOut() {
         if (this.isDestroyed) {
             return;
+        }
+        if (typeof canvas !== 'undefined' && canvas) {
+            canvas.style.cursor = 'default';
         }
         if (this.onHoverOutFunc) {
             this.onHoverOutFunc();
@@ -569,6 +575,9 @@ class Button {
     destroy() {
         if (this.isDestroyed) {
             return;
+        }
+        if (this.state === HOVER && typeof canvas !== 'undefined' && canvas) {
+            canvas.style.cursor = 'default';
         }
         this.isDestroyed = true;
         this.onHoverFunc = null;

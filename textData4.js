@@ -321,9 +321,6 @@ let textData4 = {
         "fr": "ADD DAMAGE\npeut renforcer\nShock Strike\n           +",
         "zh_tw": "ADD DAMAGE\n也会強化\nShock Strike\n           +",
         "zh_cn": "ADD DAMAGE\n也会强化\nShock Strike\n           +",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "shield_tut_knight": {
         "en_us": "Void shields will\nblock strong\nattacks! But\nbreak after X hits.\n              +",
@@ -339,9 +336,6 @@ let textData4 = {
         "fr": "Ce bouclier ressemble au bouclier\nde cette statue plus tôt",
         "zh_tw": "這個護盾看起來很像之前\n那座雕像用的護盾。",
         "zh_cn": "这个护盾看起来很像之前\n那座雕像用的护盾。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "dummy_body_a": {
         "en_us": "Thorns reduce\nincoming damage\nand can inflict\ndamage back.\n              +",
@@ -357,9 +351,6 @@ let textData4 = {
         "fr": "Un seul effet\nde sort Corps\npeut être actif\nà la fois",
         "zh_tw": "每次只能啟動一個\n身體法術效果。",
         "zh_cn": "每次只能激活一个\n身体法术效果。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "killer_robot_a": {
@@ -522,9 +513,6 @@ let textData4 = {
         "fr": "\"Ton skill au combat est\nbien, mais continue et tu\nverras la fin!\"",
         "zh_tw": "\"你的戰鬥技藝非凡驚艷，\n但繼續前行會厄運將現!\"",
         "zh_cn": "\"你的战斗技艺非凡惊艳，\n但继续前行会厄运将现!\"",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "pre_fight_3b": {
         "en_us": "Neither riddles nor force\nwill stop my journey.\nIt's time I teach this\n\"Magician\" a lesson.",
@@ -540,45 +528,30 @@ let textData4 = {
         "fr": "Quel curieux bouclier.",
         "zh_tw": "多麼奇特的護盾啊。",
         "zh_cn": "多么奇特的护盾啊。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "statue_info_b": {
         "en_us": "It easily blocks strong attacks, yet\nbreaks with multiple weak hits.",
         "fr": "Il bloque les attaques puissantes, mais\nse brise sous de faibles coups répétés",
         "zh_tw": "它能完全阻擋強力的攻擊，\n但卻容易多次弱勢攻擊擊破。",
         "zh_cn": "它能完全阻挡强力的攻击，\n但却容易多次弱势攻击击破。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "statue_info_a2": {
         "en_us": "What a weak shield.",
         "fr": "Quel bouclier faible.",
         "zh_tw": "多麼脆弱的護盾。",
         "zh_cn": "多么脆弱的护盾。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "statue_info_b2": {
         "en_us": "It is already crumbling from just\na single flurry of my attacks.",
         "fr": "Il est déjà en train de s'effondrer\nà cause d'une seule de mes attaques.",
         "zh_tw": "從我的一次猛烈攻擊下，\n它就快崩塌了。",
         "zh_cn": "从我的一次猛烈攻击下，\n它就快崩塌了。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "time_strike_info": {
         "en_us": "Hits twice\n       +",
         "fr": "Frappe deux\nfois\n         +",
         "zh_tw": "打擊两次\n      +",
         "zh_cn": "打击两次\n      +",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "superdummy_start": {
         "en_us": "Strange, I don't remember\nsetting up a training doll.",
@@ -649,189 +622,126 @@ let textData4 = {
         "fr": "Maintenant reposez-vous et\nlaissez-moi vous expliquer.",
         "zh_tw": "現在休息一下，\n請容我稍作解釋。",
         "zh_cn": "现在休息一下，\n请容我稍作解释。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_b": {
         "en_us": "...We won't be\nneeding these anymore.",
         "fr": "...Nous n'aurons plus\nbesoin de ces armes",
         "zh_tw": "。。。我們不再需要\n這些武器了。",
         "zh_cn": "。。。我们不再需要\n这些武器了。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_c": {
         "en_us": "I offer my heartfelt understanding\nfor your anguish.",
         "fr": "Je vous offre ma sincère compréhension\npour votre angoisse.",
         "zh_tw": "我衷心理解你的痛苦。",
         "zh_cn": "我衷心理解你的痛苦。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_understand": {
         "en_us": "But understand what you\nare doing is not love.",
         "fr": "Mais comprenez que ce que vous\nfaites n’est pas de l’amour.",
         "zh_tw": "但請明白，你所做的並非是愛，",
         "zh_cn": "但请明白，你所做的并非是爱，",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_obsess": {
         "en_us": "It is infatuation turned obsession.",
         "fr": "C'est de l'engouement devenu obsession.",
         "zh_tw": "而是迷戀變成了執念。",
         "zh_cn": "而是迷恋变成了执念。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_odyssey": {
         "en_us": "Was your expedition a noble odyssey?",
         "fr": "Votre expédition était-elle\nune noble odyssée ?",
         "zh_tw": "你的遠徵是一次高貴的歷程嗎？",
         "zh_cn": "你的远征是一次高尚的历程吗？",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_indulgence": {
         "en_us": "Or a self indulgence to fill\nthe emptiness in your heart?",
         "fr": "Ou un acte de complaisance pour\ncombler le vide de votre cœur ?",
         "zh_tw": "還是一種自我放縱，\n用以填補你內心的空虛？",
         "zh_cn": "还是一种自我放纵，\n用以填补你内心的空虚？",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_yield": {
         "en_us": "You think if you force me to yield,\nyou can have her back.",
         "fr": "Tu penses que si tu me forces à céder,\ntu pourras la récupérer.",
         "zh_tw": "你以為只要逼我屈服，\n就能把她搶回來嗎？",
         "zh_cn": "你以为只要逼我屈服，\n就能把她抢回来吗？",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_within": {
         "en_us": "...That may be within my power,\nbut bringing her back won’t heal you.",
         "fr": "...C'est en mon pouvoir,\nmais la ramener ne te guérira pas.",
         "zh_tw": "...這在我的能力範圍之內，\n但將她帶回來並不能治癒你的心。",
         "zh_cn": "...这在我的能力范围之内，\n但将她带回来并不能治愈你的心。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_both": {
         "en_us": "It will only hurt you both.",
         "fr": "Cela ne fera que vous faire\ndu mal à tous les deux.",
         "zh_tw": "而只會對你們雙方造成傷害。",
         "zh_cn": "而只会对你们双方造成伤害。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_strength": {
         "en_us": "You’ve proven your strength.\nBut true strength now...",
         "fr": "Tu as prouvé ta force. Mais la\nvraie force maintenant...",
         "zh_tw": "你已經證明了你的力量。\n但真正的力量。。。",
         "zh_cn": "你已经证明了你的力量。\n但真正的力量。。。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_letting": {
         "en_us": "...lies in moving on.",
         "fr": "...vient du fait de tourner la page.",
         "zh_tw": "在於放下過去，繼續前行。",
         "zh_cn": "在于放下过去，继续前行。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_memory": {
         "en_us": "Let her memory live with you,\nbut allow her soul to be free.",
         "fr": "Laissez sa mémoire vivre avec vous,\nmais laisse son âme continuer son chemin.",
         "zh_tw": "讓她的記憶與你同在，\n但讓她的靈魂得到自由。",
         "zh_cn": "让她的记忆与你同在，\n但让她的灵魂得到自由。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "now...": {
         "en_us": "Now...",
         "fr": "...",
         "zh_tw": "现在。。。",
         "zh_cn": "现在。。。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_calm": {
         "en_us": "It seems you have calmed down.",
         "fr": "On dirait que tu t'es calmé.",
         "zh_tw": "看起來你已經冷靜下來了。",
         "zh_cn": "看起来你已经冷静下来了。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_patience": {
         "en_us": "For your patience, perhaps I\ncould bend the rules a bit.",
         "fr": "Pour votre patience, je pourrais\npeut-être assouplir un peu les règles.",
         "zh_tw": "鑑於您的耐心，\n也許我可以稍作通融。",
         "zh_cn": "鉴于您的耐心，\n也许我可以稍作通融。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_once": {
         "en_us": "Just this once.",
         "fr": "Juste cette fois.",
         "zh_tw": "就這一次。",
         "zh_cn": "就这一次。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_talk": {
         "en_us": "Here she is.",
         "fr": "La voici.",
         "zh_tw": "她在這裡。",
         "zh_cn": "她在这里。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_talk2": {
         "en_us": "Tell her what your heart yearns to say.",
         "fr": "Dis-lui ce que ton cœur désire dire.",
         "zh_tw": "說出你心裡渴望說的話。",
         "zh_cn": "说出你心里渴望说的话。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_say": {
         "en_us": "Treasure this moment.",
         "fr": "Chérissez ce moment.",
         "zh_tw": "珍惜這短暫的時刻。",
         "zh_cn": "珍惜这短暂的时刻。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_letgo": {
         "en_us": "And then... let her go.",
         "fr": "Alors. . . Laissez-la partir.",
         "zh_tw": "然後。。。放手她。",
         "zh_cn": "然后。。。放手她。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "reunite_beloved": {
@@ -839,9 +749,6 @@ let textData4 = {
         "fr": "Retrouvailles avec l'être aimé",
         "zh_tw": "與心愛的人重逢",
         "zh_cn": "与挚爱重聚",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "put_away_locket": {
@@ -849,9 +756,6 @@ let textData4 = {
         "fr": "Range ces souvenirs dans ton cœur.",
         "zh_tw": "收起心鎖",
         "zh_cn": "收起心锁",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "start": {
@@ -859,9 +763,6 @@ let textData4 = {
         "fr": "COMMENCER",
         "zh_tw": "開始",
         "zh_cn": "开始",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "death3_warn0": {
@@ -869,9 +770,6 @@ let textData4 = {
         "fr": "Où est-ce que je\nviens de dire...",
         "zh_tw": "我剛說到哪裡了...",
         "zh_cn": "我刚说到哪儿了...",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "death3_warn1a": {
@@ -879,18 +777,12 @@ let textData4 = {
         "fr": "Je sais que votre sang est\nencore chaud après la bataille,",
         "zh_tw": "我知你戰後熱血未冷，",
         "zh_cn": "我知你战后热血未冷，",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_warn1b": {
         "en_us": "but please allow me a moment\nto finish what I must say.",
         "fr": "mais je vous prie de me laisser\nfinir ce que j’ai à dire.",
         "zh_tw": "但請容我將話說完。",
         "zh_cn": "但请容我将话说完。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "death3_warn2a": {
@@ -898,9 +790,6 @@ let textData4 = {
         "fr": "Je n’aime pas être interrompu\npendant que je parle.",
         "zh_tw": "我不喜歡在說話時被打斷。",
         "zh_cn": "我不喜欢在说话时被打断。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "death3_warn2b": {
@@ -908,9 +797,6 @@ let textData4 = {
         "fr": "Ceci est votre dernier avertissement.",
         "zh_tw": "這是你最後的警告。",
         "zh_cn": "这是你最后的警告。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "death3_angry": {
@@ -918,9 +804,6 @@ let textData4 = {
         "fr": "QUELLE DÉCEPTION.",
         "zh_tw": "真令人失望。",
         "zh_cn": "真令人失望。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "death3_angry2": {
@@ -928,81 +811,54 @@ let textData4 = {
         "fr": "JE TE RENDRAI\nTON BIEN-AIMÉ.",
         "zh_tw": "我會把你所愛的人還給你。",
         "zh_cn": "我会把你心爱的人还给你。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_angry3": {
         "en_us": "AND I SHALL LEAVE\nYOU TWO ALONE...",
         "fr": "ET JE VOUS LAISSERAIS\nTOUS LES DEUX SEULS...",
         "zh_tw": "但我將再也不會於\n你們兩人見面。。。",
         "zh_cn": "但我将再也不会于\n你们两人见面。。。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3_angry4": {
         "en_us": "FOREVER.",
         "fr": "POUR TOUJOURS",
         "zh_tw": "直到永遠。",
         "zh_cn": "直到永远。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "badend_1": {
         "en_us": "At last, you are with your beloved.",
         "fr": "Enfin, tu es avec ton bien-aimé.",
         "zh_tw": "你終於和你所愛的人在一起了。",
         "zh_cn": "你终于和你所爱的人在一起了。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "badend_2": {
         "en_us": "But your fates soon become apparent.",
         "fr": "Mais vous n’avez pas tardé à réaliser votre destin.",
         "zh_tw": "但不久後你就意識到你們的命運。",
         "zh_cn": "但不久后你就意识到你们的命运。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "badend_3": {
         "en_us": "You age and wither, yet cannot find rest.",
         "fr": "Tu vieillis et dépérit,\nmais tu ne peux pas trouver de repos.",
         "zh_tw": "你年老、枯萎，卻無法得到安息。",
         "zh_cn": "你年老、枯萎，却无法得到安息。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "badend_4": {
         "en_us": "The world continues, yet you stagnate and rot.",
         "fr": " \nLe monde continue, mais vous stagnez et pourrissez.",
         "zh_tw": "世界繼續前行，而你卻滯留腐朽。",
         "zh_cn": "世界继续前行，而你却滞留腐朽。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "badend_5": {
         "en_us": "Death has indeed abandoned you... forever.",
         "fr": " \nLa mort t'a en effet abandonné... pour toujours..",
         "zh_tw": "死神確實永久脫離了你們。",
         "zh_cn": "死神确实永久脱离了你们。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "got_it": {
         "en_us": "GOT IT",
         "fr": "J'AI COMPRIS",
         "zh_tw": "知道了",
         "zh_cn": "知道了",
-        "ru": "",
-        "es": "",
-        "jp": ""
     }
 }
 textData = { ...textData, ...textData4};

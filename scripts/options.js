@@ -33,14 +33,6 @@ class Options {
             },
             onHover: () => {
                 playSound('click',1.1).detune = 220;
-                if (canvas) {
-                    canvas.style.cursor = 'pointer';
-                }
-            },
-            onHoverOut: () => {
-                if (canvas) {
-                    canvas.style.cursor = 'default';
-                }
             },
             onMouseUp: () => {
                 this.showOptions()
@@ -124,16 +116,6 @@ class Options {
                     atlas: 'buttons',
                     alpha: 0
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseUp: () => {
                     if (globalObjects.currentEnemy && !globalObjects.currentEnemy.isDestroyed && globalObjects.currentEnemy.level !== -99) {
                         this.popupElements = showYesNoPopup(getLangText('exit'), getLangText('back'), getLangText('main_menu'), getLangText('exit_long'), () => {
@@ -199,16 +181,6 @@ class Options {
                     atlas: 'buttons',
                     alpha: 0
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseUp: () => {
                     this.hideOptions();
                 }
@@ -242,16 +214,6 @@ class Options {
                 onDrag: (x, y) => {
                     this.updateBGMSlider(startX, x);
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseDown: (x, y) => {
                     this.updateBGMSlider(startX, x);
                 },
@@ -276,16 +238,6 @@ class Options {
                 },
                 onDrag: (x, y) => {
                     this.updateSFXSlider(startX, x)
-                },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
                 },
                 onMouseDown: (x, y) => {
                     this.updateSFXSlider(startX, x)
@@ -344,16 +296,6 @@ class Options {
                     atlas: 'buttons',
                     ref: "closebtn.png",
                     alpha: 0
-                },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
                 },
                 onMouseUp: () => {
                     this.hideOptions()
@@ -453,16 +395,6 @@ class Options {
                     ref: "select_btn_disable.png",
                     alpha: 1,
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseUp: (x, y) => {
                     this.infoLeftButton.setState(DISABLE);
                     this.infoCenterButton.setState(NORMAL);
@@ -501,16 +433,6 @@ class Options {
                     ref: "select_btn_disable.png",
                     alpha: 1,
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseUp: (x, y) => {
                     this.infoLeftButton.setState(NORMAL);
                     this.infoCenterButton.setState(DISABLE);
@@ -548,16 +470,6 @@ class Options {
                     atlas: 'buttons',
                     ref: "select_btn_disable.png",
                     alpha: 1,
-                },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
                 },
                 onMouseUp: (x, y) => {
                     this.infoLeftButton.setState(NORMAL);
@@ -630,16 +542,6 @@ class Options {
                         atlas: 'buttons',
                         ref: "select_btn_disable.png",
                         alpha: 1,
-                    },
-                    onHover: () => {
-                        if (canvas) {
-                            canvas.style.cursor = 'pointer';
-                        }
-                    },
-                    onHoverOut: () => {
-                        if (canvas) {
-                            canvas.style.cursor = 'default';
-                        }
                     },
                     onMouseUp: (x, y) => {
                         for (let i in this.listOfLangButtons) {
@@ -720,16 +622,6 @@ class Options {
                         atlas: 'ui',
                         alpha: 0.95
                     },
-                    onHover: () => {
-                        if (canvas) {
-                            canvas.style.cursor = 'pointer';
-                        }
-                    },
-                    onHoverOut: () => {
-                        if (canvas) {
-                            canvas.style.cursor = 'default';
-                        }
-                    },
                     onMouseUp: () => {
                         this.activateCode(i);
                     }
@@ -767,7 +659,6 @@ class Options {
                     },
                     onHover: () => {
                         if (canvas) {
-                            canvas.style.cursor = 'pointer';
                             canvas.style.cursorOn = arrowBtn;
                         }
                     },
@@ -816,7 +707,6 @@ class Options {
                     },
                     onHover: () => {
                         if (canvas) {
-                            canvas.style.cursor = 'pointer';
                             canvas.style.cursorOn = arrowBtnUp;
                         }
                     },
@@ -882,9 +772,6 @@ class Options {
                     y: startPos,
                 },
                 onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                     if (gameOptions.skipIntro) {
                         this.introToggleVisual.setFrame('check_box_hover2.png');
                     } else {
@@ -932,9 +819,6 @@ class Options {
                     y: startPos,
                 },
                 onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                     if (gameOptions.fullscreen) {
                         this.fullscreenToggleVisual.setFrame('check_box_hover2.png');
                     } else {
@@ -1507,9 +1391,6 @@ class Options {
                     y: startPos,
                 },
                 onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                     this.unlockAllToggleVisual.setFrame('check_box_hover.png');
                 },
                 onHoverOut: () => {

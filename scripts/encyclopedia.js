@@ -31,14 +31,6 @@ class Encyclopedia {
             },
             onHover: () => {
                 playSound('click',1.1).detune = 100;
-                if (canvas) {
-                    canvas.style.cursor = 'pointer';
-                }
-            },
-            onHoverOut: () => {
-                if (canvas) {
-                    canvas.style.cursor = 'default';
-                }
             },
             onMouseUp: () => {
                 this.showEncyclopedia()
@@ -114,16 +106,6 @@ class Encyclopedia {
                     ref: "closebtn.png",
                     alpha: 0
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseUp: () => {
                     this.hideEncyclopedia()
                 }
@@ -185,9 +167,6 @@ class Encyclopedia {
                 },
                 onHover: () => {
                     this.tab1.setFrame('paperTab_glow.png')
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                 },
                 onHoverOut: () => {
                     this.tab1.setFrame('paperTab.png')
@@ -230,9 +209,6 @@ class Encyclopedia {
                 },
                 onHover: () => {
                     this.tab2.setFrame('paperTab_glow.png')
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                 },
                 onHoverOut: () => {
                     this.tab2.setFrame('paperTab.png')
@@ -275,9 +251,6 @@ class Encyclopedia {
                 },
                 onHover: () => {
                     this.tab3.setFrame('paperTab_glow.png')
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                 },
                 onHoverOut: () => {
                     this.tab3.setFrame('paperTab.png')

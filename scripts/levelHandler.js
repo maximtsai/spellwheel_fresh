@@ -425,14 +425,6 @@ function createLvlCloseButton(lvl, items, offsetX = 0, offsetY = 0, instaClose =
         },
         onHover: () => {
             playSound('click');
-            if (canvas) {
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
-            }
         },
         onMouseUp: () => {
             playSound('button_click');
@@ -496,14 +488,6 @@ function createMenuCloseButton(items) {
         },
         onHover: () => {
             playSound('button_hover').detune = 30 - Math.floor(Math.random() * 60);
-            if (canvas) {
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
-            }
         },
         onMouseUp: () => {
             playSound('button_click');
@@ -796,16 +780,6 @@ function buildTutorialButton(icon = "rune_matter_large.png", popup) {
         disable: {
             alpha: 0
         },
-        onHover: () => {
-            if (canvas) {
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
-            }
-        },
         onMouseUp: () => {
             showTutorialImage();
             returnButton.destroy();
@@ -946,9 +920,6 @@ function buildRuneclicker(x, y, onClick) {
             scaleY: 50
         },
         onHover: () => {
-            if (canvas) {
-                canvas.style.cursor = 'pointer';
-            }
             globalObjects.runeHighlightTemp.setPosition(x, y).setAlpha(0.25);
         },
         onHoverOut: () => {

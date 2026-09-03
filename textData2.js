@@ -215,8 +215,6 @@ let textData2 = {
         "zh_tw": " \n(因作弊而未顯示代碼)",
         "zh_cn": " \n（因作弊而未显示代码）",
         "ru": " \n(Не отображается из-за читов)",
-        "es": "",
-        "jp": ""
     },
 
     "post_fight_newrune": {
@@ -253,15 +251,11 @@ let textData2 = {
         "zh_cn": "第",
         "ru": "День",
         "es": "DIA",
-        "jp": ""
     },
     "post_fight_day2": {
         "en_us": "",
-        "fr": "",
         "zh_tw": "天",
         "zh_cn": "天",
-        "ru": "",
-        "es": "",
         "jp": "日目"
     },
     "post_fight_story1": {
@@ -269,9 +263,6 @@ let textData2 = {
         "fr": "Je suis arrivé aux portes de la\nterre interdite des défunts.\n\nCette terre tente de résister à mon passage,\ndressant des obstacles à chacun de mes pas.\nMais je trouverai un moyen de passer, car\nje sais que je te trouverai ici, ma chère\nbien-aimée.",
         "zh_tw": "我已經到達了通往逝者禁地的大門。 \n\n立刻，這個境界就試圖阻止我前進。\n但我會克服一切困難，因為我知道\n我會在這裡找到你，親愛的。",
         "zh_cn": "我已经到达了通往逝者禁地的大门。 \n\n顷刻间，这个境界就试图阻止我前进。\n但我会克服一切困难，因为我知道\n我会在这里找到你，亲爱的。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "post_fight_story2": {
         "en_us": "The fabled Reaper has taken notice\nof me, but I don't fear it at all.\n\nThey remind me more of my nagging\nparents than an underworld spectre.\n\nPerhaps I'll grab this shield before they\nstart chastising me further.",
@@ -326,9 +317,6 @@ let textData2 = {
         "fr": "Le Faucheur me traite comme un enfant\nqui pique une crise de colère, mais je\npense que je pourrai bientôt changer\ncette perspective.\n\nCette dernière rune que j'ai obtenue semble\nparticulièrement puissante et pourrait\nbien être la clé d'une victoire finale.",
         "zh_tw": "死神把我當成發脾氣的小孩，\n但我認為我很快就能改變他的看法。\n\n我得到的最後一個符文感覺特別\n強大，可能是獲得最終勝利的關鍵。",
         "zh_cn": "死神把我当成发脾气的小孩，\n但我认为我很快就能改变他的看法。\n\n我得到的最后一个符文感觉特别\n强大，可能是获得最终胜利的关键。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "post_fight_story7": {
         "en_us": "My magic feels complete. I think\nthe Reaper must have noticed and is scared\nto face me in battle!\n\nBut I'm sure my chance will come as\nlong as I keep pressing on.",
@@ -506,9 +494,6 @@ let textData2 = {
         "fr": "Une étrange créature aquatique m'a dérangé\nalors que je remplissais mes provisions.\n\nLes rochers la traversent, mais peut-être\nque la foudre aura un effet ?",
         "zh_tw": "當我補充補給時，一個討厭的水生物打\n擾了我。\n\n岩石直接穿過它，但也許閃電會有作用？",
         "zh_cn": "当我补充补给时，一个讨厌的水生物打\n扰了我。\n\n岩石直接穿过它，但也许闪电会有作用？",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "pre_fight_1a": {
         "en_us": "\"This is my shield, mine!\n Is family treasure from\n father's brother's aunt's\n grandpa's cousin's\n friend's neighbor!!\"",
@@ -542,27 +527,15 @@ let textData2 = {
         "fr": "Je suis tombé sur une statue avec une aura\nétrange. Quelque chose en elle me nargue.\n\nJe devrais peut-être tester ma magie\nnouvellement acquise sur elle.",
         "zh_tw": '我在路邊看到一座雕像。這雕像好像在\n散發一個奇異的氣息，讓我感到不适。\n\n也許我該在它身上測試我新獲得的法術。',
         "zh_cn": '我在路边看到一座雕像。这雕像好像在\n散发一个奇异的气息，让我感到不适。\n\n也许我该在它身上测试我新获得的法术。',
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "pre_fight_4a": {
         "en_us": "You: \"You there, are you friend or foe?\"\n...\nYou: \"Answer me or face my wrath!\"\n\nSilence was the only answer it gave.",
         "fr": "Toi : « Toi là, es-tu ami ou ennemi ? »\n...\nToi : « Réponds-moi ou affronte ma colère ! »\n\nLe silence fut la seule réponse que je reçus.",
         "zh_tw": '你："你是朋友還是敵人？"\n…\n你："回答我，否則將面臨我的憤怒！"\n\n沉默是我唯一得到的答案。',
         "zh_cn": '你："你是朋友还是敌人？"\n…\n你："回答我，否则将面临我的愤怒！"\n\n沉默是我唯一得到的回答。',
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "pre_fight_4b": {
         "en_us": "",
-        "fr": "",
-        "zh_tw": "",
-        "zh_cn": "",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "pre_fight_5a": {
         "en_us": "No matter where I go, this wall always\nseems to be in the way.",
@@ -650,9 +623,6 @@ let textData2 = {
         "fr": " HP ENNEMI",
         "zh_tw": "敵人生命值",
         "zh_cn": "敌人生命值",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level0_tut_backup": {
         "en_us": " Defeat the =>\n enemy to win",
@@ -677,18 +647,12 @@ let textData2 = {
         "fr": "Un autre obstacle. Renforcer mes\nattaques le détruira plus vite.",
         "zh_tw": "另一个障碍。強化法術\n能讓我更快摧毀敵人。",
         "zh_cn": "另一个障碍。强化法术\n能让我更快摧毁敌人。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level1_shield": {
         "en_us": "I only have this shield\nto defend myself.",
         "fr": "Je n'ai que ce bouclier\npour me défendre.",
         "zh_tw": "我只有這面盾牌來保護自己。",
         "zh_cn": "我只有这面盾牌来保护自己。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level1_tut_a": {
         "en_us": "Enhance rune\nmakes your\nattacks stronger\n ",
@@ -722,45 +686,30 @@ let textData2 = {
         "fr": "Gardez un œil sur\nle prochain mouvement\nde l'ennemi",
         "zh_tw": "留意敵人的下一步行動",
         "zh_cn": "留意敌人的\n下一步行动",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level_water_nodamage": {
         "en_us": "Physical attacks can't\nharm this creature.",
         "fr": "Les attaques physiques ne peuvent\npas blesser cette créature.",
         "zh_tw": "物理攻擊傷不了這個生物。",
         "zh_cn": "物理攻击伤不了这个生物。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level_water_nodamage2": {
         "en_us": "But Energy spells should.",
         "fr": "Mais les sorts d'énergie le devraient.",
         "zh_tw": "但能量法術會有效。",
         "zh_cn": "但能量法术会有效。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level_water_victory": {
         "en_us": "(The water elemental trickles away)",
         "fr": "(La élémentaire d'eau s'est échappée)",
         "zh_tw": "（水元素生物流走了）",
         "zh_cn": "（水元素生物流走了）",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level_water_victory_post": {
         "en_us": "I need a better shield...",
         "fr": "J'ai besoin d'un meilleur bouclier...",
         "zh_tw": "我必須找更好的\n方法來保護自己。",
         "zh_cn": "我必须找更好的\n方法来保护自己。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level1_train_diag_a": {
         "en_us": "I've set up a training doll\nto test this new rune.",
@@ -794,9 +743,6 @@ let textData2 = {
         "fr": "Je peux faire plus de\ndégâts si je fais suivre\nEnergy Strike avec Matter Strike.",
         "zh_tw": "如果我先用 Energy Strike，其次用\nMatter Strike，我可以造成更多伤害。",
         "zh_cn": "如果我先用 Energy Strike，其次用\nMatter Strike，我可以造成更多伤害。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level1_train_tut_a": {
         "en_us": "Goal: Defeat\nenemy in\n4 hits",
@@ -812,9 +758,6 @@ let textData2 = {
         "fr": "RÉCUPÉRER EN:",
         "zh_tw": "倒數恢復:",
         "zh_cn": "倒计时恢复:",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "level_dummy_shield": {
@@ -822,18 +765,12 @@ let textData2 = {
         "fr": "Il est temps de\ntester ce bouclier.",
         "zh_tw": "是時候測試這個盾牌。",
         "zh_cn": "是时候测试这个盾牌。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level_dummy_shield2": {
         "en_us": "This dummy is rigged to\nattack when I click START.",
         "fr": "J'ai truqué ce mannequin pour\nattaquer au clic sur DÉMARRER.",
         "zh_tw": "當我單擊“START”時，\n這個假人會開始進行攻擊。",
         "zh_cn": "当我单击“START”时，\n这个假人会开始进行攻击。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
     "level2_tut_a": {
@@ -868,9 +805,6 @@ let textData2 = {
         "fr": "Ralentit les\ndégâts entrants\n             +",
         "zh_tw": "减缓严重伤害\n         +",
         "zh_cn": "减缓严重伤害\n         +",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "level4_train_tut_b": {
         "en_us": "Heal your last\ninjury with\n          +",
@@ -1030,153 +964,99 @@ let textData2 = {
         "fr": "SORT DE RUNE BOUCLIER",
         "zh_tw": "盾牌符文法術",
         "zh_cn": "盾牌符文法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "body_rune_spells": {
         "en_us": "BODY RUNE SPELLS",
         "fr": "SORT DE RUNE CORPS",
         "zh_tw": "身體符文法術",
         "zh_cn": "身体符文法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "ultimate_rune_spells": {
         "en_us": "ULTIMATE RUNE SPELLS",
         "fr": "SORT DE RUNE ULTIME",
         "zh_tw": "究極符文法術",
         "zh_cn": "究极符文法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "energy_rune_spells": {
         "en_us": "ENERGY RUNE SPELLS",
         "fr": "SORT DE RUNE\nD'ÉNERGIE",
         "zh_tw": "能量符文法術",
         "zh_cn": "能量符文法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "time_rune_spells": {
         "en_us": "TIME RUNE SPELLS",
         "fr": "SORT DE RUNE\nTEMPORELLE",
         "zh_tw": "時間符文法術",
         "zh_cn": "时间符文法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "void_rune_spells": {
         "en_us": "VOID RUNE SPELLS",
         "fr": "SORT DE RUNE DU VIDE",
         "zh_tw": "虛空符文法術",
         "zh_cn": "虚空符文法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "cast": {
         "en_us": "CAST",
         "fr": "LANCER",
         "zh_tw": "施放",
         "zh_cn": "施放",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "HP": {
         "en_us": "HP: ",
         "fr": "HP: ",
         "zh_tw": "生命: ",
         "zh_cn": "生命: ",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Matter_rune_short": {
         "en_us": "Matter Rune summons heavy rocks\nfor offense and defense",
         "fr": "Matter Rune summons heavy rocks\nfor offense and defense",
         "zh_tw": "Matter Rune summons heavy rocks\nfor offense and defense",
         "zh_cn": "Matter Rune summons heavy rocks\nfor offense and defense",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Strike_rune_short": {
         "en_us": "Strike Rune directly attacks the opponent",
         "fr": "Strike Rune directly attacks the opponent",
         "zh_tw": "Strike Rune directly attacks the opponent",
         "zh_cn": "Strike Rune directly attacks the opponent",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Enhance_rune_short": {
         "en_us": "Enhance Rune boosts the\npower of your attacks",
         "fr": "Enhance Rune boosts the\npower of your attacks",
         "zh_tw": "Enhance Rune boosts the\npower of your attacks",
         "zh_cn": "Enhance Rune boosts the\npower of your attacks",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Energy_rune_short": {
         "en_us": "Energy Rune controls lightning,\nfire and raw energy",
         "fr": "Energy Rune controls lightning,\nfire and raw energy",
         "zh_tw": "Energy Rune controls lightning,\nfire and raw energy",
         "zh_cn": "Energy Rune controls lightning,\nfire and raw energy",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Shield_rune_short": {
         "en_us": "Shield Rune creates protective barriers",
         "fr": "Shield Rune creates protective barriers",
         "zh_tw": "Shield Rune creates protective barriers",
         "zh_cn": "Shield Rune creates protective barriers",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Body_rune_short": {
         "en_us": "Body Rune modifies your wheel and health",
-        "fr": "",
-        "zh_tw": "",
-        "zh_cn": "",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Time_rune_short": {
         "en_us": "Time rune can slow enemy attacks\nor duplicate your own",
         "fr": "Time rune can slow enemy attacks\nor duplicate your own",
         "zh_tw": "Time rune can slow enemy attacks\nor duplicate your own",
         "zh_cn": "Time rune can slow enemy attacks\nor duplicate your own",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Void_rune_short": {
         "en_us": "Void rune controls dark empty space",
         "fr": "Void rune controls dark empty space",
         "zh_tw": "Void rune controls dark empty space",
         "zh_cn": "Void rune controls dark empty space",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "Ultimate_rune_short": {
         "en_us": "Ultimate rune grants you your\nmost powerful abilities",
         "fr": "Ultimate rune grants you your\nmost powerful abilities",
         "zh_tw": "Ultimate rune grants you your\nmost powerful abilities",
         "zh_cn": "Ultimate rune grants you your\nmost powerful abilities",
-        "ru": "",
-        "es": "",
-        "jp": ""
     }
 };
 

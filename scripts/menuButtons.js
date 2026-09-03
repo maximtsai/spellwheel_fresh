@@ -323,7 +323,6 @@ function showMainMenuButtons() {
             onHover: () => {
                 if (canvas) {
                     playSound('button_hover', 1.5).detune = -75;
-                    canvas.style.cursor = 'pointer';
                 }
                 if (globalObjects.continueButtonSprite && globalObjects.continueButtonSprite.active) {
                     globalObjects.continueButtonSprite.setFrame('continuegame_hover.webp');
@@ -393,7 +392,6 @@ function showMainMenuButtons() {
             onHover: () => {
                 if (canvas) {
                     playSound('button_hover', 1.5).detune = -150;
-                    canvas.style.cursor = 'pointer';
                 }
                 if (globalObjects.levelButtonSprite && globalObjects.levelButtonSprite.active) {
                     globalObjects.levelButtonSprite.setFrame('selectgame_hover.webp');
@@ -473,7 +471,6 @@ function showMainMenuButtons() {
         onHover: () => {
             if (canvas) {
                 playSound('button_hover', 1.5).detune = 0;
-                canvas.style.cursor = 'pointer';
             }
             if (globalObjects.startButtonSprite && globalObjects.startButtonSprite.active) {
                 globalObjects.startButtonSprite.setFrame('newgame_hover.webp');
@@ -578,7 +575,6 @@ function showMainMenuButtons() {
             onHover: () => {
                 if (canvas) {
                     playSound('button_hover', 1).detune = 200;
-                    canvas.style.cursor = 'pointer';
                 }
                 if (gameVars.dummyDied) {
 
@@ -647,7 +643,6 @@ function showMainMenuButtons() {
         onHover: () => {
             if (canvas) {
                 playSound('button_hover', 1).detune = 200;
-                canvas.style.cursor = 'pointer';
             }
             globalObjects.creditsButtonSprite.setFrame('creditsgame_hover.webp');
             globalObjects.creditsButtonSprite.setScale(1.025);
@@ -770,9 +765,6 @@ function showMainMenuButtons() {
                     if (tab1 && tab1.active) {
                         tab1.setFrame('paperTab_glow.png');
                     }
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
                 },
                 onHoverOut: () => {
                     if (tab1 && tab1.active) {
@@ -848,9 +840,6 @@ function showMainMenuButtons() {
                 onHover: () => {
                     if (tab2 && tab2.active) {
                         tab2.setFrame('paperTab_glow.png');
-                    }
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
                     }
                 },
                 onHoverOut: () => {
@@ -956,16 +945,6 @@ function showMainMenuButtons() {
                     ref: "closebtn.png",
                     alpha: 0
                 },
-                onHover: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'pointer';
-                    }
-                },
-                onHoverOut: () => {
-                    if (canvas) {
-                        canvas.style.cursor = 'default';
-                    }
-                },
                 onMouseUp: () => {
                     closeCredits(true);
                 }
@@ -1001,8 +980,7 @@ function showMainMenuButtons() {
     //     onHover: () => {
     //         if (canvas) {
     //             playSound('button_hover', 1).detune = 200;
-    //             canvas.style.cursor = 'pointer';
-    //         }
+    //    //         }
     //         globalObjects.extrasButtonSprite.setFrame('wishlistgame_hover.webp');
     //         globalObjects.extrasButtonSprite.setScale(1.025);
     //         globalObjects.extrasButtonSprite.setRotation(0.03);
@@ -1134,16 +1112,6 @@ function showLevelSelectScreen() {
             ref: "closebtn.png",
             alpha: 0
         },
-        onHover: () => {
-            if (canvas) {
-                canvas.style.cursor = 'pointer';
-            }
-        },
-        onHoverOut: () => {
-            if (canvas) {
-                canvas.style.cursor = 'default';
-            }
-        },
         onMouseUp: () => {
             closeLevelSelectScreen();
             // clearMenuButtons();
@@ -1202,16 +1170,6 @@ function showLevelSelectScreen() {
                 alpha: 0,
                 scaleX: 1,
                 scaleY: 1
-            },
-            onHover: () => {
-                if (canvas) {
-                    canvas.style.cursor = 'pointer';
-                }
-            },
-            onHoverOut: () => {
-                if (canvas) {
-                    canvas.style.cursor = 'default';
-                }
             },
             onMouseUp: () => {
                 closeLevelSelectScreen();

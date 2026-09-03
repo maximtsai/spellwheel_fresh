@@ -7,8 +7,6 @@ let textData = {
         "zh_tw": "(註：有些翻譯可能不準確)",
         "zh_cn": "(注：有些翻译可能不准确)",
         "ru": "(Предупреждение: некоторые переводы могут содержать неточности)",
-        "es": "",
-        "jp": ""
     },
 
     "matter_strike_desc": {
@@ -124,18 +122,12 @@ let textData = {
         "fr": "+20 PV temporaires.\nFaites pousser deux\npiliers de 20 DMG.",
         "zh_tw": "+20 臨時生命值。\n打造兩支 20 點\n傷害的柱子。",
         "zh_cn": "+20 临时生命值。\n打造两个 20 点\n伤害的柱子。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "matter_unload_desc_long": {
         "en_us": "+20 temporary HP.\nGrow two 20 DMG pillars.",
         "fr": "+20 PV temporaires.\nFaites pousser deux piliers de 20 DMG.",
         "zh_tw": "+20 臨時生命值。\n打造兩支 20 點傷害的柱子。",
         "zh_cn": "+20 临时生命值。\n打造两个 20 点伤害的柱子。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "time_strike_desc": {
         "en_us": "3 DMG. Hits twice.",
@@ -259,9 +251,6 @@ let textData = {
         "fr": "Consommez toutes\nles runes de frappe.\nChaque tire une attaque\ninfligeant 2.5 % PV\nactuels ennemis.",
         "zh_tw": "2.5% 敵人當前\n生命值傷害。消\n耗所有攻擊符文\n進行多倍攻擊。",
         "zh_cn": "2.5% 敌人当前\n生命值伤害。消\n耗所有攻击符文\n进行多倍攻击。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "void_strike_desc_longx": {
         "en_us": "Fire 3 delayed attacks that each\ndamages 2% enemy current HP",
@@ -277,18 +266,12 @@ let textData = {
         "fr": "Consommez toutes les runes de frappe. Chaque\ntire une attaque infligeant 2.5 % PV actuels ennemis.",
         "zh_tw": "2.5% 敵人當前生命值傷害。\n消耗所有攻擊符文進行多倍攻擊。",
         "zh_cn": "2.5% 敌人当前生命值伤害。\n消耗所有攻击符文进行多倍攻击。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "void_strike_desc_long_old": {
         "en_us": "Consume all Strike runes. Each casts an\nattack dealing 2% of enemy's current HP.",
         "fr": "Consommez toutes les runes de frappe. Chaque\ntire une attaque infligeant 2 % PV actuels ennemis.",
         "zh_tw": "消耗所有打擊符文，每個符文造成\n敵人目前生命值的 2% 傷害。",
         "zh_cn": "消耗所有打击符文，每个符文造成\n敌人当前生命值的 2% 伤害。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "void_enhance_desc": {
         "en_us": "Sacrifice 1 max\nHP. Next attack\ndeals +8 damage",
@@ -386,8 +369,6 @@ let textData = {
         "zh_tw": "下一次攻擊造成\n每秒 2 點真實\n傷害，持續 5 秒",
         "zh_cn": "下一次攻击造成\n每秒 2 点真实\n伤害，持续 5 秒",
         "ru": "Следующая атака\nподжигает врага,\nнанося 3 истинного\nурона в секунду\nв течение 5 секунд",
-        "es": "",
-        "jp": ""
     },
     "mind_enhance_desc_long": {
         "en_us": "Next attack burns enemy for\n2 TRUE DMG/sec for 5 seconds",
@@ -395,8 +376,6 @@ let textData = {
         "zh_tw": "下一次攻擊造成每秒\n2 點真實傷害，持續 5 秒",
         "zh_cn": "下一次攻击造成每秒\n2 点真实伤害，持续 5 秒",
         "ru": "Следующая атака поджигает врага, нанося 3\nистинного урона в секунду в течение 5 секунд",
-        "es": "",
-        "jp": ""
     },
     "mind_enhance_plus_desc": {
         "en_us": "Next attack burns\nenemy for 3\nTRUE DMG/sec\nfor 5 seconds",
@@ -404,8 +383,6 @@ let textData = {
         "zh_tw": "下一次攻擊對敵人\n造成每秒 3 點真實\n傷害，持續 5 秒",
         "zh_cn": "下一次攻击对敌人\n造成每秒 3 点真实\n伤害，持续 5 秒",
         "ru": "Следующая атака\nподжигает врага,\nнанося 3 истинного\nурона в секунду\nв течение 5 секунд",
-        "es": "",
-        "jp": ""
     },
     "mind_enhance_plus_desc_long": {
         "en_us": "Next attack burns enemy for\n3 TRUE DMG/sec for 5 seconds",
@@ -413,8 +390,6 @@ let textData = {
         "zh_tw": "下一次攻擊造成每秒\n3 點真實傷害，持續 5 秒",
         "zh_cn": "下一次攻击造成每秒\n3 点真实伤害，持续 5 秒",
         "ru": "Следующая атака поджигает врага, нанося 3\nистинного урона в секунду в течение 5 секунд",
-        "es": "",
-        "jp": ""
     },
     "mind_protect_desc": {
         "en_us": "Create shield\nthat reflects\n50% of next\nenemy attack",
@@ -476,8 +451,6 @@ let textData = {
         "zh_tw": "物質符文可控制固體物質。\n物質法術擅長造成直接\n傷害並提供可靠的保護。",
         "zh_cn": "物质符文可控制固体物质。\n物质法术擅长造成直接\n伤害并提供可靠的保护。",
         "ru": "Руна «Материя» дает контроль\nнад твердой материей. Заклинания\nматерии хороши для нанесения\nпрямого урона и обеспечения\nнадежной защиты.",
-        "es": "",
-        "jp": ""
     },
     "matter_plus_tut_desc": {
         "en_us": "Your mastery over the\nMatter element strengthens\nsome of your existing Matter spells.\n\nMatter+Strike Damage 10 -> 12\nMatter+Shield Block 10 -> 12",
@@ -503,8 +476,6 @@ let textData = {
         "zh_tw": "在剩餘的戰鬥中獲得\n攻擊力。",
         "zh_cn": "在剩余的战斗中获得\n攻击力。",
         "ru": "Ваша следующая атака наносит\nдополнительный урон.",
-        "es": "",
-        "jp": ""
     },
     "matter_tut_protect_desc": {
         "en_us": "Create a shield that blocks\na flat amount of damage.",
@@ -512,8 +483,6 @@ let textData = {
         "zh_tw": "創建一個盾牌，\n阻擋一定量的傷害。",
         "zh_cn": "打造一个盾牌，\n阻挡一定量的伤害。",
         "ru": "Создает щит, блокирующий\nопределенное количество урона.",
-        "es": "",
-        "jp": ""
     },
     "matter_tut_reinforce_desc": {
         "en_us": "Protect yourself with thorny skin.\nGreat against weaker attacks.",
@@ -521,17 +490,12 @@ let textData = {
         "zh_tw": "用帶刺的皮膚保護自己。\n有效抵禦較弱的攻擊。",
         "zh_cn": "用带刺的皮肤保护自己。\n有效抵御较弱的攻击。",
         "ru": "Защитите себя шипованной кожей.\nОтлично подходит против слабых\nатак.",
-        "es": "",
-        "jp": ""
     },
     "matter_tut_unload_desc": {
         "en_us": "Gain powerful temporary\nprotection and conjure two\ndamage-dealing pillars on\nthe sides of your wheel.",
         "fr": "Obtenez un puissant bouclier\ntemporaire et invoquez deux\npiliers infligeant des\ndégâts sur les côtés de\nvotre roue.",
         "zh_tw": "獲得強大的臨時保護，\n並在車輪兩側召喚出\n兩根造成傷害的柱子。",
         "zh_cn": "获得强大的临时保护，\n并在车轮两侧召唤出\n两根造成伤害的柱子。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "mind_tut_desc": {
         "en_us": "Energy rune controls raw energy.\nEnergy spells have powerful utility\neffects and deal True damage that\nbypasses enemy defenses.",
@@ -593,8 +557,6 @@ let textData = {
         "zh_tw": "刷新你的元素符文並增加你造成\n的所有傷害，包括來自盾牌和火\n焰等非攻擊來源的傷害。",
         "zh_cn": "刷新你的元素符文并增加你造成\n的所有伤害，包括来自盾牌和火\n焰等非攻击来源的伤害。",
         "ru": "Энергизируйте себя, чтобы увеличить\nвесь наносимый вами урон",
-        "es": "",
-        "jp": ""
     },
     "mind_tut_unload_desc": {
         "en_us": "Multiplies the effectiveness\nof your next non-attack spell.\nCasting this spell twice in\na row will grant immense spell\namplifying power.",
@@ -629,8 +591,6 @@ let textData = {
         "zh_tw": "攻擊兩次。攻擊本身造成的\n傷害不高，但加強攻擊力的\n法術可以大量增加威力。",
         "zh_cn": "攻击两次。攻击本身造成的\n伤害不高，但加强攻击力的\n法术可以大量增加威力。",
         "ru": "Атака, которая наносит два удара.\nКаждый удар наносит небольшой урон,\nно может быть значительно усилен\nулучшениями урона.",
-        "es": "",
-        "jp": ""
     },
     "time_tut_enhance_desc": {
         "en_us": "Your next attack is duplicated\nallowing you to cast multiple\nattacks at the same time.",
@@ -638,8 +598,6 @@ let textData = {
         "zh_tw": "複製你的下一次攻擊，\n使你能同時發射多次攻擊。",
         "zh_cn": "复制你的下一次攻击，\n使你能同时发射多次攻击。",
         "ru": "аша следующая атака дублируется,\nпозволяя вам выпустить несколько\nатак одновременно.",
-        "es": "",
-        "jp": ""
     },
     "time_tut_protect_desc": {
         "en_us": "Create a shield that defers\nthe damage you take so that\nyou lose health gradually\nrather than all at once.",
@@ -647,17 +605,12 @@ let textData = {
         "zh_tw": "打造一個盾牌，可以延遲\n你受到的傷害，讓你的生命值\n緩慢減少。",
         "zh_cn": "打造一个盾牌，可以延迟\n你受到的伤害，让你的生命值\n缓慢减少。",
         "ru": "Создает щит, который откладывает\nполученный вами урон, так что вы\nполучаете его постепенно, а не сразу.",
-        "es": "",
-        "jp": ""
     },
     "time_tut_reinforce_desc": {
         "en_us": "Heals you by partially undoing\nyour most recent injury.",
         "fr": "Vous soigne en annulant\npartiellement votre blessure\nla plus récente.",
         "zh_tw": "治療你最近傷害的一部分。",
         "zh_cn": "治疗你最近伤害的一部分。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "time_tut_unload_desc": {
         "en_us": "Freeze time temporarily\nletting you cast multiple spells\nwhile the enemy cannot move.\nRepeated use of this spell\nmakes it weaker.",
@@ -665,8 +618,6 @@ let textData = {
         "zh_tw": "暫時凍結時間。在凍結期間，\n你可以施展多個法術而不產\n生時間流逝，但重複使用此法\n術會使法術變弱。",
         "zh_cn": "暂时冻结时间。冻结期间，\n你可以施展多个法术而不产生\n时间流逝，但重复使用此法术\n会使法术变弱。",
         "ru": "Временно замораживает время. Пока\nоно заморожено, вы можете применять\nнесколько заклинаний, не тратя время.\nОднако повторное использование\nослабляет это заклинание.",
-        "es": "",
-        "jp": ""
     },
     "void_tut_desc": {
         "en_us": "Void Rune controls empty space.\nVoid spells can deal % health\ndamage, negate enemy attacks, or\neven fully heal you at a cost.",
@@ -674,8 +625,6 @@ let textData = {
         "zh_tw": "虛空符文賦予了你對虛\n空空間的控制權。虛空法術\n可以造成一定比例的生命值傷害、\n抵消敵人的攻擊，甚至可以完全治癒你。",
         "zh_cn": "虚空符文赋予了你对虚\n空空间的控制权。虚空法术\n可以造成一定比例的生命值伤害、\n抵消敌人的攻击，甚至可以完全治愈你。",
         "ru": "Руна Пустоты дает контроль над\nпустым пространством. Заклинания\nПустоты могут наносить урон в процентах\nот здоровья, нейтрализовать атаки врагов\nили полностью исцелить вас за\nопределенную цену.",
-        "es": "",
-        "jp": ""
     },
     "void_tut_desc_sh": {
         "en_us": "Void Rune controls empty space.\nVoid spells can deal % health\ndamage, negate enemy attacks,\nor even fully heal you at a cost.",
@@ -683,8 +632,6 @@ let textData = {
         "zh_tw": "虛空符文賦予了你對虛空空間的\n控制權。虛空法術可以造成一定\n比例的生命值傷害、抵消敵人的\n攻擊，甚至可以完全治癒你。",
         "zh_cn": "虚空符文赋予了你对虚空空间的\n控制权。虚空法术可以造成一定\n比例的生命值伤害、抵消敌人的\n攻击，甚至可以完全治愈你。",
         "ru": "Руна Пустоты дает контроль над\nпустым пространством. Заклинания\nПустоты могут наносить урон в процентах\nот здоровья, нейтрализовать атаки врагов\nили полностью исцелить вас за\nопределенную цену.",
-        "es": "",
-        "jp": ""
     },
     "void_tut_strike_desc": {
         "en_us": "Uses all your strike runes to\nlaunch destructive void tentacles.\nEach attack damages a percent\nof the enemy's remaining health.",
@@ -692,8 +639,6 @@ let textData = {
         "zh_tw": "延遲後發動 3 次攻擊,每次攻擊\n造成百分比的生命傷害。\n\n加強攻擊力的法術會三倍增加\n攻擊威力。",
         "zh_cn": "延迟后发动 3 次攻击,每次攻击\n造成百分比的生命伤害。\n\n加强攻击力的法术会三倍增加\n攻击威力。",
         "ru": "Атака, которая наносит три удара\nс задержкой и наносит урон в\nпроцентах от здоровья.",
-        "es": "",
-        "jp": ""
     },
     "void_tut_enhance_desc": {
         "en_us": "Sacrifice some health to\ndramatically increase your\nnext attack's power.",
@@ -702,7 +647,6 @@ let textData = {
         "zh_cn": "牺牲一些生命值来\n大幅增加下一次攻击\n的威力。",
         "ru": "Увеличьте свой урон от атаки\nдо конца боя.",
         "es": ".",
-        "jp": ""
     },
     "void_tut_protect_desc": {
         "en_us": "Fully protects you from a\nsingle attack.",
@@ -710,8 +654,6 @@ let textData = {
         "zh_tw": "完全保護你免遭一次攻擊。",
         "zh_cn": "完全保护你免遭一次攻击。",
         "ru": "Полностью защищает вас от одной атаки.",
-        "es": "",
-        "jp": ""
     },
     "void_tut_reinforce_desc": {
         "en_us": "Heals you to full, but at the\ncost of reducing your\nmax health.",
@@ -728,8 +670,6 @@ let textData = {
         "zh_tw": "造成嚴重的百分比生命伤害，\n同時打断敵人的行動。",
         "zh_cn": "造成严重的百分比生命伤害，\n同时打断敌人的行动。",
         "ru": "Наносит сильный процентный урон\nздоровью и нарушает любое\nдействие, которое враг пытается\nсовершить.",
-        "es": "",
-        "jp": ""
     },
     "protect_tut_desc": {
         "en_us": "Shield rune creates barriers\nthat protect you as long\nas they are positioned between\nyou and the enemy.",
@@ -781,8 +721,6 @@ let textData = {
         "fr": "Surveillez votre santé",
         "zh_tw": "注意你的生命",
         "zh_cn": "注意你的生命",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "artbook": {
@@ -790,8 +728,6 @@ let textData = {
         "fr": "CRÉDITS",
         "zh_tw": "制作名单",
         "zh_cn": "制作名单",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "digital_artbook": {
@@ -799,8 +735,6 @@ let textData = {
         "fr": "DÉCOUVREZ NOTRE LIVRE\nD'ART NUMÉRIQUE !",
         "zh_tw": "快來看看我們的\n電子畫冊吧！",
         "zh_cn": "快来看看我们的\n艺术画册！",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "credits": {
@@ -808,8 +742,6 @@ let textData = {
         "fr": "CRÉDITS",
         "zh_tw": "制作名单",
         "zh_cn": "制作名单",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "credits2": {
@@ -817,8 +749,6 @@ let textData = {
         "fr": "CRÉDITS ET\nARTBOOK !",
         "zh_tw": "制作名单\n+ 艺术书！",
         "zh_cn": "制作名单\n+ 艺术书！",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "extras": {
@@ -826,8 +756,6 @@ let textData = {
         "fr": "RÉALISATIONS",
         "zh_tw": "成就",
         "zh_cn": "成就",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "wishlist": {
@@ -835,8 +763,6 @@ let textData = {
         "fr": "Liste de\nSouhaits!",
         "zh_tw": "心願單",
         "zh_cn": "心愿单!",
-        "ru": "",
-        "es": "",
         "jp": "。"
     },
     "rune_matter_rune_strike": "HEAVY STRIKE",
@@ -864,81 +790,54 @@ let textData = {
         "fr": "CONTRÔLE LA MATIÈRE LOURDE.",
         "zh_tw": "控制重物質",
         "zh_cn": "控制重物质",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "energy_short": {
         "en_us": "CONTROLS RAW ENERGY",
         "fr": "CONTRÔLE DE L'ÉNERGIE BRUTE",
         "zh_tw": "控制原始能量",
         "zh_cn": "控制原始能量",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "time_short": {
         "en_us": "CONTROLS TEMPORAL POWER",
         "fr": "CONTRÔLE PUISSANCE TEMPORELLE",
         "zh_tw": "控制時間威力",
         "zh_cn": "控制时间威力",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "void_short": {
         "en_us": "CONTROLS DARK EMPTY SPACE",
         "fr": "CONTROLS ESPACE VIDE SOMBRE",
         "zh_tw": "控制黑暗空曠的空間",
         "zh_cn": "控制黑暗空旷的空间",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "strike_short": {
         "en_us": "ATTACKS THE ENEMY",
         "fr": "ATTAQUE L'ENNEMI",
         "zh_tw": "攻擊敵人",
         "zh_cn": "攻击敌人",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "enhance_short": {
         "en_us": "BOOSTS YOUR NEXT ATTACK",
         "fr": "AMÉLIORE LA PROCHAINE ATTAQUE",
         "zh_tw": "增強你的下一次攻擊",
         "zh_cn": "增强你的下一次攻击",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "shield_short": {
         "en_us": "BLOCKS ENEMY ATTACKS",
         "fr": "BLOQUE LES ATTAQUES ENNEMIS",
         "zh_tw": "擋住敵人攻擊",
         "zh_cn": "挡住敌人攻击",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "body_short": {
         "en_us": "CHANGES YOUR BODY",
         "fr": "CHANGE VOTRE CORPS",
         "zh_tw": "改變你的身體",
         "zh_cn": "改变你的身体",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "ultimate_short": {
         "en_us": "BIG FANCY SPELLS",
         "fr": "GRANDS SORTS PUISSANTS",
         "zh_tw": "強大的法術",
         "zh_cn": "强大的法术",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 }
 
@@ -958,7 +857,9 @@ function getLangText(textName) {
         console.error("Missing text name ", textName);
         return "MISSING TEXT";
     }
-    return textData[textName][language];
+    const val = textData[textName][language];
+    if (val !== undefined && val !== "") return val;
+    return textData[textName]['en_us'] !== undefined ? textData[textName]['en_us'] : "";
 }
 
 function getBasicText(textName) {

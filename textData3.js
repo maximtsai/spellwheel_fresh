@@ -32,18 +32,12 @@ let textData3 = {
         "fr": "Cliquez pour continuer",
         "zh_tw": "點擊繼續",
         "zh_cn": "点击继续",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "access_code": {
         "en_us": "UNLOCKS",
         "fr": "DÉVERROUILLE",
         "zh_tw": "已解鎖內容",
         "zh_cn": "已解锁内容",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "cheat_code": {
         "en_us": "CHEAT UNLOCKED",
@@ -77,18 +71,12 @@ let textData3 = {
         "fr": "SAUTER L'INTRODUCTION",
         "zh_tw": "跳過開頭",
         "zh_cn": "跳过开头",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "fullscreen": {
         "en_us": "FULLSCREEN",
         "fr": "PLEIN ÉCRAN",
         "zh_tw": "全螢幕",
         "zh_cn": "全屏",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "left": {
         "en_us": "LEFT",
@@ -167,27 +155,18 @@ let textData3 = {
         "fr": "...ENCORE TOI.",
         "zh_tw": "。。。又是你。",
         "zh_cn": "。。。又是你。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death2b": {
         "en_us": "LOST CHILD, TURN BACK.\nYOU DO NOT YET BELONG HERE,",
         "fr": "ENFANT PERDU, RETOURNE EN\nARRIÈRE. TU N'ES PAS ENCORE À ICI",
         "zh_tw": "迷路的孩子，回頭吧。\n現在還沒輪到你的時間,",
         "zh_cn": "迷路的孩子，回头吧。\n现在还没轮到你的时间,",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death2c": {
         "en_us": "IN THE LAND OF THE DEAD.",
         "fr": "AU PAYS DES MORTS.",
         "zh_tw": "進入亡靈之地裡。",
         "zh_cn": "进入亡灵之地里。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death3a": {
         "en_us": "I SEE YOU SEEK REUNION\nWITH YOUR BELOVED,",
@@ -195,8 +174,6 @@ let textData3 = {
         "zh_tw": "我知道你想和你所愛之人團聚，",
         "zh_cn": "我知道你想和你所爱之人团聚，",
         "ru": ",",
-        "es": "",
-        "jp": ""
     },
     "death3b": {
         "en_us": "BUT THIS PATH LEADS\nONLY TO SORROW.",
@@ -204,17 +181,12 @@ let textData3 = {
         "zh_tw": "但這條路只會導致悲傷。",
         "zh_cn": "但这条路只会带来悲伤。",
         "ru": ",",
-        "es": "",
-        "jp": ""
     },
     "death3c": {
         "en_us": "TURN BACK BEFORE\nYOUR HEART BREAKS TWICE.",
         "fr": "REVIENS ARRIÈRE AVANT QUE\nTON CŒUR SE BRISE DEUX FOIS.",
         "zh_tw": "立即回頭，莫讓心碎兩次。",
         "zh_cn": "立即回头，莫让心碎两次。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "xxxdeath3a": {
         "en_us": "I ISSUE YOU ONE FINAL WARNING-",
@@ -239,27 +211,18 @@ let textData3 = {
         "fr": "VOUS MARCHEZ DE L'AVANT,\nMAIS VOUS VOUS ATTACHEZ",
         "zh_tw": "你不斷地向前邁進",
         "zh_cn": "你不断地向前迈进",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death4cx": {
         "en_us": "TO YOUR MEMORIES\nOF THE PAST.",
         "fr": "À UN TEMPS QUI EST DÉJÀ PASSÉ.",
         "zh_tw": "但你卻將自己束縛在過去的記憶中。",
         "zh_cn": "却将自己束缚在过去的记忆中。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death4dx": {
         "en_us": "YOUR BELOVED HAS LONG PASSED.\nIT IS TIME TO MOVE ON.",
         "fr": "VOTRE PROCHE EST MORT DEPUIS LONGTEMPS.\nIL EST TEMPS D'ABANDONNER VOS OBSESSIONS.",
         "zh_tw": "你的摯愛早已去世。\n是時候放手你的執念。",
         "zh_cn": "你的挚爱早已去世。\n是时候放手你的执念。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death4b": {
         "en_us": "...",
@@ -267,53 +230,36 @@ let textData3 = {
         "zh_tw": "。。。",
         "zh_cn": "。。。",
         "ru": "...",
-        "es": "",
-        "jp": ""
     },
     "death4c": {
         "en_us": "HOW MANY MORE MUST FALL ON\nYOUR PATH OF DESTRUCTION?",
         "fr": "COMBIEN D'AUTRES DOIVENT TOMBER\nSUR TON CHEMIN DE DESTRUCTION?",
         "zh_tw": "還有多少人必須倒在\n你的毀滅之路上？",
         "zh_cn": "还有多少人必须倒在\n你的毁灭之路上？",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death4d": {
         "en_us": "ONE DAY, THESE ACTIONS\nSHALL REAP CONSEQUENCES.",
         "fr": "UN JOUR, CES ACTIONS\nAURONT DES CONSÉQUENCES.",
         "zh_tw": "有一天，這些行為\n必將帶來後果。",
         "zh_cn": "有一天，这些行为\n必将带来后果。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death_statue1": {
         "en_us": "AH, SO THIS IS WHERE\nI LEFT THE OLD BOULDER...",
         "fr": "AH, ALORS C'EST LÀ QUE\nJ'AI LAISSÉ CE VIEUX ROCHER...",
         "zh_tw": "啊，原來我把這塊\n老石頭留在這裡。",
         "zh_cn": "啊，原来我把这块\n老石头留在这里。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death_statue2": {
         "en_us": "CHILD, THIS IS A DANGEROUS\nINSTRUMENT OF COMBAT.",
         "fr": "ENFANT, C'EST UN OUTIL\nDE COMBAT DANGEREUX.",
         "zh_tw": "孩子，這是一座\n危險的作戰武器。",
         "zh_cn": "孩子，这是一座\n危险的作战工具。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death_statue3": {
         "en_us": "IT IS BEST YOU DO NOT\nPLAY WITH IT ANY FURTHER.",
         "fr": "VOUS NE DEVEZ PLUS\nJOUER AVEC CET APPAREIL.",
         "zh_tw": "你最好不要再用它來玩了。",
         "zh_cn": "你最好不要再用它来玩了。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
 
 
@@ -340,72 +286,48 @@ let textData3 = {
         "fr": "PARTOUT OÙ TU VAS,\nTU FAIS DU DÉSORDRE.",
         "zh_tw": "你走到哪裡就在哪裡製造混亂。",
         "zh_cn": "你走到哪里就在哪里制造混乱。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death6b": {
         "en_us": "A MESS THAT FALLS TO ME\nTO CLEAN UP.",
         "fr": "UN DÉSORDRE QU'IL\nM'INCOMBE DE NETTOYER.",
         "zh_tw": "每次我都必須來恢復秩序。",
         "zh_cn": "每次我都必须来恢复秩序。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7a": {
         "en_us": "CHILD, ONCE AGAIN YOU-",
         "fr": "ENFANT, ENCORE UNE FOIS TOI-",
         "zh_tw": "孩子，你仍然繼續－",
         "zh_cn": "孩子，你仍然继续－",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7b": {
         "en_us": "Enough Reaper! Nothing\nyou say will stop me.",
         "fr": "Assez Faucheur ! Vos tentatives\npour m'arrêter ont échoué.",
         "zh_tw": "夠了死神！\n你阻止不了我的前進。",
         "zh_cn": "够了死神！\n你阻止不了我的前行。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7c": {
         "en_us": "I challenge you to\nfight me now!",
         "fr": "Je vous mets au défi de\nme combattre maintenant !",
         "zh_tw": "我挑戰你現在就跟我打！",
         "zh_cn": "我挑战你现在就跟我打！",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7d": {
         "en_us": "...IT SADDENS ME THAT YOU\nCONTINUE YOUR REBELLION.",
         "fr": "...CELA M'ATTRIME QUE VOUS\nCONTINUIEZ VOTRE RÉBELLION.",
         "zh_tw": "…你的繼續反叛令我感到悲傷。",
         "zh_cn": "…你的继续反叛令我感到悲伤。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7e": {
         "en_us": "BUT NOW IS NOT THE MOMENT\nFOR YOUR FATE TO END.",
         "fr": "MAIS IL N'EST PAS ENCORE TEMPS\nQUE VOTRE DESTIN SE TERMINE.",
         "zh_tw": "但現在還沒到你的命運結束的時刻。",
         "zh_cn": "但现在还没到你的命运\n结束的时刻。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7f": {
         "en_us": "WE WILL CONFRONT EACH\nOTHER, IN DUE TIME.",
         "fr": "NOUS NOUS AFFRONTERONS,\nEN TEMPS LURCILE.",
         "zh_tw": "在適當的時候，\n我們將會再次對面。",
         "zh_cn": "在适当的时候，\n我们将会再次对面。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death7ax": {
         "en_us": "ALAS, IT IS NOT WITHIN\nMY AUTHORITY TO STOP YOU.",
@@ -439,18 +361,12 @@ let textData3 = {
         "fr": "VOUS ÊTES EN EFFET SUR LE POINT\nD’ATTEINDRE VOTRE BIEN-AIMÉ.",
         "zh_tw": "你確實快接近你的愛人。",
         "zh_cn": "你确实快接近你的爱人。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "death8b": {
         "en_us": "BUT WHAT YOU ATTEMPT IS NOT\nAN ACT OF LOVE, BUT SELFISHNESS.",
         "fr": "MAIS CE QUE VOUS TENTEZ N’EST PAS\nUN ACTE D’AMOUR, MAIS DE L’ÉGOÏSME.",
         "zh_tw": "但你所做的並不是愛的行為，\n而是出於自私。",
         "zh_cn": "但你所做的并不是爱的行为，\n而是出于自私。",
-        "ru": "",
-        "es": "",
-        "jp": ""
     },
     "deathFight1a": {
         "en_us": "...UNFORTUNATE, BUT YOUR FATE\nNOW DEMANDS THAT I TAKE ACTION.",

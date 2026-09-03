@@ -1,8 +1,8 @@
 let isMobile = true;
-let pixelWidth = 575;
-let pixelHeight = 900;
+let pixelWidth = 568;
+let pixelHeight = 904;
 handleBorders();
-let gameVersion = "v.1.20";
+let gameVersion = "v.1.21";
 let config = {
     type: Phaser.AUTO,
     scale: {
@@ -216,7 +216,7 @@ async function resetSpellwheelSave() {
     }
 }
 
-async function loadSpellwheelProgress(){
+async function loadSpellwheelProgress() {
     try {
         if (typeof lib !== 'undefined' && lib && typeof lib.getUserGameState === 'function') {
             const savedData = await lib.getUserGameState();
@@ -258,9 +258,9 @@ function preload() {
             var myScreenOrientation = window.screen.orientation;
             var lockPromise = myScreenOrientation.lock('portrait');
             if (lockPromise && typeof lockPromise.catch === 'function') {
-                lockPromise.catch(function() {});
+                lockPromise.catch(function () { });
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     resizeGame();
@@ -357,14 +357,14 @@ function openFullscreen() {
         if (elem.requestFullscreen) {
             var p = elem.requestFullscreen();
             if (p && typeof p.catch === 'function') {
-                p.catch(function() {});
+                p.catch(function () { });
             }
         } else if (elem.webkitRequestFullscreen) { /* Safari */
             elem.webkitRequestFullscreen();
         } else if (elem.msRequestFullscreen) { /* IE11 */
             elem.msRequestFullscreen();
         }
-    } catch (e) {}
+    } catch (e) { }
 }
 
 document.addEventListener('fullscreenchange', (event) => {
