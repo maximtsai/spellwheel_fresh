@@ -32,7 +32,7 @@ class InternalMouseManager {
     // }
 
     onPointerDown(pointer) {
-        gameVars.wasTouch = pointer.wasTouch;
+        gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
         gameVars.mousedown = true;
         gameVars.mouseJustDowned = true;
         let handPos = mouseToHand(pointer.x, pointer.y);
@@ -45,8 +45,8 @@ class InternalMouseManager {
     }
 
     onPointerDownAlt(pointer) {
-        let handPos = mouseToHand(pointer.x, pointer.y, true);
-        gameVars.wasTouch = pointer.wasTouch || (pointer.wasTouch === undefined);
+        let handPos = mouseToHand(pointer.x !== undefined ? pointer.x : pointer.clientX, pointer.y !== undefined ? pointer.y : pointer.clientY, true);
+        gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
         gameVars.mousedown = true;
         gameVars.mouseJustDowned = true;
         gameVars.mouseposx = handPos.x;
@@ -57,25 +57,31 @@ class InternalMouseManager {
         messageBus.publish("pointerDown", handPos.x, handPos.y);
     }
 
-    // onPointerUp(pointer) {
-    //     gameVars.wasTouch = pointer.pointerType;
-    //     gameVars.mousedown = false;
-    //     gameVars.mouseJustUpped = true;
-    //     let handPos = mouseToHand(pointer.x, pointer.y);
-    //     gameVars.mouseposx = handPos.x;
-    //     gameVars.mouseposy = handPos.y;
-    //     messageBus.publish("pointerUp", handPos.x, handPos.y);
-    // }
-
-    onPointerUpAlt(pointer) {
-        let handPos = mouseToHand(pointer.x, pointer.y, true);
-        gameVars.wasTouch = pointer.pointerType;
+    onPointerUpPhaserInGame(pointer) {
+        let px = pointer && pointer.x !== undefined ? pointer.x : gameVars.mouseposx;
+        let py = pointer && pointer.y !== undefined ? pointer.y : gameVars.mouseposy;
+        let handPos = mouseToHand(px, py, false);
+        gameVars.wasTouch = pointer ? !!(pointer.wasTouch || pointer.pointerType === "touch") : gameVars.wasTouch;
         gameVars.mousedown = false;
         gameVars.mouseJustUpped = true;
-        messageBus.publish("pointerUp", handPos.x, handPos.y);
-
         gameVars.mouseposx = handPos.x;
         gameVars.mouseposy = handPos.y;
+        messageBus.publish("pointerUp", handPos.x, handPos.y);
+    }
+
+    onPointerUpAlt(pointer) {
+        if (!gameVars.mousedown) {
+            return;
+        }
+        let px = pointer && (pointer.clientX !== undefined ? pointer.clientX : pointer.x);
+        let py = pointer && (pointer.clientY !== undefined ? pointer.clientY : pointer.y);
+        let handPos = px !== undefined && py !== undefined ? mouseToHand(px, py, true) : {x: gameVars.mouseposx, y: gameVars.mouseposy};
+        gameVars.wasTouch = pointer ? !!(pointer.wasTouch || pointer.pointerType === "touch") : gameVars.wasTouch;
+        gameVars.mousedown = false;
+        gameVars.mouseJustUpped = true;
+        gameVars.mouseposx = handPos.x;
+        gameVars.mouseposy = handPos.y;
+        messageBus.publish("pointerUp", handPos.x, handPos.y);
     }
 }
 
@@ -105,18 +111,17 @@ function setupMouseInteraction(scene) {
         x: 0, y: 0, key: 'whitePixel', add: true, scale: {x: gameConsts.width, y: gameConsts.height}, alpha: 0.001});
     baseTouchLayer.setInteractive();
     baseTouchLayer.on('pointerdown', mouseManager.onPointerDown, scene);
-    // Phaser's unified input manager reliably delivers pointermove for BOTH mouse
-    // and touch drags (window.onpointermove below often does NOT fire for mobile
-    // touch drags, which left mousepos frozen after the initial pointerdown and
-    // made the wheel only move on the first frame on mobile).
+    // Phaser's unified input manager reliably delivers pointermove and pointerup for
+    // BOTH mouse and touch drags (window.onpointermove / window.onpointerup do NOT fire
+    // reliably for mobile touch drags captured by Phaser).
     scene.input.on('pointermove', mouseManager.onPointerMovePhaserInGame, scene);
-    // baseTouchLayer.on('pointerup', mouseManager.onPointerUp, scene);
-    // baseTouchLayer.on('pointermove', mouseManager.onPointerDown, scene); // doesn't work outside
+    scene.input.on('pointerup', mouseManager.onPointerUpPhaserInGame, scene);
+    scene.input.on('pointerupoutside', mouseManager.onPointerUpPhaserInGame, scene);
+    scene.input.on('gameout', mouseManager.onPointerUpPhaserInGame, scene);
 
     let hagVar1 = "b25wb2ludGVybW92ZQ==";
     let hagVar2 = "bG9jYXRpb24=";
-    let hagVar3 = "b25wb2ludGVydXA="
-    // const body = document.querySelector('body');
+    let hagVar3 = "b25wb2ludGVydXA=";
 
     globalObjects.input1 = window[ajaxzig("b25wb2ludGVybW92ZQ==")] = (pointer) => {
         mouseManager.onPointerMove(pointer);
@@ -126,11 +131,14 @@ function setupMouseInteraction(scene) {
         mouseManager.onPointerUpAlt(pointer);
     };
 
-
-    // doesn't quite work for some reason
-    // window.onpointerdown = (pointer) => {
-    //     mouseManager.onPointerDownAlt(pointer);
-    // };
+    // Extra fallback window listeners for touchcancel/pointercancel/touchend/mouseup
+    if (typeof window !== 'undefined') {
+        window.addEventListener('pointerup', (e) => mouseManager.onPointerUpAlt(e));
+        window.addEventListener('pointercancel', (e) => mouseManager.onPointerUpAlt(e));
+        window.addEventListener('touchend', (e) => mouseManager.onPointerUpAlt(e));
+        window.addEventListener('touchcancel', (e) => mouseManager.onPointerUpAlt(e));
+        window.addEventListener('mouseup', (e) => mouseManager.onPointerUpAlt(e));
+    }
 }
 let canResizeGame = true;
 function resizeGame() {

@@ -54,11 +54,12 @@ class InternalButtonManager {
         if (buttonObj && buttonObj.checkCoordOver(mouseX, mouseY)) {
             buttonObj.onMouseUp(mouseX, mouseY);
         }
+        this.lastClickedButton = null;
         if (this.draggedObj) {
             if (this.draggedObj.onDrop) {
                 this.draggedObj.onDrop(mouseX, mouseY);
             }
-            this.draggedObj = null
+            this.draggedObj = null;
         }
     }
 

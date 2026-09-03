@@ -322,28 +322,8 @@ const ENABLE_KEYBOARD = true;
             }
         }
 
-        if (totalDist <= this.size && !this.manualDisabled) {
-            if (gameVars.mouseJustDowned) {
-                this.draggedDuration = 0;
-                // clicked
-                if (totalDist < this.castButtonSize) {
-                    this.draggedObj = this.castButton;
-                    this.setFrameLazy(this.castButton,this.altString + 'cast_press.png');
-                    globalObjects.player.setCastTextAlpha(0.65);
-                } else if (totalDist < this.innerCircleSize && !this.innerDragDisabled) {
-                    this.draggedObj = this.innerCircle;
-                    this.dragPointDist = totalDist;
-                    this.dragPointAngle = Math.atan2(mouseDistY, mouseDistX);
-                    this.dragPointAngleVisual = this.dragPointAngle;
-                    this.setFrameLazy(this.innerCircle, this.altString + 'element_drag.png');
-                } else if (!this.outerDragDisabled) {
-                    this.draggedObj = this.outerCircle;
-                    this.dragPointDist = Math.min(totalDist, this.trueSize);
-                    this.dragPointAngle = Math.atan2(mouseDistY, mouseDistX);
-                    this.dragPointAngleVisual = this.dragPointAngle;
-                    this.setFrameLazy(this.outerCircle,this.altString + 'usage_drag.png');
-                }
-            } else if (gameVars.mouseJustUpped) {
+        if (this.draggedObj) {
+            if (gameVars.mouseJustUpped) {
                 // this.draggedDuration = -2;
                 if (this.draggedDuration < 11) {
                     this.preventRotDecay = (11 - this.draggedDuration) * 0.4;
@@ -362,14 +342,36 @@ const ENABLE_KEYBOARD = true;
             } else if (gameVars.mousedown) {
                 this.draggedDuration += dScale;
                 if (totalDist < this.castButtonSize && this.draggedObj === this.castButton) {
-                    this.setFrameLazy(this.castButton,this.altString + 'cast_press.png');
+                    this.setFrameLazy(this.castButton, this.altString + 'cast_press.png');
                     globalObjects.player.setCastTextAlpha(0.6);
                 }
-            } else {
+            }
+        } else if (totalDist <= this.size && !this.manualDisabled) {
+            if (gameVars.mouseJustDowned) {
+                this.draggedDuration = 0;
+                // clicked
+                if (totalDist < this.castButtonSize) {
+                    this.draggedObj = this.castButton;
+                    this.setFrameLazy(this.castButton, this.altString + 'cast_press.png');
+                    globalObjects.player.setCastTextAlpha(0.65);
+                } else if (totalDist < this.innerCircleSize && !this.innerDragDisabled) {
+                    this.draggedObj = this.innerCircle;
+                    this.dragPointDist = totalDist;
+                    this.dragPointAngle = Math.atan2(mouseDistY, mouseDistX);
+                    this.dragPointAngleVisual = this.dragPointAngle;
+                    this.setFrameLazy(this.innerCircle, this.altString + 'element_drag.png');
+                } else if (!this.outerDragDisabled) {
+                    this.draggedObj = this.outerCircle;
+                    this.dragPointDist = Math.min(totalDist, this.trueSize);
+                    this.dragPointAngle = Math.atan2(mouseDistY, mouseDistX);
+                    this.dragPointAngleVisual = this.dragPointAngle;
+                    this.setFrameLazy(this.outerCircle, this.altString + 'usage_drag.png');
+                }
+            } else if (!gameVars.mousedown) {
                 // plain ol hovering
                 canvas.style.cursor = 'default';
                 if (totalDist < this.castButtonSize) {
-                    this.setFrameLazy(this.castButton,this.altString + 'cast_hover.png');
+                    this.setFrameLazy(this.castButton, this.altString + 'cast_hover.png');
                     globalObjects.player.setCastTextAlpha(0.7);
                     if (!this.innerDragDisabled && !this.outerDragDisabled && !this.recharging && !this.castDisabled && canvas) {
                         canvas.style.cursor = 'pointer';
@@ -377,7 +379,7 @@ const ENABLE_KEYBOARD = true;
                 } else if (!this.innerDragDisabled && totalDist < this.innerCircleSize) {
                     this.setFrameLazy(this.innerCircle, this.altString + 'element_hover.png');
                 } else if (!this.outerDragDisabled) {
-                    this.setFrameLazy(this.outerCircle,this.altString + 'usage_hover.png');
+                    this.setFrameLazy(this.outerCircle, this.altString + 'usage_hover.png');
                 }
             }
         }

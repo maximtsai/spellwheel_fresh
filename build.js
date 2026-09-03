@@ -273,6 +273,9 @@ async function build() {
             background-color: #111010;
             -ms-overflow-style: none;  /* IE and Edge */
             scrollbar-width: none;  /* Firefox */
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         html::-webkit-scrollbar, body::-webkit-scrollbar {
             display: none; /* Chrome, Safari, Opera */
@@ -291,10 +294,14 @@ async function build() {
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
         #spellwheel {
             margin: 0 auto;
             overflow: hidden;
+            touch-action: none;
         }
         #preload-notice {
             color: white;

@@ -318,6 +318,7 @@ class Options {
         this.createInfoBoxPosText();
         this.createSkipIntroToggle();
         this.createFullScreenToggle();
+        this.createUnlockAllLevelsButton();
 
         createGlobalClickBlocker();
         if (!this.closeButton) {
@@ -1482,6 +1483,63 @@ class Options {
         dragger.setFrame('slider_indicator_glow.png');
         dragger.x = indicatorPosX;
         return closestIndex;
+    }
+
+    createUnlockAllLevelsButton() {
+        if (!this.unlockAllBtn) {
+            let startPos = gameConsts.halfHeight + 150;
+            this.unlockAllText = PhaserScene.add.text(gameConsts.halfWidth + 83, startPos, 'Unlock All Levels', {fontFamily: 'germania', fontSize: 23, color: '#200000', align: 'left'}).setOrigin(0, 0.5).setDepth(this.baseDepth).setAlpha(0.82);
+            this.listOfThingsToHideSemiAlpha.push(this.unlockAllText);
+
+            this.unlockAllToggleVisual = PhaserScene.add.sprite(this.unlockAllText.x + 40, startPos, 'buttons', 'check_box_normal.png');
+            this.unlockAllToggleVisual.setDepth(this.baseDepth + 1);
+            this.listOfThingsToHide.push(this.unlockAllToggleVisual);
+
+            this.unlockAllDoneText = PhaserScene.add.text(this.unlockAllText.x + 95, startPos, '', {fontFamily: 'germania', fontSize: 23, color: '#00AA00', align: 'left'}).setOrigin(0, 0.5).setDepth(this.baseDepth).setAlpha(0);
+            this.listOfThingsToHideSemiAlpha.push(this.unlockAllDoneText);
+
+            this.unlockAllBtn = new Button({
+                normal: {
+                    atlas: 'buttons',
+                    ref: "check_box_normal.png",
+                    alpha: 0,
+                    x: this.unlockAllToggleVisual.x,
+                    y: startPos,
+                },
+                onHover: () => {
+                    if (canvas) {
+                        canvas.style.cursor = 'pointer';
+                    }
+                    this.unlockAllToggleVisual.setFrame('check_box_hover.png');
+                },
+                onHoverOut: () => {
+                    if (canvas) {
+                        canvas.style.cursor = 'default';
+                    }
+                    this.unlockAllToggleVisual.setFrame(this.unlocked ? 'check_box_on.png' : 'check_box_normal.png');
+                },
+                onMouseUp: (x, y) => {
+                    this.popupElements = showYesNoPopup(
+                        'Unlock',
+                        'Cancel',
+                        'CHEAT: Unlock All Levels?',
+                        'This will unlock all levels\nso you can select any of them.',
+                        () => {
+                            gameVars.maxLevel = 15;
+                            gameVars.latestLevel = 15;
+                            saveSpellwheelProgress();
+                            this.unlocked = true;
+                            this.unlockAllToggleVisual.setFrame('check_box_on.png');
+                            this.unlockAllDoneText.setText('UNLOCKED').setAlpha(0.82);
+                            playSound('mind_ultimate_2', 0.75);
+                        },
+                        true
+                    );
+                },
+            });
+            this.unlockAllBtn.setDepth(this.baseDepth + 10);
+            this.listOfButtonsToDisable.push(this.unlockAllBtn);
+        }
     }
 
     hideOptions(shouldPop = true) {

@@ -19,7 +19,7 @@ function setupLoadingBar(scene) {
     // Basic loading bar visual
     let iconsHeight = gameConsts.height - (isMobile ? 108 : 100);
     loadObjects.version = scene.add.text(4, gameConsts.height - 4, gameVersion).setOrigin(0, 1).setAlpha(0.7);
-    loadObjects.loadingNotice = scene.add.text(gameConsts.halfWidth, iconsHeight - 165, 'THIS IS A BIG GAME, LOADING MAY TAKE AWHILE.', {
+    loadObjects.loadingNotice = scene.add.text(gameConsts.halfWidth, 40, 'THIS IS A BIG GAME, LOADING MAY TAKE AWHILE.', {
         fontFamily: 'germania',
         fontSize: 14,
         color: '#FFFFFF',
@@ -189,13 +189,13 @@ function setupLoadingBar(scene) {
         if (loadObjects.percentText) {
             loadObjects.percentText.setText(Math.floor(value * 100) + '%');
         }
-        // Cycle tips every 3 seconds
+        // Cycle tips every 10 seconds
         if (!loadingTipInterval && loadingTips && loadingTips.length > 0) {
             loadingTipInterval = setInterval(function () {
                 if (!loadObjects.loadingText || !loadingTips) return;
                 loadingTipIndex = (loadingTipIndex + 1) % loadingTips.length;
                 loadObjects.loadingText.setText(loadingTips[loadingTipIndex]);
-            }, 3000);
+            }, 10000);
         }
         while (loadLevel <= value * 8.85) {
             loadObjects.loadingSpinner.goalRot = loadLevel * -Math.PI/4.5;//value * Math.PI * -1;
