@@ -157,7 +157,7 @@ function buildFontFaceCss() {
             const src = font.locals.map(l => `local('${l}')`)
                 .concat(`url(${GSTATIC}${file}) format('woff2')`)
                 .join(', ');
-            css += `/* ${font.family} — ${subset} */\n@font-face {\n`;
+            css += `@font-face {\n`;
             css += `    font-family: '${font.family}';\n`;
             css += `    src: ${src};\n`;
             if (font.weight) css += `    font-weight: ${font.weight};\n`;
@@ -378,7 +378,7 @@ async function buildAstro() {
     }
 
     // 5. Build fontXmlMap.js (Bitmap font XML schemas with short line wrapping)
-    let fontXmlJs = '// AUTO-GENERATED Bitmap Font XML Map\nconst fontXmlMap = {\n';
+    let fontXmlJs = 'const fontXmlMap = {\n';
     for (const [k, v] of Object.entries(fontXmlMap)) {
         fontXmlJs += '    ' + JSON.stringify(k) + ': [\n';
         for (let i = 0; i < v.length; i += 80) {
@@ -389,7 +389,7 @@ async function buildAstro() {
     fontXmlJs += '};\n';
 
     // 6. Build generated registries, audio bank index, and remote atlases
-    let generated = '// AUTO-GENERATED Remote Asset Registries (Astro Build)\n';
+    let generated = '';
     generated += 'const imageFilesPreload = ' + JSON.stringify(imageFilesPreload) + ';\n';
     generated += 'const backgroundUrls = ' + JSON.stringify(backgroundUrls) + ';\n';
     generated += 'const imageAtlases = ' + JSON.stringify(imageAtlases) + ';\n';
@@ -399,7 +399,6 @@ async function buildAstro() {
     generated += 'const fontFiles = ' + JSON.stringify(fontFiles) + ';\n';
     generated += 'const audioFiles = ' + JSON.stringify(remoteAudioFiles) + ';\n';
     generated += 'const deferredAudioFiles = ' + JSON.stringify(remoteDeferredAudioFiles) + ';\n\n';
-    generated += '// AUTO-GENERATED audio bank index & files\n';
     generated += 'const audioBankIndex = ' + JSON.stringify(audioBanks.index) + ';\n';
     generated += 'const audioBankFiles = ' + JSON.stringify(remoteAudioBankFiles) + ';\n';
     if (!REMOTE_EXTERNAL_URL) {
@@ -437,6 +436,9 @@ async function buildAstro() {
     const minifiedExternal = await Terser.minify(strippedExternal, {
         compress: true,
         mangle: false,
+        format: {
+            comments: false,
+        },
     });
     fs.writeFileSync(path.join(DIST, 'external.min.js'), minifiedExternal.code);
     fs.mkdirSync(path.join(SRC, 'release'), { recursive: true });
@@ -673,9 +675,6 @@ html, body {
     touch-action: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    /* Stop the browser's own touch gestures from stealing drags on the wheel:
-       no pull-to-refresh / rubber-banding, no double-tap zoom, no text
-       selection or long-press callout, no blue tap flash. */
     overscroll-behavior: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -684,9 +683,6 @@ html, body {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
 }
-/* The page colour lives on <html> ONLY. If <body> also paints a background,
-   that background is drawn AFTER negative-z-index elements, which hides
-   #background (z-index -2) and the top/bottom borders (z-index -1). */
 html {
     background-color: #111010;
 }
@@ -707,8 +703,6 @@ canvas {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* The game handles all pointer input itself — hand it every touch instead
-       of letting the browser scroll/zoom the page mid-drag. */
     touch-action: none;
 }
 #spellwheel {
@@ -755,6 +749,9 @@ window.addEventListener('resize', function() {
     const minifiedInlinedJs = await Terser.minify(rawInlinedJs, {
         compress: true,
         mangle: false, // Keep class/function names intact
+        format: {
+            comments: false,
+        },
     });
 
     // Generate single self-contained index.html with inlined CSS and minified JavaScript
@@ -780,9 +777,6 @@ ${css}
 </head>
 <body>
     <script>
-        // Warm the webfonts. A rejection here just means the CDN was
-        // unreachable: the text still renders in the fallback family, so
-        // swallow it rather than logging an unhandled NetworkError.
         ['robotomedium', 'garamondbold', 'garamondmax', 'germania', 'germania_italics']
             .forEach(function (f) {
                 document.fonts.load('10pt "' + f + '"').catch(function () {});
@@ -802,11 +796,6 @@ ${css}
 ${minifiedInlinedJs.code}
     </script>
     <script>
-        // Bound here, after the bundle above has defined them. The old
-        // <body onload=... onresize=...> attributes could fire before this
-        // ~600 KB of inline JS finished parsing, throwing "resizeGame is not
-        // defined" on a resize during load. onloadFunc keeps its original
-        // window-load timing; if load already fired, it is called directly.
         window.addEventListener('resize', function () { resizeGame(); });
         if (document.readyState === 'complete') {
             onloadFunc();
