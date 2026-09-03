@@ -356,13 +356,13 @@ const ENABLE_KEYBOARD = true;
                     globalObjects.player.setCastTextAlpha(0.65);
                 } else if (totalDist < this.innerCircleSize && !this.innerDragDisabled) {
                     this.draggedObj = this.innerCircle;
-                    this.dragPointDist = totalDist;
+                    this.dragPointDist = Math.max(2, totalDist);
                     this.dragPointAngle = Math.atan2(mouseDistY, mouseDistX);
                     this.dragPointAngleVisual = this.dragPointAngle;
                     this.setFrameLazy(this.innerCircle, this.altString + 'element_drag.png');
                 } else if (!this.outerDragDisabled) {
                     this.draggedObj = this.outerCircle;
-                    this.dragPointDist = Math.min(totalDist, this.trueSize);
+                    this.dragPointDist = Math.max(2, Math.min(totalDist, this.trueSize));
                     this.dragPointAngle = Math.atan2(mouseDistY, mouseDistX);
                     this.dragPointAngleVisual = this.dragPointAngle;
                     this.setFrameLazy(this.outerCircle, this.altString + 'usage_drag.png');
@@ -451,9 +451,10 @@ const ENABLE_KEYBOARD = true;
 
             let dragGoalAngle = Math.atan2(mouseDistY, mouseDistX);
             let dragAngleDiff = dragGoalAngle - this.dragPointAngle;
-            if (dragAngleDiff > Math.PI) {
+            while (dragAngleDiff > Math.PI) {
                 dragAngleDiff -= Math.PI * 2;
-            } else if (dragAngleDiff < -Math.PI) {
+            }
+            while (dragAngleDiff < -Math.PI) {
                 dragAngleDiff += Math.PI * 2;
             }
 
@@ -472,8 +473,9 @@ const ENABLE_KEYBOARD = true;
             let dragDistXOrigin = dragDistX / (dragDist + 0.001);
             let dragDistYOrigin = dragDistY / (dragDist + 0.001);
 
-            let dragPointXOrigin = dragPointX / this.dragPointDist;
-            let dragPointYOrigin = dragPointY / this.dragPointDist;
+            let safePointDist = Math.max(1, this.dragPointDist);
+            let dragPointXOrigin = dragPointX / safePointDist;
+            let dragPointYOrigin = dragPointY / safePointDist;
             let dragForce = 0;
             if (dragDist < 25) {
                 dragForce = Math.max(0, Math.min(1, dragDist * 0.015));
@@ -533,7 +535,7 @@ const ENABLE_KEYBOARD = true;
             this.dragArrow.setPosition(this.x + dragPointX, this.y + dragPointY);
             this.dragCircle.setPosition(this.x + dragPointX, this.y + dragPointY);
             this.dragArrow.setScale(Math.max(0.08, Math.min(1, dragDist * 0.0135)), 1);
-            this.dragArrow.setAlpha(Math.min(this.dragArrow.scaleX * 5 - 2))
+            this.dragArrow.setAlpha(Math.max(0, Math.min(1, this.dragArrow.scaleX * 5 - 2)));
             this.dragArrow.setRotation(Math.atan2(dragDistY, dragDistX));
 
             // dragging affects outside of circle

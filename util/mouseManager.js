@@ -2,6 +2,7 @@ let mouseManager;
 
 class InternalMouseManager {
     constructor() {
+        this.activePointerId = null;
     }
 
     onPointerMove(pointer) {
@@ -13,6 +14,10 @@ class InternalMouseManager {
     }
 
     onPointerMovePhaserInGame(pointer) {
+        // Ignore movements from secondary fingers while dragging
+        if (gameVars.mousedown && this.activePointerId !== null && pointer && pointer.id !== undefined && pointer.id !== this.activePointerId) {
+            return;
+        }
         // Phaser input space: pointer.x/y are already canvas/game coordinates,
         // the same space used by onPointerDown (baseTouchLayer). Convert WITHOUT
         // the window->game re-scaling that onPointerMove (window event) applies.
@@ -32,6 +37,9 @@ class InternalMouseManager {
     // }
 
     onPointerDown(pointer) {
+        if (this.activePointerId === null && pointer && pointer.id !== undefined) {
+            this.activePointerId = pointer.id;
+        }
         gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
         gameVars.mousedown = true;
         gameVars.mouseJustDowned = true;
@@ -58,6 +66,11 @@ class InternalMouseManager {
     }
 
     onPointerUpPhaserInGame(pointer) {
+        // If a secondary finger lifts while the primary finger is still dragging, ignore it
+        if (this.activePointerId !== null && pointer && pointer.id !== undefined && pointer.id !== this.activePointerId) {
+            return;
+        }
+        this.activePointerId = null;
         let px = pointer && pointer.x !== undefined ? pointer.x : gameVars.mouseposx;
         let py = pointer && pointer.y !== undefined ? pointer.y : gameVars.mouseposy;
         let handPos = mouseToHand(px, py, false);
@@ -70,6 +83,7 @@ class InternalMouseManager {
     }
 
     onPointerUpAlt(pointer) {
+        this.activePointerId = null;
         if (!gameVars.mousedown) {
             return;
         }

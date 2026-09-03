@@ -443,21 +443,8 @@ function update(time, delta) {
 
     gameVars.mouseJustDowned = false;
     gameVars.mouseJustUpped = false;
-    if (gameVars.mousedown) {
-        let anyPointerDown = false;
-        if (game && game.input && game.input.pointers) {
-            for (let i = 0; i < game.input.pointers.length; i++) {
-                if (game.input.pointers[i] && game.input.pointers[i].isDown) {
-                    anyPointerDown = true;
-                    break;
-                }
-            }
-        }
-        if (!anyPointerDown) {
-            gameVars.mousedown = false;
-            gameVars.mouseJustUpped = true;
-            messageBus.publish("pointerUp", gameVars.mouseposx, gameVars.mouseposy);
-        }
+    if (!gameVars.wasTouch && game && game.input && game.input.mousePointer && !game.input.mousePointer.isDown && gameVars.mousedown) {
+        gameVars.mousedown = false;
     }
 }
 

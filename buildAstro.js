@@ -440,7 +440,9 @@ async function buildAstro() {
         mangle: false,
     });
     fs.writeFileSync(path.join(DIST, 'external.min.js'), minifiedExternal.code);
-    console.log(`Wrote dist/external.min.js: ${(minifiedExternal.code.length / 1024).toFixed(0)} KB (Atlases + Combat for GitHub / URL hosting)`);
+    fs.mkdirSync(path.join(SRC, 'release'), { recursive: true });
+    fs.writeFileSync(path.join(SRC, 'release', 'external.min.js'), minifiedExternal.code);
+    console.log(`Wrote dist/external.min.js and release/external.min.js: ${(minifiedExternal.code.length / 1024).toFixed(0)} KB (Atlases + Combat for GitHub / URL hosting)`);
 
     // 9. Build game core (engine bootstrap, UI, loading & main menu)
     let combinedCore = '';
