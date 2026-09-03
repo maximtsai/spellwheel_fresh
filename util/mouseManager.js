@@ -2,48 +2,39 @@ let mouseManager;
 
 class InternalMouseManager {
     constructor() {
-        this.activePointerId = null;
     }
 
     onPointerMove(pointer) {
-        gameVars.wasTouch = pointer.wasTouch || pointer.pointerType === "touch";
-        let handPos = mouseToHand(pointer.x, pointer.y, true);
+        // If touch drag is active, Phaser's canvas input already provides accurate game coordinates
+        if (gameVars.wasTouch && gameVars.mousedown) {
+            return;
+        }
+        let px = pointer && (pointer.clientX !== undefined ? pointer.clientX : pointer.x);
+        let py = pointer && (pointer.clientY !== undefined ? pointer.clientY : pointer.y);
+        if (px === undefined || py === undefined) {
+            return;
+        }
+        gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
+        let handPos = mouseToHand(px, py, true);
         gameVars.mouseposx = handPos.x;
         gameVars.mouseposy = handPos.y;
         messageBus.publish("pointerMove", handPos.x, handPos.y);
     }
 
     onPointerMovePhaserInGame(pointer) {
-        // Ignore movements from secondary fingers while dragging
-        if (gameVars.mousedown && this.activePointerId !== null && pointer && pointer.id !== undefined && pointer.id !== this.activePointerId) {
-            return;
-        }
-        // Phaser input space: pointer.x/y are already canvas/game coordinates,
-        // the same space used by onPointerDown (baseTouchLayer). Convert WITHOUT
-        // the window->game re-scaling that onPointerMove (window event) applies.
-        gameVars.wasTouch = pointer.wasTouch || pointer.pointerType === "touch";
+        if (!pointer) return;
+        gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
         let handPos = mouseToHand(pointer.x, pointer.y, false);
         gameVars.mouseposx = handPos.x;
         gameVars.mouseposy = handPos.y;
         messageBus.publish("pointerMove", handPos.x, handPos.y);
     }
 
-    // onTouchMove(x, y) {
-    //     gameVars.wasTouch = true;
-    //     let handPos = mouseToHand(x, y, true);
-    //     gameVars.mouseposx = handPos.x;
-    //     gameVars.mouseposy = handPos.y;
-    //     messageBus.publish("pointerMove", handPos.x, handPos.y);
-    // }
-
     onPointerDown(pointer) {
-        if (this.activePointerId === null && pointer && pointer.id !== undefined) {
-            this.activePointerId = pointer.id;
-        }
         gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
         gameVars.mousedown = true;
         gameVars.mouseJustDowned = true;
-        let handPos = mouseToHand(pointer.x, pointer.y);
+        let handPos = mouseToHand(pointer.x, pointer.y, false);
         gameVars.mouseposx = handPos.x;
         gameVars.mouseposy = handPos.y;
 
@@ -53,7 +44,9 @@ class InternalMouseManager {
     }
 
     onPointerDownAlt(pointer) {
-        let handPos = mouseToHand(pointer.x !== undefined ? pointer.x : pointer.clientX, pointer.y !== undefined ? pointer.y : pointer.clientY, true);
+        let px = pointer && (pointer.clientX !== undefined ? pointer.clientX : pointer.x);
+        let py = pointer && (pointer.clientY !== undefined ? pointer.clientY : pointer.y);
+        let handPos = px !== undefined && py !== undefined ? mouseToHand(px, py, true) : {x: gameVars.mouseposx, y: gameVars.mouseposy};
         gameVars.wasTouch = !!(pointer.wasTouch || pointer.pointerType === "touch");
         gameVars.mousedown = true;
         gameVars.mouseJustDowned = true;
@@ -66,11 +59,6 @@ class InternalMouseManager {
     }
 
     onPointerUpPhaserInGame(pointer) {
-        // If a secondary finger lifts while the primary finger is still dragging, ignore it
-        if (this.activePointerId !== null && pointer && pointer.id !== undefined && pointer.id !== this.activePointerId) {
-            return;
-        }
-        this.activePointerId = null;
         let px = pointer && pointer.x !== undefined ? pointer.x : gameVars.mouseposx;
         let py = pointer && pointer.y !== undefined ? pointer.y : gameVars.mouseposy;
         let handPos = mouseToHand(px, py, false);
@@ -83,7 +71,6 @@ class InternalMouseManager {
     }
 
     onPointerUpAlt(pointer) {
-        this.activePointerId = null;
         if (!gameVars.mousedown) {
             return;
         }
@@ -103,11 +90,25 @@ mouseManager = new InternalMouseManager();
 
 // Converts position of mouse into position of hand
 function mouseToHand(x, y, convertFromWindow = false) {
+    if (x === undefined || y === undefined || isNaN(x) || isNaN(y)) {
+        return {x: gameVars.mouseposx || 0, y: gameVars.mouseposy || 0};
+    }
     let inGameX = x;
     let inGameY = y;
     if (convertFromWindow) {
-        inGameX = (inGameX - gameVars.canvasXOffset) / gameVars.gameScale;
-        inGameY = (inGameY - gameVars.canvasYOffset) / gameVars.gameScale;
+        if (game && game.canvas) {
+            let rect = game.canvas.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+                inGameX = (inGameX - rect.left) * (gameConsts.width / rect.width);
+                inGameY = (inGameY - rect.top) * (gameConsts.height / rect.height);
+            } else {
+                inGameX = (inGameX - gameVars.canvasXOffset) / (gameVars.gameScale || 1);
+                inGameY = (inGameY - gameVars.canvasYOffset) / (gameVars.gameScale || 1);
+            }
+        } else {
+            inGameX = (inGameX - gameVars.canvasXOffset) / (gameVars.gameScale || 1);
+            inGameY = (inGameY - gameVars.canvasYOffset) / (gameVars.gameScale || 1);
+        }
     }
 
     let bufferDist = 0;
@@ -125,13 +126,10 @@ function setupMouseInteraction(scene) {
         x: 0, y: 0, key: 'whitePixel', add: true, scale: {x: gameConsts.width, y: gameConsts.height}, alpha: 0.001});
     baseTouchLayer.setInteractive();
     baseTouchLayer.on('pointerdown', mouseManager.onPointerDown, scene);
-    // Phaser's unified input manager reliably delivers pointermove and pointerup for
-    // BOTH mouse and touch drags (window.onpointermove / window.onpointerup do NOT fire
-    // reliably for mobile touch drags captured by Phaser).
+    // Phaser unified input delivers pointermove and pointerup for touch and mouse
     scene.input.on('pointermove', mouseManager.onPointerMovePhaserInGame, scene);
     scene.input.on('pointerup', mouseManager.onPointerUpPhaserInGame, scene);
     scene.input.on('pointerupoutside', mouseManager.onPointerUpPhaserInGame, scene);
-    scene.input.on('gameout', mouseManager.onPointerUpPhaserInGame, scene);
 
     let hagVar1 = "b25wb2ludGVybW92ZQ==";
     let hagVar2 = "bG9jYXRpb24=";

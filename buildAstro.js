@@ -28,11 +28,10 @@ const assets = configSandbox.assets;
 // cacheable — no ?v= timestamp, so returning players do not re-download 428 KB
 // on every build.
 //
-// BUMP THIS after committing + pushing a new release/external.min.js:
-//   git rev-parse HEAD
+// Set to REMOTE_EXTERNAL_BASE_URL to use CDN hosting, or '' to inline combat bundle directly into index.html
 const RELEASE_REF = '995428430161377b2b33cb37a29356cbb62755c6';
 const REMOTE_EXTERNAL_BASE_URL = `https://cdn.jsdelivr.net/gh/maximtsai/spellwheel_fresh@${RELEASE_REF}/release/external.min.js`;
-const REMOTE_EXTERNAL_URL = REMOTE_EXTERNAL_BASE_URL;
+const REMOTE_EXTERNAL_URL = '';
 
 // Guard against someone reintroducing a branch/mutable ref.
 if (!/^[0-9a-f]{40}$/.test(RELEASE_REF) && !/^v[\d.]+$/.test(RELEASE_REF)) {
@@ -671,6 +670,7 @@ html, body {
     height: 100%;
     max-height: 100%;
     overflow: hidden;
+    touch-action: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
     /* Stop the browser's own touch gestures from stealing drags on the wheel:
@@ -714,6 +714,7 @@ canvas {
 #spellwheel {
     margin: 0 auto;
     overflow: hidden;
+    touch-action: none;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
